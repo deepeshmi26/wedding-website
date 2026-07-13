@@ -6,7 +6,7 @@ import { useState } from "react";
 type VariantId =
   | "joyful-collage"
   | "right-photo"
-  | "detail-card"
+  | "asymmetry-card"
   | "overlap"
   | "centered";
 
@@ -87,7 +87,7 @@ const variants: Variant[] = [
     note: "Clean, focused, formal.",
   },
   {
-    id: "detail-card",
+    id: "asymmetry-card",
     label: "Asymmetry",
     note: "Joyful, intimate, expressive",
   },
@@ -364,7 +364,7 @@ function DetailCardComposition() {
     <>
       <div className="flex flex-col items-center gap-8 text-center lg:hidden">
         <MobileIntroNameDate />
-        <div className="relative mx-auto h-[420px] w-full max-w-[430px]">
+        <div className="relative mx-auto mb-14 h-[420px] w-full max-w-[430px]">
           <div className="absolute left-[12%] top-[16%] h-56 w-56 rounded-full bg-[#d23f73]/14 blur-3xl" />
           <FramedImage
             alt="Rajshree and Deepesh smiling close together"
@@ -523,7 +523,7 @@ function CompositionPreview({ activeVariant }: { activeVariant: VariantId }) {
     return <RightPhotoComposition />;
   }
 
-  if (activeVariant === "detail-card") {
+  if (activeVariant === "asymmetry-card") {
     return <DetailCardComposition />;
   }
 
@@ -535,7 +535,7 @@ function CompositionPreview({ activeVariant }: { activeVariant: VariantId }) {
 }
 
 export function HeroCompositionSwitcher() {
-  const [activeVariant, setActiveVariant] = useState<VariantId>("detail-card");
+  const [activeVariant, setActiveVariant] = useState<VariantId>("asymmetry-card");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const currentVariant =
     variants.find((variant) => variant.id === activeVariant) ?? variants[0];
