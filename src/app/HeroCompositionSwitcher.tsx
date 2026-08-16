@@ -20,7 +20,7 @@ type FramedImageProps = {
   alt: string;
   className?: string;
   imageClassName?: string;
-  priority?: boolean;
+  quality?: number;
   sizes: string;
   src: string;
 };
@@ -177,7 +177,7 @@ function FramedImage({
   alt,
   className = "",
   imageClassName = "",
-  priority,
+  quality = 88,
   sizes,
   src,
 }: FramedImageProps) {
@@ -190,7 +190,7 @@ function FramedImage({
           alt={alt}
           className={`object-cover ${imageClassName}`}
           fill
-          priority={priority}
+          quality={quality}
           sizes={sizes}
           src={src}
         />
@@ -259,7 +259,8 @@ function JoyfulCollageComposition() {
                   alt={moment.alt}
                   className={`object-cover ${moment.imageClassName}`}
                   fill
-                  sizes="190px"
+                  quality={82}
+                  sizes="(max-width: 480px) 44vw, 190px"
                   src={moment.src}
                 />
               </div>
@@ -302,7 +303,8 @@ function JoyfulCollageComposition() {
                   alt={moment.alt}
                   className={`object-cover ${moment.imageClassName}`}
                   fill
-                  sizes="24vw"
+                  quality={82}
+                  sizes="(max-width: 1279px) 24vw, 300px"
                   src={moment.src}
                 />
               </div>
@@ -333,8 +335,8 @@ function RightPhotoComposition() {
             alt="Rajshree and Deepesh smiling at each other"
             className="h-full w-full"
             imageClassName="object-[50%_48%]"
-            priority
-            sizes="430px"
+            quality={88}
+            sizes="(max-width: 480px) calc(100vw - 40px), 430px"
             src={photos.closeCouple}
           />
         </div>
@@ -349,8 +351,8 @@ function RightPhotoComposition() {
             alt="Rajshree and Deepesh smiling at each other"
             className="h-full w-full"
             imageClassName="object-[50%_48%]"
-            priority
-            sizes="48vw"
+            quality={88}
+            sizes="(max-width: 1279px) 48vw, 560px"
             src={photos.closeCouple}
           />
         </div>
@@ -370,15 +372,16 @@ function DetailCardComposition() {
             alt="Rajshree and Deepesh smiling close together"
             className="absolute right-[3%] top-0 h-[84%] w-[78%] rotate-1"
             imageClassName="object-[48%_48%]"
-            priority
-            sizes="330px"
+            quality={88}
+            sizes="(max-width: 480px) 78vw, 330px"
             src={photos.closeCouple}
           />
           <FramedImage
             alt="Rajshree and Deepesh showing their rings"
             className="absolute bottom-[2%] left-[1%] h-[38%] w-[45%] -rotate-3"
             imageClassName="object-[50%_60%]"
-            sizes="190px"
+            quality={88}
+            sizes="(max-width: 480px) 45vw, 190px"
             src={photos.handsDetail}
           />
           <div className="absolute bottom-[13%] right-[2%] rounded-full bg-[#fff8ef]/90 px-4 py-3 text-left shadow-[0_14px_36px_rgba(176,24,56,0.13)]">
@@ -401,15 +404,16 @@ function DetailCardComposition() {
             alt="Rajshree and Deepesh smiling close together"
             className="absolute right-[3%] top-0 h-[84%] w-[78%] rotate-1"
             imageClassName="object-[48%_48%]"
-            priority
-            sizes="38vw"
+            quality={88}
+            sizes="(max-width: 1279px) 38vw, 460px"
             src={photos.closeCouple}
           />
           <FramedImage
             alt="Rajshree and Deepesh showing their rings"
             className="absolute bottom-[2%] left-[1%] h-[38%] w-[45%] -rotate-3"
             imageClassName="object-[50%_60%]"
-            sizes="18vw"
+            quality={88}
+            sizes="(max-width: 1279px) 18vw, 220px"
             src={photos.handsDetail}
           />
           <div className="absolute bottom-[13%] right-[2%] rounded-full bg-[#fff8ef]/90 px-4 py-3 text-left shadow-[0_14px_36px_rgba(176,24,56,0.13)]">
@@ -434,7 +438,7 @@ function OverlapComposition() {
           alt="Rajshree and Deepesh sitting together and smiling"
           className="object-cover object-[76%_34%]"
           fill
-          priority
+          quality={92}
           sizes="100vw"
           src={photos.wideCouple}
         />
@@ -480,7 +484,7 @@ function OverlapComposition() {
           alt="Rajshree and Deepesh sitting together and smiling"
           className="object-cover object-[62%_50%]"
           fill
-          priority
+          quality={92}
           sizes="100vw"
           src={photos.wideCouple}
         />
@@ -503,8 +507,8 @@ function CenteredComposition() {
         alt="Rajshree and Deepesh looking at each other"
         className="h-[320px] w-full max-w-[620px] sm:h-[420px]"
         imageClassName="object-[50%_54%]"
-        priority
-        sizes="(max-width: 768px) 100vw, 620px"
+        quality={88}
+        sizes="(max-width: 640px) calc(100vw - 40px), 620px"
         src={photos.classicCouple}
       />
       <div className="mt-10">
@@ -535,7 +539,7 @@ function CompositionPreview({ activeVariant }: { activeVariant: VariantId }) {
 }
 
 export function HeroCompositionSwitcher() {
-  const [activeVariant, setActiveVariant] = useState<VariantId>("asymmetry-card");
+  const [activeVariant, setActiveVariant] = useState<VariantId>("overlap");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const currentVariant =
     variants.find((variant) => variant.id === activeVariant) ?? variants[0];

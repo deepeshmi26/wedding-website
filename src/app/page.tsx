@@ -1,27 +1,61 @@
+import Image from "next/image";
+
+import { EventsCardVariants } from "./EventsCardVariants";
 import { HeroCompositionSwitcher } from "./HeroCompositionSwitcher";
 
 const events = [
   {
-    name: "Mehendi",
-    date: "Friday, 14 February",
-    time: "4:00 PM",
-    place: "Garden Courtyard",
+    name: "Sangeet",
+    date: "3 December",
+    time: "7:00 PM",
+    place: "Peerlese Nagar, Sodepur, Kolkata",
+    mapUrl: "https://maps.app.goo.gl/DbBByduhva9tPuuaA",
+    landmarkImage: "/graphics/howrah-bridge-night-card.jpg",
+    landmarkAlt: "Howrah Bridge at night in Kolkata",
+    landmarkWidth: 960,
+    landmarkHeight: 466,
+    landmarkClassName: "w-[84%]",
+    washImage: "/graphics/howrah-bridge-sunset-wash.jpeg",
+    washImageAlt: "Howrah Bridge at sunset over the river",
+    dressCodeColors: ["#7f1d3f", "#d66b43", "#f1b24f", "#4a2c35"],
   },
   {
-    name: "Sangeet",
-    date: "Friday, 14 February",
-    time: "7:30 PM",
-    place: "The Grand Hall",
+    name: "Haldi",
+    date: "4 December",
+    time: "7:00 AM",
+    place: "Shrishti Garden, Jessore Rd, Kolkata",
+    mapUrl: "https://maps.app.goo.gl/ur6KqC3tBMqw4i7NA",
+    landmarkImage: "/graphics/victoria-memorial-card.jpg",
+    landmarkAlt: "Victoria Memorial in Kolkata",
+    landmarkWidth: 960,
+    landmarkHeight: 472,
+    washImage: "/graphics/kolkata-tram-wash.webp",
+    washImageAlt: "Kolkata tram on a rainy street",
+    dressCodeColors: ["#f1be3d", "#f5d97a", "#8a9d6f", "#fff4d6"],
   },
   {
     name: "Wedding",
-    date: "Saturday, 15 February",
-    time: "10:30 AM",
-    place: "Mandap Lawn",
+    date: "4 December",
+    time: "5:45 PM",
+    place: "Shrishti Garden, Jessore Rd, Kolkata",
+    mapUrl: "https://maps.app.goo.gl/ur6KqC3tBMqw4i7NA",
+    landmarkImage: "/graphics/belur-math-card.jpg",
+    landmarkAlt: "Belur Math near Kolkata",
+    landmarkWidth: 960,
+    landmarkHeight: 380,
+    washImage: "/graphics/dakshineswar-temple-wash.jpg",
+    washImageAlt: "Dakshineswar Kali Temple in Kolkata",
+    dressCodeColors: ["#b31e3f", "#d6a64a", "#f5e7c7", "#6b3b34"],
   },
 ];
 
 const navItems = ["Story", "Events", "Travel", "RSVP"];
+
+const storyPhotos = {
+  closeCouple: "/photos/rav03380.jpg",
+  handsDetail: "/photos/rav03383.jpg",
+  classicCouple: "/photos/rav03150.jpg",
+};
 
 export default function Home() {
   return (
@@ -55,66 +89,90 @@ export default function Home() {
         <HeroCompositionSwitcher />
       </section>
 
-      <section id="events" className="bg-[linear-gradient(135deg,#94162e,#c13a27)] px-5 py-20 text-[#fff8ef] sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-6xl">
-          <div className="max-w-2xl">
-            <p className="text-[0.72rem] font-bold uppercase tracking-[0.35em] text-[#ffd27d]">
-              The weekend
-            </p>
-            <h2 className="mt-4 font-serif text-5xl leading-none sm:text-6xl">
-              Three gatherings, one bright beginning.
-            </h2>
+      <section id="story" className="relative px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
+        <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
+          <div className="relative mx-auto h-[520px] w-full max-w-[520px] sm:h-[620px] lg:mx-0 lg:max-w-none">
+            <div className="absolute left-0 top-0 z-10 h-[76%] w-[78%] overflow-hidden rounded-[1.15rem] bg-[#fff8ef] p-2 shadow-[0_22px_60px_rgba(99,54,40,0.16)]">
+              <div className="relative h-full overflow-hidden rounded-[0.85rem]">
+                <Image
+                  alt="Rajshree and Deepesh smiling close together"
+                  className="object-cover object-[48%_48%]"
+                  fill
+                  quality={88}
+                  sizes="(max-width: 640px) 78vw, (max-width: 1024px) 410px, 520px"
+                  src={storyPhotos.closeCouple}
+                />
+              </div>
+            </div>
+
+            <div className="absolute bottom-[9%] right-[1%] z-30 h-[32%] w-[44%] rotate-[1.5deg] overflow-hidden rounded-[1rem] bg-[#fff8ef] p-2 shadow-[0_18px_48px_rgba(176,24,56,0.16)]">
+              <div className="relative h-full overflow-hidden rounded-[0.75rem]">
+                <Image
+                  alt="Rajshree and Deepesh showing their rings"
+                  className="object-cover object-[50%_60%]"
+                  fill
+                  quality={88}
+                  sizes="(max-width: 640px) 44vw, (max-width: 1024px) 230px, 290px"
+                  src={storyPhotos.handsDetail}
+                />
+              </div>
+            </div>
+
+            <div className="absolute bottom-[1%] left-[11%] z-20 h-[22%] w-[34%] -rotate-[1.5deg] overflow-hidden rounded-[0.9rem] bg-[#fff8ef] p-2 shadow-[0_14px_38px_rgba(99,54,40,0.13)]">
+              <div className="relative h-full overflow-hidden rounded-[0.65rem]">
+                <Image
+                  alt="Rajshree and Deepesh looking at each other"
+                  className="object-cover object-[50%_54%]"
+                  fill
+                  quality={82}
+                  sizes="(max-width: 640px) 34vw, (max-width: 1024px) 180px, 225px"
+                  src={storyPhotos.classicCouple}
+                />
+              </div>
+            </div>
           </div>
 
-          <div className="mt-12 grid gap-4 md:grid-cols-3">
-            {events.map((event) => (
-              <article
-                key={event.name}
-                className="border border-[#ffd27d]/45 bg-[#fff8ef]/10 p-6 backdrop-blur transition hover:-translate-y-1 hover:bg-[#fff8ef]/14"
-              >
-                <p className="text-sm font-semibold uppercase tracking-[0.26em] text-[#ffd27d]">
-                  {event.date}
-                </p>
-                <h3 className="mt-8 font-serif text-4xl">{event.name}</h3>
-                <div className="mt-6 space-y-2 text-base leading-7 text-[#ffe8c7]">
-                  <p>{event.time}</p>
-                  <p>{event.place}</p>
-                </div>
-              </article>
-            ))}
+          <div className="mx-auto max-w-xl text-center lg:mx-0 lg:text-left">
+            <p className="text-[0.72rem] font-bold uppercase tracking-[0.35em] text-[#b86622]">
+              Our story
+            </p>
+            <h2 className="mt-4 font-serif text-5xl leading-[0.98] text-[#321b12] sm:text-6xl">
+              A few favorite frames, shared with our favorite people.
+            </h2>
+            <p className="mt-8 text-lg leading-8 text-[#633628]">
+              Here are a few pieces of us before the celebrations begin: quiet
+              smiles, small details, and the people who have seen us become who
+              we are together. We cannot wait to gather with you.
+            </p>
+            <div className="mt-10 flex flex-col items-center gap-3 text-sm font-semibold uppercase tracking-[0.22em] text-[#8f1830] sm:flex-row sm:justify-center sm:gap-5 lg:justify-start">
+              <span>Rajshree & Deepesh</span>
+              <span className="hidden h-1.5 w-1.5 rounded-full bg-[#f0a72f] sm:block" />
+              <span>3 & 4 Dec 2026</span>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="story" className="px-5 py-20 sm:px-8 lg:px-12">
-        <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
-          <div className="aspect-[4/5] border border-[#d69b52]/45 bg-[#f7dfbd] p-4">
-            <div className="flex h-full items-center justify-center border border-[#a31f34]/20 bg-[#fff8ef] text-center">
-              <p className="max-w-xs font-serif text-4xl leading-tight text-[#8f1830]">
-                Add a favorite photo here
-              </p>
-            </div>
+      <section id="events" className="relative overflow-hidden bg-[linear-gradient(135deg,#f6d8b1_0%,#f7e6cf_48%,#f1cfa3_100%)] px-5 py-20 text-[#321b12] sm:px-8 lg:px-12 lg:py-24">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-[radial-gradient(circle_at_18%_16%,rgba(176,24,56,0.16),transparent_28%),radial-gradient(circle_at_84%_18%,rgba(240,167,47,0.18),transparent_24%),radial-gradient(circle_at_78%_82%,rgba(143,24,48,0.1),transparent_28%)]"
+        />
+        <div className="relative mx-auto max-w-6xl">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-[0.72rem] font-bold uppercase tracking-[0.35em] text-[#b86622]">
+              The weekend
+            </p>
+            <h2 className="mt-4 font-serif text-5xl leading-none text-[#8f1830] sm:text-6xl">
+              Three invitations into the same celebration.
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-[#6a3a2b]">
+              Each gathering carries its own mood, but they all lead us toward
+              the same weekend of music, color, and being together.
+            </p>
           </div>
 
-          <div>
-            <p className="text-[0.72rem] font-bold uppercase tracking-[0.35em] text-[#b86622]">
-              Our story
-            </p>
-            <h2 className="mt-4 max-w-3xl font-serif text-5xl leading-[0.98] text-[#321b12] sm:text-7xl">
-              A celebration that should feel like us.
-            </h2>
-            <p className="mt-8 max-w-2xl text-lg leading-8 text-[#633628]">
-              This section is where the design can become personal: a small
-              story, a favorite place, a shared ritual, or a photograph that
-              makes the whole site feel less like a template.
-            </p>
-            <a
-              href="#travel"
-              className="mt-10 inline-flex rounded-full border border-[#a31f34]/25 px-6 py-3 text-sm font-bold uppercase tracking-[0.2em] text-[#8f1830] transition hover:bg-[#a31f34] hover:text-[#fff8ef]"
-            >
-              Guest details
-            </a>
-          </div>
+          <EventsCardVariants events={events} />
         </div>
       </section>
 
