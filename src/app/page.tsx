@@ -64,10 +64,96 @@ const storyPhotos = {
   classicCouple: "/photos/rav03150.jpg",
 };
 
+function EventsSectionHeader({
+  isRoyalClassicEvents = false,
+}: {
+  isRoyalClassicEvents?: boolean;
+}) {
+  const useRoyalPalette = isRoyalClassicEvents;
+
+  return (
+    <div className="relative mx-auto max-w-6xl pt-10">
+      {isRoyalClassicEvents ? (
+        <>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 overflow-visible"
+          >
+            <Image
+              src="/graphics/alpona-watermark-v1.png"
+              alt=""
+              width={1254}
+              height={1254}
+              className="h-auto w-[10rem] rotate-[-10deg] opacity-[0.28] mix-blend-screen sm:w-[11rem] lg:w-[12rem]"
+              sizes="(max-width: 640px) 10rem, (max-width: 1024px) 11rem, 12rem"
+            />
+          </div>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 overflow-visible"
+          >
+            <Image
+              src="/graphics/alpona-watermark-v1.png"
+              alt=""
+              width={1254}
+              height={1254}
+              className="h-auto w-[10rem] rotate-[10deg] opacity-[0.28] mix-blend-screen sm:w-[11rem] lg:w-[12rem]"
+              sizes="(max-width: 640px) 10rem, (max-width: 1024px) 11rem, 12rem"
+            />
+          </div>
+        </>
+      ) : null}
+      <div className="relative mx-auto max-w-3xl text-center">
+        <p
+          className={`text-[0.72rem] font-semibold uppercase tracking-[0.32em] ${useRoyalPalette ? "text-[#f0c67d]" : "text-[#b86622]"
+            }`}
+        >
+          Come celebrate with us in
+        </p>
+        <h2
+          className={`mt-4 font-serif text-5xl leading-[0.92] sm:text-6xl ${useRoyalPalette ? "text-[#fff8ef]" : "text-[#8f1830]"
+            }`}
+        >
+          the{" "}
+          <span className={useRoyalPalette ? "text-[#f0c67d]" : "text-[#b01838]"}>
+            City of Joy
+          </span>
+          .
+        </h2>
+      </div>
+    </div>
+  );
+}
+
+function EventsSectionDivider({
+  isRoyalClassicEvents = false,
+}: {
+  isRoyalClassicEvents?: boolean;
+}) {
+  if (!isRoyalClassicEvents) {
+    return null;
+  }
+
+  return (
+    <div className="pointer-events-none mx-auto mt-6 flex items-center justify-center md:mt-7">
+      <div className="h-px w-16 bg-[#d69b52]/75" />
+      <Image
+        src="/graphics/alpona-watermark-v1.png"
+        alt=""
+        width={1254}
+        height={1254}
+        className="mx-4 h-auto w-24 opacity-[0.22] mix-blend-screen md:w-28"
+        sizes="(max-width: 768px) 6rem, 7rem"
+      />
+      <div className="h-px w-16 bg-[#d69b52]/75" />
+    </div>
+  );
+}
+
 export default function Home() {
   const [heroVariant, setHeroVariant] = useState<VariantId>("overlap");
-  const [eventsVersion, setEventsVersion] = useState<EventsVersionId>("v1");
-  const isPostcardEvents = eventsVersion === "v1";
+  const [eventsVersion, setEventsVersion] = useState<EventsVersionId>("v3");
+  const isRoyalClassicEvents = eventsVersion === "v3";
 
   return (
     <main className="min-h-screen overflow-x-hidden bg-[#fff4e1] text-[#321b12]">
@@ -167,133 +253,34 @@ export default function Home() {
       </section>
       <section
         id="events"
-        className={`relative overflow-visible ${isPostcardEvents ? "min-h-[180vh] text-[#fff8ef]" : "text-[#321b12]"
+        className={`relative h-screen ${isRoyalClassicEvents ? "flex min-h-screen flex-col overflow-hidden text-[#fff8ef]" : "overflow-visible text-[#321b12]"
           }`}
         style={{
-          backgroundImage: isPostcardEvents
+          backgroundImage: isRoyalClassicEvents
             ? "linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0) 28%, rgba(0,0,0,0.08) 100%), linear-gradient(145deg, #9d2140 0%, #8f1830 28%, #781229 62%, #691123 100%)"
             : "radial-gradient(circle at 18% 16%, rgba(176,24,56,0.16), transparent 28%), radial-gradient(circle at 84% 18%, rgba(240,167,47,0.18), transparent 24%), radial-gradient(circle at 78% 82%, rgba(143,24,48,0.1), transparent 28%), linear-gradient(135deg, #f6d8b1 0%, #f7e6cf 48%, #f1cfa3 100%)",
-          backgroundAttachment: isPostcardEvents
+          backgroundAttachment: isRoyalClassicEvents
             ? "fixed, fixed"
             : "scroll, scroll, scroll",
           backgroundPosition: "center, center, center",
           backgroundRepeat: "no-repeat, no-repeat, no-repeat",
-          backgroundSize: isPostcardEvents
+          backgroundSize: isRoyalClassicEvents
             ? "cover, cover"
             : "cover, cover, cover",
         }}
       >
-        <div className="relative z-10">
-          <div className="pb-20 lg:pb-24">
-            <div className="relative mb-10 lg:mb-14">
-              {isPostcardEvents ? (
-                <>
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 overflow-visible"
-                  >
-                    <Image
-                      src="/graphics/alpona-watermark-v1.png"
-                      alt=""
-                      width={1254}
-                      height={1254}
-                      className="block h-auto w-[15rem] rotate-[-10deg] opacity-[0.18] mix-blend-screen sm:w-[18rem]"
-                      sizes="(max-width: 640px) 15rem, 18rem"
-                    />
-                  </div>
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 overflow-visible"
-                  >
-                    <Image
-                      src="/graphics/alpona-watermark-v1.png"
-                      alt=""
-                      width={1254}
-                      height={1254}
-                      className="block h-auto w-[15rem] rotate-[10deg] opacity-[0.18] mix-blend-screen sm:w-[18rem]"
-                      sizes="(max-width: 640px) 15rem, 18rem"
-                    />
-                  </div>
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-x-0 top-0 flex -translate-y-1/2 justify-center"
-                  >
-                    <div className="flex items-center justify-center gap-6 lg:gap-8 xl:gap-10">
-                      <Image
-                        src="/graphics/alpona-watermark-v1.png"
-                        alt=""
-                        width={1254}
-                        height={1254}
-                        className="hidden h-auto w-[9rem] opacity-[0.14] mix-blend-screen 2xl:block"
-                        sizes="9rem"
-                      />
-                      <Image
-                        src="/graphics/alpona-watermark-v1.png"
-                        alt=""
-                        width={1254}
-                        height={1254}
-                        className="hidden h-auto w-[9rem] opacity-[0.14] mix-blend-screen xl:block"
-                        sizes="9rem"
-                      />
-                      <Image
-                        src="/graphics/alpona-watermark-v1.png"
-                        alt=""
-                        width={1254}
-                        height={1254}
-                        className="hidden h-auto w-[9rem] opacity-[0.14] mix-blend-screen lg:block"
-                        sizes="9rem"
-                      />
-                      <Image
-                        src="/graphics/alpona-watermark-v1.png"
-                        alt=""
-                        width={1254}
-                        height={1254}
-                        className="block h-auto w-[9rem] opacity-[0.14] mix-blend-screen lg:w-[9rem]"
-                        sizes="9rem"
-                      />
-                      <Image
-                        src="/graphics/alpona-watermark-v1.png"
-                        alt=""
-                        width={1254}
-                        height={1254}
-                        className="hidden h-auto w-[9rem] opacity-[0.14] mix-blend-screen lg:block"
-                        sizes="9rem"
-                      />
-                      <Image
-                        src="/graphics/alpona-watermark-v1.png"
-                        alt=""
-                        width={1254}
-                        height={1254}
-                        className="hidden h-auto w-[9rem] opacity-[0.14] mix-blend-screen xl:block"
-                        sizes="9rem"
-                      />
-                      <Image
-                        src="/graphics/alpona-watermark-v1.png"
-                        alt=""
-                        width={1254}
-                        height={1254}
-                        className="hidden h-auto w-[9rem] opacity-[0.14] mix-blend-screen 2xl:block"
-                        sizes="9rem"
-                      />
-                    </div>
-                  </div>
-                </>
-              ) : null}
-            </div>
-
-            <div className="relative z-10 px-5 pt-20 lg:pt-24">
-              <div className="mx-auto mb-12 max-w-6xl lg:mb-14">
-                <div className="mx-auto max-w-3xl text-center">
-                  <h2
-                    className={`font-serif text-5xl leading-none sm:text-6xl ${
-                      isPostcardEvents ? "text-[#fff8ef]" : "text-[#8f1830]"
-                    }`}
-                  >
-                    Music, color, vows, and Kolkata.
-                  </h2>
-                </div>
+        <div className={`relative z-10 ${isRoyalClassicEvents ? "flex min-h-0 flex-1 flex-col" : ""}`}>
+          <div className={`${isRoyalClassicEvents ? "flex min-h-0 flex-1 flex-col" : "pb-20 lg:pb-24"}`}>
+            <div className={`z-20 px-5 pt-0 md:pt-20 lg:pt-24 ${isRoyalClassicEvents ? "flex min-h-0 flex-1 flex-col" : ""}`}>
+              <div className="top-0 -mx-5 px-5 pb-6 md:pt-4 lg:pt-6">
+                <EventsSectionHeader
+                  isRoyalClassicEvents={isRoyalClassicEvents}
+                />
+                <EventsSectionDivider
+                  isRoyalClassicEvents={isRoyalClassicEvents}
+                />
               </div>
-              <div className="mx-auto max-w-6xl">
+              <div className={`mx-auto max-w-6xl md:mt-8 lg:mt-8 ${isRoyalClassicEvents ? "min-h-0 flex-1 overflow-y-auto pb-10" : ""}`}>
                 <EventsCardVariants events={events} version={eventsVersion} />
               </div>
             </div>

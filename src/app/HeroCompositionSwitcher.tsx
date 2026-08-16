@@ -10,7 +10,7 @@ export type VariantId =
   | "overlap"
   | "centered";
 
-export type EventsVersionId = "v1" | "v2";
+export type EventsVersionId = "v2" | "v3";
 
 type Variant = {
   id: VariantId;
@@ -114,14 +114,14 @@ const eventsVersions: {
   note: string;
 }[] = [
   {
-    id: "v1",
-    label: "Elegant royal",
-    note: "The current rich maroon-and-gold invitation direction.",
-  },
-  {
     id: "v2",
     label: "Classic original",
     note: "The earlier lighter invitation-card layout from the last commit.",
+  },
+  {
+    id: "v3",
+    label: "Classic original copy",
+    note: "A fresh copy of the lighter invitation-card layout for new experiments.",
   },
 ];
 
