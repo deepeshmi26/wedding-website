@@ -3,12 +3,14 @@
 import Image from "next/image";
 import { useState } from "react";
 
-type VariantId =
+export type VariantId =
   | "joyful-collage"
   | "right-photo"
   | "asymmetry-card"
   | "overlap"
   | "centered";
+
+export type EventsVersionId = "v1" | "v2";
 
 type Variant = {
   id: VariantId;
@@ -53,7 +55,8 @@ const joyfulMoments = [
     src: photos.wideCouple,
     alt: "Rajshree and Deepesh sitting together and smiling",
     imageClassName: "object-[62%_50%]",
-    placement: "left-[4%] top-[8%] w-[44%] lg:left-[8%] lg:top-[6%] lg:w-[46%]",
+    placement:
+      "left-[4%] top-[8%] w-[44%] lg:left-[8%] lg:top-[6%] lg:w-[46%]",
   },
   {
     label: "mehendi smiles",
@@ -62,7 +65,8 @@ const joyfulMoments = [
     src: photos.closeCouple,
     alt: "Rajshree and Deepesh smiling close together",
     imageClassName: "object-[48%_48%]",
-    placement: "right-[2%] top-[22%] w-[40%] lg:right-[8%] lg:top-[18%] lg:w-[42%]",
+    placement:
+      "right-[2%] top-[22%] w-[40%] lg:right-[8%] lg:top-[18%] lg:w-[42%]",
   },
   {
     label: "family hugs",
@@ -71,7 +75,8 @@ const joyfulMoments = [
     src: photos.classicCouple,
     alt: "Rajshree and Deepesh looking at each other",
     imageClassName: "object-[50%_54%]",
-    placement: "left-[30%] bottom-[0%] w-[44%] lg:left-[30%] lg:bottom-[4%] lg:w-[45%]",
+    placement:
+      "left-[30%] bottom-[0%] w-[44%] lg:left-[30%] lg:bottom-[4%] lg:w-[45%]",
   },
 ];
 
@@ -103,6 +108,23 @@ const variants: Variant[] = [
   },
 ];
 
+const eventsVersions: {
+  id: EventsVersionId;
+  label: string;
+  note: string;
+}[] = [
+  {
+    id: "v1",
+    label: "Elegant royal",
+    note: "The current rich maroon-and-gold invitation direction.",
+  },
+  {
+    id: "v2",
+    label: "Classic original",
+    note: "The earlier lighter invitation-card layout from the last commit.",
+  },
+];
+
 function HeroCopy({
   compact = false,
   narrow = false,
@@ -117,22 +139,27 @@ function HeroCopy({
   return (
     <div className="flex flex-col items-center lg:items-start">
       <p
-        className={`mb-5 max-w-sm text-[0.72rem] font-bold uppercase tracking-[0.34em] ${isPhotoTone ? "text-[#ffd27d]" : "text-[#c24a2b]"
-          }`}
+        className={`mb-5 max-w-sm text-[0.72rem] font-bold uppercase tracking-[0.34em] ${
+          isPhotoTone ? "text-[#ffd27d]" : "text-[#c24a2b]"
+        }`}
       >
         Come for the vows, stay for the dancing
       </p>
       <h1
-        className={`max-w-4xl font-serif leading-[0.92] ${isPhotoTone
-          ? "text-[#fff8ef] [text-shadow:0_10px_34px_rgba(50,27,18,0.38)]"
-          : "text-[#b01838]"
-          } ${compact
+        className={`max-w-4xl font-serif leading-[0.92] ${
+          isPhotoTone
+            ? "text-[#fff8ef] [text-shadow:0_10px_34px_rgba(50,27,18,0.38)]"
+            : "text-[#b01838]"
+        } ${
+          compact
             ? "text-[clamp(2.8rem,7vw,5.65rem)]"
             : "text-[clamp(3rem,8.5vw,6.4rem)]"
-          }`}
+        }`}
       >
         Rajshree
-        <span className={`block ${isPhotoTone ? "text-[#ffd27d]" : "text-[#ee9b22]"}`}>
+        <span
+          className={`block ${isPhotoTone ? "text-[#ffd27d]" : "text-[#ee9b22]"}`}
+        >
           &
         </span>
         Deepesh
@@ -142,30 +169,36 @@ function HeroCopy({
           className={`h-px w-14 ${isPhotoTone ? "bg-[#ffd27d]" : "bg-[#f0a72f]"}`}
         />
         <span
-          className={`h-2.5 w-2.5 rounded-full ${isPhotoTone ? "bg-[#fff8ef]" : "bg-[#d23f73]"
-            }`}
+          className={`h-2.5 w-2.5 rounded-full ${
+            isPhotoTone ? "bg-[#fff8ef]" : "bg-[#d23f73]"
+          }`}
         />
         <span
           className={`h-px w-14 ${isPhotoTone ? "bg-[#ffd27d]" : "bg-[#f0a72f]"}`}
         />
       </div>
       <p
-        className={`mt-8 ${narrow ? "max-w-lg" : "max-w-2xl"} text-balance text-lg leading-8 sm:text-xl ${isPhotoTone
-          ? "text-[#fff4e1] [text-shadow:0_8px_24px_rgba(50,27,18,0.38)]"
-          : "text-[#633628]"
-          }`}
+        className={`mt-8 ${
+          narrow ? "max-w-lg" : "max-w-2xl"
+        } text-balance text-lg leading-8 sm:text-xl ${
+          isPhotoTone
+            ? "text-[#fff4e1] [text-shadow:0_8px_24px_rgba(50,27,18,0.38)]"
+            : "text-[#633628]"
+        }`}
       >
         We are gathering our favorite people for music, food, happy chaos, loud
         laughter, and a weekend that feels like one big family party.
       </p>
       <div
-        className={`mt-10 flex flex-col items-center gap-3 text-sm font-semibold uppercase tracking-[0.22em] sm:flex-row sm:gap-6 lg:items-start ${isPhotoTone ? "text-[#ffe8c7]" : "text-[#774231]"
-          }`}
+        className={`mt-10 flex flex-col items-center gap-3 text-sm font-semibold uppercase tracking-[0.22em] sm:flex-row sm:gap-6 lg:items-start ${
+          isPhotoTone ? "text-[#ffe8c7]" : "text-[#774231]"
+        }`}
       >
         <span>3 & 4 Dec 2026</span>
         <span
-          className={`hidden h-1.5 w-1.5 rounded-full sm:block ${isPhotoTone ? "bg-[#ffd27d]" : "bg-[#f0a72f]"
-            }`}
+          className={`hidden h-1.5 w-1.5 rounded-full sm:block ${
+            isPhotoTone ? "bg-[#ffd27d]" : "bg-[#f0a72f]"
+          }`}
         />
         <span>Kolkata, India</span>
       </div>
@@ -236,7 +269,10 @@ function JoyfulCollageComposition() {
   return (
     <>
       <div className="relative flex flex-col items-center gap-8 text-center lg:hidden">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10"
+        >
           {joyfulPetals.map((petal, index) => (
             <span
               className={`absolute rounded-[70%_30%_70%_30%] opacity-80 shadow-[0_8px_18px_rgba(176,24,56,0.13)] ${petal}`}
@@ -280,7 +316,10 @@ function JoyfulCollageComposition() {
       </div>
 
       <div className="relative hidden items-center gap-10 text-center lg:grid lg:grid-cols-[0.9fr_1.1fr] lg:text-left">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10"
+        >
           {joyfulPetals.map((petal, index) => (
             <span
               className={`absolute rounded-[70%_30%_70%_30%] opacity-80 shadow-[0_8px_18px_rgba(176,24,56,0.13)] ${petal}`}
@@ -538,15 +577,27 @@ function CompositionPreview({ activeVariant }: { activeVariant: VariantId }) {
   return <CenteredComposition />;
 }
 
-export function HeroCompositionSwitcher() {
-  const [activeVariant, setActiveVariant] = useState<VariantId>("overlap");
+export function HeroCompositionSwitcher({
+  activeVariant,
+  eventsVersion,
+  onHeroVariantChange,
+  onEventsVersionChange,
+}: {
+  activeVariant: VariantId;
+  eventsVersion: EventsVersionId;
+  onHeroVariantChange: (variant: VariantId) => void;
+  onEventsVersionChange: (version: EventsVersionId) => void;
+}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const currentVariant =
     variants.find((variant) => variant.id === activeVariant) ?? variants[0];
+  const currentEventsVersion =
+    eventsVersions.find((version) => version.id === eventsVersion) ??
+    eventsVersions[0];
 
   return (
-    <div className="relative z-0 mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center gap-6 py-10">
-      <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end sm:bottom-6 sm:right-6">
+    <div className="relative mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center gap-6 py-10">
+      <div className="fixed bottom-4 right-4 z-[120] flex flex-col items-end sm:bottom-6 sm:right-6">
         {isMenuOpen ? (
           <div
             className="mb-2 w-[min(88vw,22rem)] rounded-[1.15rem] border border-[#b01838]/12 bg-[#fff8ef]/90 p-2 shadow-[0_18px_48px_rgba(99,54,40,0.16)] backdrop-blur-md"
@@ -562,13 +613,14 @@ export function HeroCompositionSwitcher() {
                 return (
                   <button
                     aria-pressed={isActive}
-                    className={`rounded-[0.85rem] px-3 py-2 text-left transition ${isActive
-                      ? "bg-[#b01838] text-[#fff8ef] shadow-[0_8px_18px_rgba(176,24,56,0.16)]"
-                      : "text-[#774231] hover:bg-[#f0a72f]/18 hover:text-[#b01838]"
-                      }`}
+                    className={`rounded-[0.85rem] px-3 py-2 text-left transition ${
+                      isActive
+                        ? "bg-[#b01838] text-[#fff8ef] shadow-[0_8px_18px_rgba(176,24,56,0.16)]"
+                        : "text-[#774231] hover:bg-[#f0a72f]/18 hover:text-[#b01838]"
+                    }`}
                     key={variant.id}
                     onClick={() => {
-                      setActiveVariant(variant.id);
+                      onHeroVariantChange(variant.id);
                       setIsMenuOpen(false);
                     }}
                     type="button"
@@ -577,10 +629,50 @@ export function HeroCompositionSwitcher() {
                       {variant.label}
                     </span>
                     <span
-                      className={`mt-0.5 block text-xs leading-5 ${isActive ? "text-[#fff8ef]/80" : "text-[#774231]/82"
-                        }`}
+                      className={`mt-0.5 block text-xs leading-5 ${
+                        isActive ? "text-[#fff8ef]/80" : "text-[#774231]/82"
+                      }`}
                     >
                       {variant.note}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="mt-3 border-t border-[#b01838]/10 px-2 pb-1 pt-3">
+              <p className="text-[0.58rem] font-bold uppercase tracking-[0.2em] text-[#b01838]">
+                Events section
+              </p>
+            </div>
+            <div className="grid gap-1">
+              {eventsVersions.map((version) => {
+                const isActive = version.id === eventsVersion;
+
+                return (
+                  <button
+                    aria-pressed={isActive}
+                    className={`rounded-[0.85rem] px-3 py-2 text-left transition ${
+                      isActive
+                        ? "bg-[#b01838] text-[#fff8ef] shadow-[0_8px_18px_rgba(176,24,56,0.16)]"
+                        : "text-[#774231] hover:bg-[#f0a72f]/18 hover:text-[#b01838]"
+                    }`}
+                    key={version.id}
+                    onClick={() => {
+                      onEventsVersionChange(version.id);
+                      setIsMenuOpen(false);
+                    }}
+                    type="button"
+                  >
+                    <span className="block text-[0.68rem] font-bold uppercase tracking-[0.14em]">
+                      {version.label}
+                    </span>
+                    <span
+                      className={`mt-0.5 block text-xs leading-5 ${
+                        isActive ? "text-[#fff8ef]/80" : "text-[#774231]/82"
+                      }`}
+                    >
+                      {version.note}
                     </span>
                   </button>
                 );
@@ -590,17 +682,14 @@ export function HeroCompositionSwitcher() {
         ) : null}
 
         <button
-          aria-label={`Change hero composition. Current: ${currentVariant.label}. ${currentVariant.note}`}
+          aria-label={`Change hero composition. Current hero: ${currentVariant.label}. ${currentVariant.note} Current events design: ${currentEventsVersion.label}. ${currentEventsVersion.note}`}
           aria-controls="hero-composition-menu"
           aria-expanded={isMenuOpen}
           className="grid h-12 w-12 place-items-center rounded-full border border-[#b01838]/12 bg-[#fff8ef]/86 text-[#b01838] shadow-[0_12px_34px_rgba(99,54,40,0.14)] backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-[#fff8ef]"
           onClick={() => setIsMenuOpen((open) => !open)}
           type="button"
         >
-          <span
-            aria-hidden="true"
-            className="grid h-5 w-5 grid-cols-2 gap-1"
-          >
+          <span aria-hidden="true" className="grid h-5 w-5 grid-cols-2 gap-1">
             <span className="rounded-full bg-current" />
             <span className="rounded-full bg-current opacity-55" />
             <span className="rounded-full bg-current opacity-55" />
