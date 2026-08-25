@@ -1,9 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
+import { CountdownDisplay } from "./Countdown";
 import { EventsCardVariants } from "./EventsCardVariants";
+import { GatheringMessage } from "./GatheringMessage";
 import {
   HeroCompositionSwitcher,
   type EventsVersionId,
@@ -56,7 +59,7 @@ const events = [
   },
 ];
 
-const navItems = ["Story", "Events", "Travel", "RSVP"];
+const navItems = ["Story", "Events", "RSVP"];
 
 const storyPhotos = {
   closeCouple: "/photos/rav03380.jpg",
@@ -70,9 +73,16 @@ function EventsSectionHeader({
   isRoyalClassicEvents?: boolean;
 }) {
   const useRoyalPalette = isRoyalClassicEvents;
+  const shouldReduceMotion = useReducedMotion();
 
   return (
-    <div className="relative mx-auto max-w-6xl pt-10">
+    <motion.div
+      className="relative mx-auto max-w-6xl pt-10"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, amount: 0.45 }}
+      whileInView={{ opacity: 1, y: 0 }}
+    >
       {isRoyalClassicEvents ? (
         <>
           <div
@@ -121,7 +131,7 @@ function EventsSectionHeader({
           .
         </h2>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -189,6 +199,34 @@ export default function Home() {
           onEventsVersionChange={setEventsVersion}
         />
       </section>
+      <section
+        aria-labelledby="gathering-heading"
+        className="relative min-h-[100dvh] overflow-hidden bg-[#fff4e1] px-5 py-6 sm:px-8 sm:py-8 lg:px-12"
+      >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-0 left-0 w-[min(100vw,64rem)] opacity-75"
+        >
+          <Image
+            src="/graphics/music-floral-frame-v1.png"
+            alt=""
+            width={1024}
+            height={1536}
+            className="h-auto w-full"
+            sizes="(max-width: 1024px) 100vw, 1024px"
+          />
+        </div>
+        <div className="relative z-10 mx-auto flex min-h-[calc(100dvh-3rem)] max-w-3xl items-start justify-center pt-16 text-center sm:min-h-[calc(100dvh-4rem)] sm:items-center sm:pt-0">
+          <div className="flex w-full flex-col items-center gap-8 sm:gap-10">
+            <div className="flex w-full justify-center">
+              <CountdownDisplay />
+            </div>
+            <div className="ml-auto flex min-h-[17rem] w-[calc(100%-4.5rem)] items-center justify-center sm:ml-0 sm:min-h-[15rem] sm:w-full">
+              <GatheringMessage />
+            </div>
+          </div>
+        </div>
+      </section>
       <section id="story" className="relative px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
         <div className="mx-auto grid max-w-6xl gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
           <div className="relative mx-auto h-[520px] w-full max-w-[520px] sm:h-[620px] lg:mx-0 lg:max-w-none">
@@ -244,17 +282,18 @@ export default function Home() {
               we are together. We cannot wait to gather with you.
             </p>
             <div className="mt-10 flex flex-col items-center gap-3 text-sm font-semibold uppercase tracking-[0.22em] text-[#8f1830] sm:flex-row sm:justify-center sm:gap-5 lg:justify-start">
-              <span>Rajshree & Deepesh</span>
+              <span>Rajshree &amp; Deepesh</span>
               <span className="hidden h-1.5 w-1.5 rounded-full bg-[#f0a72f] sm:block" />
-              <span>3 & 4 Dec 2026</span>
+              <span>3 &amp; 4 Dec 2026</span>
             </div>
           </div>
         </div>
       </section>
       <section
         id="events"
-        className={`relative h-screen ${isRoyalClassicEvents ? "flex min-h-screen flex-col overflow-hidden text-[#fff8ef]" : "overflow-visible text-[#321b12]"
-          }`}
+        className={`relative ${
+          isRoyalClassicEvents ? "text-[#fff8ef]" : "overflow-visible text-[#321b12]"
+        }`}
         style={{
           backgroundImage: isRoyalClassicEvents
             ? "linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0) 28%, rgba(0,0,0,0.08) 100%), linear-gradient(145deg, #9d2140 0%, #8f1830 28%, #781229 62%, #691123 100%)"
@@ -269,9 +308,19 @@ export default function Home() {
             : "cover, cover, cover",
         }}
       >
-        <div className={`relative z-10 ${isRoyalClassicEvents ? "flex min-h-0 flex-1 flex-col" : ""}`}>
-          <div className={`${isRoyalClassicEvents ? "flex min-h-0 flex-1 flex-col" : "pb-20 lg:pb-24"}`}>
-            <div className={`z-20 px-5 pt-0 md:pt-20 lg:pt-24 ${isRoyalClassicEvents ? "flex min-h-0 flex-1 flex-col" : ""}`}>
+        <div className={`relative z-10 ${isRoyalClassicEvents ? "pb-20 lg:pb-24" : "pb-20 lg:pb-24"}`}>
+          {isRoyalClassicEvents ? (
+            <div className="px-5 pt-0 md:pt-20 lg:pt-24">
+              <div className="z-20 pb-6 md:pt-4 lg:pt-6">
+                <EventsSectionHeader isRoyalClassicEvents />
+                <EventsSectionDivider isRoyalClassicEvents />
+              </div>
+              <div className="mx-auto max-w-6xl pt-4 md:pt-8 lg:pt-8">
+                <EventsCardVariants events={events} version={eventsVersion} />
+              </div>
+            </div>
+          ) : (
+            <div className="z-20 px-5 pt-0 md:pt-20 lg:pt-24">
               <div className="top-0 -mx-5 px-5 pb-6 md:pt-4 lg:pt-6">
                 <EventsSectionHeader
                   isRoyalClassicEvents={isRoyalClassicEvents}
@@ -280,29 +329,13 @@ export default function Home() {
                   isRoyalClassicEvents={isRoyalClassicEvents}
                 />
               </div>
-              <div className={`mx-auto max-w-6xl md:mt-8 lg:mt-8 ${isRoyalClassicEvents ? "min-h-0 flex-1 overflow-y-auto pb-10" : ""}`}>
+              <div className="mx-auto max-w-6xl md:mt-8 lg:mt-8">
                 <EventsCardVariants events={events} version={eventsVersion} />
               </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
-      <section id="travel" className="border-y border-[#d69b52]/35 bg-[#f7dfbd] px-5 py-16 sm:px-8 lg:px-12">
-        <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-3">
-          <div>
-            <p className="text-[0.72rem] font-bold uppercase tracking-[0.35em] text-[#8f1830]">
-              Travel
-            </p>
-            <h2 className="mt-4 font-serif text-4xl leading-tight">Come for the vows, stay for Kolkata.</h2>
-          </div>
-          <p className="text-lg leading-8 text-[#633628] md:col-span-2">
-            Practical sections need calmer design. This area can hold hotels,
-            airport notes, dress code, and transport without competing with the
-            emotional hero.
-          </p>
-        </div>
-      </section>
-
       <section
         id="rsvp"
         className="relative overflow-hidden bg-[linear-gradient(180deg,#fbefdf_0%,#f5dfbc_100%)] px-5 py-20 sm:px-8 lg:px-12 lg:py-24"
@@ -319,13 +352,13 @@ export default function Home() {
           </div>
 
           <div className="mt-12 flex justify-center">
-            <div className="relative w-full max-w-4xl">
+            <div className="relative w-full max-w-5xl">
               <div
                 aria-hidden="true"
                 className="absolute inset-6 rounded-[1.6rem] bg-[radial-gradient(circle_at_50%_40%,rgba(120,74,40,0.14),transparent_70%)] blur-2xl"
               />
               <div
-                className="relative rotate-[-3deg] overflow-hidden rounded-[1.6rem] bg-[linear-gradient(180deg,rgba(249,239,220,0.98),rgba(238,220,190,0.98))] px-7 py-8 shadow-[0_28px_55px_rgba(101,61,35,0.18)] sm:px-9"
+                className="relative rotate-[-1deg] overflow-hidden rounded-[1.35rem] bg-[linear-gradient(180deg,rgba(249,239,220,0.98),rgba(238,220,190,0.98))] px-5 py-6 shadow-[0_28px_55px_rgba(101,61,35,0.18)] sm:px-8 sm:py-8 lg:rotate-[-2deg]"
               >
                 <div
                   aria-hidden="true"
@@ -333,76 +366,77 @@ export default function Home() {
                 />
                 <div
                   aria-hidden="true"
-                  className="absolute inset-[14px] rounded-[1.2rem] border border-[#d8b27d]/55"
+                  className="absolute inset-[13px] rounded-[1rem] border border-[#d8b27d]/55"
                 />
-                <div
-                  aria-hidden="true"
-                  className="absolute left-1/2 top-8 h-[1px] w-[calc(100%-4.5rem)] -translate-x-1/2 bg-[#d6b488]/55"
-                />
-                <div
-                  aria-hidden="true"
-                  className="absolute right-8 top-14 h-24 w-24 rounded-[1rem] border border-dashed border-[#c8965f]/70"
-                />
-                <div
-                  aria-hidden="true"
-                  className="absolute right-3 top-6 h-40 w-40 rotate-[10deg] opacity-[0.22] mix-blend-darken"
-                >
-                  <Image
-                    src="/graphics/postmark-raster.png"
-                    alt=""
-                    fill
-                    className="object-contain"
-                    sizes="160px"
-                  />
-                </div>
-                <div
-                  aria-hidden="true"
-                  className="absolute right-8 top-[11rem] h-px w-28 bg-[#d6b488]/65"
-                />
-                <div
-                  aria-hidden="true"
-                  className="absolute right-8 top-[13rem] h-px w-28 bg-[#d6b488]/55"
-                />
-                <div
-                  aria-hidden="true"
-                  className="absolute right-8 top-[15rem] h-px w-28 bg-[#d6b488]/45"
-                />
-                <div className="relative z-10 min-h-[24rem] pt-8 sm:min-h-[20rem]">
-                  <div className="max-w-[18rem] sm:max-w-[20rem]">
+                <div className="relative z-10 grid gap-10 px-5 py-9 sm:px-8 sm:py-11 lg:grid-cols-[minmax(0,1.15fr)_minmax(14rem,0.85fr)] lg:gap-12 lg:px-12">
+                  <div className="flex flex-col items-start">
                     <p className="font-serif text-[1.72rem] leading-[1.22] text-[#5e3324] sm:text-[1.9rem]">
                       Save us a yes for the wedding weekend.
                     </p>
-                    <p className="mt-4 max-w-[15rem] text-[0.98rem] leading-7 text-[#6b4334]">
+                    <p className="mt-4 max-w-[18rem] text-[0.98rem] leading-7 text-[#6b4334]">
                       Send us your reply when you are ready. We cannot wait to celebrate with you in Kolkata.
                     </p>
                     <p className="mt-7 text-sm font-semibold uppercase tracking-[0.18em] text-[#a3633d]">
                       Rajshree & Deepesh
                     </p>
-                  </div>
-
-                  <div className="absolute bottom-0 right-0 flex items-center gap-3 sm:right-4">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        console.log("Versions button clicked");
-                      }}
-                    >
-                      Versions
-                    </button>
-
                     <a
                       href="#"
-                      className="group inline-flex rotate-[1.5deg] items-center rounded-[0.8rem] bg-[#8f1830] p-[2px] text-left shadow-[0_12px_22px_rgba(84,30,33,0.16)] transition hover:-translate-y-0.5 hover:rotate-0"
+                      className="group mt-8 inline-flex -rotate-[1deg] items-center rounded-[0.4rem] border-2 border-[#8f1830] bg-[#fff5e5] px-3 py-2.5 text-left shadow-[3px_4px_0_rgba(143,24,48,0.18)] transition hover:-translate-y-0.5 hover:rotate-0 hover:shadow-[4px_5px_0_rgba(143,24,48,0.22)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8f1830]"
                     >
-                      <span className="flex items-center gap-2 rounded-[0.7rem] bg-[#fff5e9] px-3 py-2 text-[#4b2418] shadow-[inset_0_0_0_1px_rgba(184,126,71,0.24)]">
-                        <span className="grid h-7 w-7 place-items-center rounded-full bg-[#321b12] text-xs font-bold text-[#fff8ef] transition group-hover:bg-[#8f1830]">
-                          &gt;
-                        </span>
-                        <span className="text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[#4b2418]">
-                          RSVP
-                        </span>
+                      <span className="border-r border-dashed border-[#b86622]/70 pr-2 text-base leading-none text-[#8f1830] transition group-hover:translate-x-0.5">
+                        &rarr;
+                      </span>
+                      <span className="pl-2 text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[#6b3028]">
+                        RSVP
                       </span>
                     </a>
+
+                    <div className="mt-9 flex w-full items-center justify-between gap-4 border-t border-dashed border-[#c8965f]/55 pt-6 lg:hidden">
+                      <div>
+                        <p className="text-[0.62rem] font-bold uppercase tracking-[0.22em] text-[#a3633d]">
+                          Kolkata, India
+                        </p>
+                        <p className="mt-1 font-serif text-[1.55rem] text-[#5e3324]">
+                          3 &amp; 4 December
+                        </p>
+                      </div>
+                      <div className="relative h-20 w-20 shrink-0 rotate-[8deg] opacity-55 mix-blend-multiply">
+                        <Image
+                          src="/graphics/postmark-raster.png"
+                          alt=""
+                          fill
+                          className="object-contain"
+                          sizes="80px"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="hidden border-l border-dashed border-[#c8965f]/55 pl-12 lg:block">
+                    <div className="flex items-start justify-between gap-5 lg:block">
+                      <div>
+                        <p className="text-[0.68rem] font-bold uppercase tracking-[0.24em] text-[#a3633d]">
+                          Kolkata, India
+                        </p>
+                        <p className="mt-2 font-serif text-2xl text-[#5e3324]">
+                          3 &amp; 4 December
+                        </p>
+                      </div>
+                      <div className="relative h-24 w-24 shrink-0 rotate-[8deg] opacity-55 mix-blend-multiply sm:h-28 sm:w-28 lg:mt-8 lg:h-36 lg:w-36">
+                        <Image
+                          src="/graphics/postmark-raster.png"
+                          alt=""
+                          fill
+                          className="object-contain"
+                          sizes="(max-width: 640px) 96px, (max-width: 1024px) 112px, 144px"
+                        />
+                      </div>
+                    </div>
+                    <div aria-hidden="true" className="mt-7 space-y-4 lg:mt-10">
+                      <div className="h-px w-full bg-[#d6b488]/65" />
+                      <div className="h-px w-[86%] bg-[#d6b488]/55" />
+                      <div className="h-px w-[70%] bg-[#d6b488]/45" />
+                    </div>
                   </div>
                 </div>
               </div>

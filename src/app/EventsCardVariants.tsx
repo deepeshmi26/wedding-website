@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion, useReducedMotion } from "motion/react";
 import type { EventsVersionId } from "./HeroCompositionSwitcher";
 
 type EventCard = {
@@ -28,30 +29,54 @@ export function EventsCardVariants({
   version,
 }: EventsCardVariantsProps) {
   const isRoyalClassic = version === "v3";
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <div className="relative md:mt-14">
       {isRoyalClassic ? (
         <div className="flex flex-col items-center gap-5 md:gap-6">
-          {events.map((event) => (
-            <div
+          {events.map((event, index) => (
+            <motion.div
               key={event.name}
-              className="relative z-10 mx-auto w-full max-w-[20rem] overflow-hidden rounded-[0.45rem] bg-[linear-gradient(180deg,#fff8ef_0%,#f3dfc2_100%)] p-[0.38rem] shadow-[0_24px_56px_rgba(64,20,26,0.22)] transition hover:-translate-y-1.5 hover:shadow-[0_30px_68px_rgba(64,20,26,0.28)] md:max-w-[21rem]"
-            >
-              <article
-                className="relative overflow-hidden rounded-[0.32rem] bg-[linear-gradient(180deg,rgba(143,24,48,0.96)_0%,rgba(110,18,38,0.98)_100%)] text-center"
+              className="relative z-10 mx-auto w-full max-w-[20rem] rounded-[0.45rem] shadow-[0_24px_56px_rgba(64,20,26,0.22)] transition hover:-translate-y-1.5 hover:shadow-[0_30px_68px_rgba(64,20,26,0.28)] md:max-w-[21rem]"
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 22 }}
+              transition={{
+                duration: 0.46,
+                delay: index * 0.12,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              viewport={{ once: true, amount: 0.22 }}
+              whileInView={{ opacity: 1, y: 0 }}
               >
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),transparent_30%,rgba(0,0,0,0.1)_100%)]" />
-                <div className="relative overflow-hidden px-5 pb-8 pt-10">
+              <article
+                className="relative text-center"
+              >
+                <div className="relative z-10 overflow-hidden rounded-[0.32rem] px-5 pb-8 pt-10">
                   {event.washImage ? (
                     <>
-                      <Image
-                        src={event.washImage}
-                        alt={event.washImageAlt ?? ""}
-                        fill
-                        className="object-cover object-center"
-                        sizes="(max-width: 767px) 90vw, 320px"
-                      />
+                      <motion.div
+                        className="absolute inset-0"
+                        initial={
+                          shouldReduceMotion
+                            ? false
+                            : { opacity: 0, scale: 1.1 }
+                        }
+                        transition={{
+                          duration: 0.72,
+                          delay: index * 0.12 + 0.06,
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
+                        viewport={{ once: true, amount: 0.22 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                      >
+                        <Image
+                          src={event.washImage}
+                          alt={event.washImageAlt ?? ""}
+                          fill
+                          className="object-cover object-center"
+                          sizes="(max-width: 767px) 90vw, 320px"
+                        />
+                      </motion.div>
                       <div
                         aria-hidden="true"
                         className="absolute inset-0 bg-[linear-gradient(180deg,rgba(94,15,33,0.44),rgba(94,15,33,0.38)),radial-gradient(circle_at_18%_18%,rgba(240,198,125,0.14),transparent_26%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(0,0,0,0.08))]"
@@ -112,7 +137,7 @@ export function EventsCardVariants({
                   ) : null}
                 </div>
               </article>
-            </div>
+            </motion.div>
           ))}
         </div>
       ) : (
@@ -123,21 +148,45 @@ export function EventsCardVariants({
               index === 1 ? "md:mt-10" : index === 2 ? "md:mt-4" : "md:mt-0";
 
             return (
-              <article
+              <motion.article
                 key={event.name}
                 className={`relative z-10 w-full overflow-hidden rounded-[0.45rem] bg-[linear-gradient(180deg,#fff8ef_0%,#f8ead6_100%)] p-3 text-center shadow-[0_24px_56px_rgba(64,20,26,0.22)] transition hover:-translate-y-1.5 hover:shadow-[0_30px_68px_rgba(64,20,26,0.28)] ${mobileOffset} ${desktopOffset} md:mx-auto md:max-w-[21rem]`}
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 22 }}
+                transition={{
+                  duration: 0.46,
+                  delay: index * 0.12,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                viewport={{ once: true, amount: 0.22 }}
+                whileInView={{ opacity: 1, y: 0 }}
               >
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.24),transparent_26%,rgba(176,24,56,0.03)_100%)]" />
                 <div className="relative overflow-hidden px-5 pb-8 pt-10">
                   {event.washImage ? (
                     <>
-                      <Image
-                        src={event.washImage}
-                        alt={event.washImageAlt ?? ""}
-                        fill
-                        className="object-cover object-center"
-                        sizes="(max-width: 767px) 90vw, 320px"
-                      />
+                      <motion.div
+                        className="absolute inset-0"
+                        initial={
+                          shouldReduceMotion
+                            ? false
+                            : { opacity: 0, scale: 1.1 }
+                        }
+                        transition={{
+                          duration: 0.72,
+                          delay: index * 0.12 + 0.06,
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
+                        viewport={{ once: true, amount: 0.22 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                      >
+                        <Image
+                          src={event.washImage}
+                          alt={event.washImageAlt ?? ""}
+                          fill
+                          className="object-cover object-center"
+                          sizes="(max-width: 767px) 90vw, 320px"
+                        />
+                      </motion.div>
                       <div
                         aria-hidden="true"
                         className="absolute inset-0 bg-[linear-gradient(180deg,rgba(252,243,229,0.68),rgba(246,234,214,0.58)),radial-gradient(circle_at_18%_18%,rgba(229,175,88,0.14),transparent_26%),radial-gradient(circle_at_82%_78%,rgba(166,103,60,0.05),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.04),rgba(231,210,181,0.10))]"
@@ -197,7 +246,7 @@ export function EventsCardVariants({
                     </div>
                   ) : null}
                 </div>
-              </article>
+              </motion.article>
             );
           })}
         </div>

@@ -127,11 +127,9 @@ const eventsVersions: {
 
 function HeroCopy({
   compact = false,
-  narrow = false,
   tone = "warm",
 }: {
   compact?: boolean;
-  narrow?: boolean;
   tone?: "warm" | "photo";
 }) {
   const isPhotoTone = tone === "photo";
@@ -177,18 +175,6 @@ function HeroCopy({
           className={`h-px w-14 ${isPhotoTone ? "bg-[#ffd27d]" : "bg-[#f0a72f]"}`}
         />
       </div>
-      <p
-        className={`mt-8 ${
-          narrow ? "max-w-lg" : "max-w-2xl"
-        } text-balance text-lg leading-8 sm:text-xl ${
-          isPhotoTone
-            ? "text-[#fff4e1] [text-shadow:0_8px_24px_rgba(50,27,18,0.38)]"
-            : "text-[#633628]"
-        }`}
-      >
-        We are gathering our favorite people for music, food, happy chaos, loud
-        laughter, and a weekend that feels like one big family party.
-      </p>
       <div
         className={`mt-10 flex flex-col items-center gap-3 text-sm font-semibold uppercase tracking-[0.22em] sm:flex-row sm:gap-6 lg:items-start ${
           isPhotoTone ? "text-[#ffe8c7]" : "text-[#774231]"
@@ -256,15 +242,6 @@ function MobileIntroNameDate() {
   );
 }
 
-function MobileParagraphCopy() {
-  return (
-    <p className="mx-auto max-w-sm text-balance text-base leading-8 text-[#633628]">
-      We are gathering our favorite people for music, food, happy chaos, loud
-      laughter, and a weekend that feels like one big family party.
-    </p>
-  );
-}
-
 function JoyfulCollageComposition() {
   return (
     <>
@@ -312,7 +289,6 @@ function JoyfulCollageComposition() {
           </div>
         </div>
 
-        <MobileParagraphCopy />
       </div>
 
       <div className="relative hidden items-center gap-10 text-center lg:grid lg:grid-cols-[0.9fr_1.1fr] lg:text-left">
@@ -379,7 +355,6 @@ function RightPhotoComposition() {
             src={photos.closeCouple}
           />
         </div>
-        <MobileParagraphCopy />
       </div>
 
       <div className="hidden items-center gap-10 text-center lg:grid lg:grid-cols-[0.9fr_1.1fr] lg:text-left">
@@ -432,7 +407,6 @@ function DetailCardComposition() {
             </p>
           </div>
         </div>
-        <MobileParagraphCopy />
       </div>
 
       <div className="hidden items-center gap-10 text-center lg:grid lg:grid-cols-[0.9fr_1.1fr] lg:text-left">
@@ -507,17 +481,6 @@ function OverlapComposition() {
         </div>
       </div>
 
-      <div className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden px-5 py-10 text-center lg:hidden">
-        <div aria-hidden="true" className="absolute inset-0">
-          <div className="absolute -left-10 top-4 h-28 w-28 rounded-full bg-[#f0a72f]/10 blur-2xl" />
-          <div className="absolute -right-8 bottom-2 h-24 w-24 rounded-full bg-[#d23f73]/10 blur-2xl" />
-        </div>
-        <p className="relative mx-auto max-w-sm text-balance text-base leading-8 text-[#633628]">
-          We are gathering our favorite people for music, food, happy chaos,
-          loud laughter, and a weekend that feels like one big family party.
-        </p>
-      </div>
-
       <div className="relative left-1/2 -mt-24 hidden min-h-screen w-screen -translate-x-1/2 overflow-hidden px-5 pb-16 pt-32 text-center sm:px-8 lg:block lg:px-12 lg:text-left">
         <Image
           alt="Rajshree and Deepesh sitting together and smiling"
@@ -531,7 +494,7 @@ function OverlapComposition() {
         <div className="absolute inset-0 bg-[#b01838]/5" />
         <div className="relative z-10 mx-auto flex min-h-[calc(100vh-14rem)] max-w-6xl items-end lg:items-center">
           <div className="relative mx-auto max-w-lg lg:mx-0 lg:max-w-[34rem]">
-            <HeroCopy compact narrow tone="photo" />
+            <HeroCopy compact tone="photo" />
           </div>
         </div>
       </div>
