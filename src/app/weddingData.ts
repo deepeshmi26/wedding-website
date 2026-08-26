@@ -64,6 +64,8 @@ export const navItems = ["Story", "Events", "RSVP"];
 
 export const storyPhotos = {
   closeCouple: "/photos/rav03380.jpg",
+  sharedLaughter: "/photos/rav03100.jpg",
+  sharedLaughterPortrait: "/photos/rav03100-mobile-original.jpg",
   handsDetail: "/photos/rav03383.jpg",
   classicCouple: "/photos/rav03150.jpg",
 };
