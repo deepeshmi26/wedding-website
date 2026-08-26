@@ -459,7 +459,7 @@ function OverlapComposition() {
 
   return (
     <div
-      className="relative left-1/2 -mt-10 h-[100svh] w-screen -translate-x-1/2 overflow-clip lg:h-[165dvh]"
+      className="relative left-1/2 -mt-10 h-[100svh] w-screen -translate-x-1/2 overflow-clip"
     >
       <div className="sticky top-0 h-[100svh] overflow-hidden bg-[#321b12]">
         <div className="relative h-full lg:hidden">
