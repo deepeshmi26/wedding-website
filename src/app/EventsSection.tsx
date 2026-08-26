@@ -26,10 +26,10 @@ function EventsSectionHeader({
       {isRoyalClassicEvents ? (
         <>
           <div aria-hidden="true" className="pointer-events-none absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 overflow-visible">
-            <Image src="/graphics/alpona-watermark-v1.png" alt="" width={1254} height={1254} className="h-auto w-[10rem] rotate-[-10deg] opacity-[0.28] mix-blend-screen sm:w-[11rem] lg:w-[12rem]" sizes="(max-width: 640px) 10rem, (max-width: 1024px) 11rem, 12rem" />
+            <Image src="/graphics/alpona-watermark-v1.png" alt="" width={1254} height={1254} className="h-auto w-[13rem] rotate-[-10deg] opacity-[0.28] mix-blend-screen sm:w-[14rem] lg:w-[15rem]" sizes="(max-width: 640px) 13rem, (max-width: 1024px) 14rem, 15rem" />
           </div>
           <div aria-hidden="true" className="pointer-events-none absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 overflow-visible">
-            <Image src="/graphics/alpona-watermark-v1.png" alt="" width={1254} height={1254} className="h-auto w-[10rem] rotate-[10deg] opacity-[0.28] mix-blend-screen sm:w-[11rem] lg:w-[12rem]" sizes="(max-width: 640px) 10rem, (max-width: 1024px) 11rem, 12rem" />
+            <Image src="/graphics/alpona-watermark-v1.png" alt="" width={1254} height={1254} className="h-auto w-[13rem] rotate-[10deg] opacity-[0.28] mix-blend-screen sm:w-[14rem] lg:w-[15rem]" sizes="(max-width: 640px) 13rem, (max-width: 1024px) 14rem, 15rem" />
           </div>
         </>
       ) : null}

@@ -30,11 +30,11 @@ export function EventsCardVariants({
   return (
     <div className={`relative ${isRoyalClassic ? "" : "md:mt-14"}`}>
       {isRoyalClassic ? (
-        <div className="flex flex-col gap-4 px-4 pb-4 md:gap-0 md:px-0 md:pb-0">
+        <div className="flex flex-col gap-6 px-4 pb-4 md:gap-0 md:px-0 md:pb-0">
           {events.map((event, index) => (
             <motion.div
               key={event.name}
-              className="relative overflow-hidden rounded-xl bg-[#64142b] shadow-[0_18px_34px_rgba(48,7,19,0.22)] md:rounded-none md:shadow-none"
+              className="relative overflow-hidden rounded-2xl bg-[#64142b] shadow-[0_18px_34px_rgba(48,7,19,0.22)] md:rounded-none md:shadow-none"
               initial={shouldReduceMotion ? false : { opacity: 0, y: 22 }}
               transition={{
                 duration: 0.46,
@@ -67,7 +67,7 @@ export function EventsCardVariants({
                       />
                     </motion.div>
                   ) : null}
-                  <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,rgba(28,8,14,0.12),rgba(28,8,14,0.3)),radial-gradient(circle_at_50%_48%,transparent,rgba(31,8,14,0.08))] md:bg-[linear-gradient(180deg,rgba(45,7,18,0.1),rgba(45,7,18,0.58)),linear-gradient(90deg,transparent,rgba(89,12,34,0.18))]" />
+                  <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,rgba(28,8,14,0.16),rgba(28,8,14,0.36)),radial-gradient(circle_at_50%_48%,transparent,rgba(31,8,14,0.1))] md:bg-[linear-gradient(180deg,rgba(45,7,18,0.1),rgba(45,7,18,0.58)),linear-gradient(90deg,transparent,rgba(89,12,34,0.18))]" />
                   <div aria-hidden="true" className="pointer-events-none absolute inset-4 border border-[#f4cf8d]/55 md:inset-5 md:border-[#f4cf8d]/45" />
                   <p className="absolute bottom-8 left-8 right-8 hidden font-serif text-2xl italic leading-tight text-[#fff6e7] [text-shadow:0_2px_18px_rgba(30,7,13,0.75)] md:block md:text-3xl">
                     Kolkata, held close.
@@ -85,7 +85,7 @@ export function EventsCardVariants({
                       Ceremony
                     </p>
                     <div className="mt-9">
-                      <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4">
+                      <div className="grid grid-cols-[auto_auto_auto] items-center justify-center gap-4">
                         <span className="justify-self-center font-serif text-[4.5rem] font-light leading-none tracking-wide text-[#fff8ef] [font-variant-numeric:lining-nums] [text-shadow:0_0_36px_rgba(240,198,125,0.3),0_2px_18px_rgba(0,0,0,0.88)]">
                           {event.date.split(" ")[0].padStart(2, "0")}
                         </span>
