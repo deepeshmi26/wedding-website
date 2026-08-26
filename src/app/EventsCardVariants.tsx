@@ -84,14 +84,18 @@ export function EventsCardVariants({
                     <p className="mt-1 text-center font-serif text-3xl italic leading-none text-[#f0c67d] [text-shadow:0_0_18px_rgba(240,198,125,0.3)]">
                       Ceremony
                     </p>
-                    <div className="mt-9 flex items-center justify-center gap-4 text-left">
-                      <span className="font-serif text-[4.5rem] font-light leading-none tracking-wide text-[#fff8ef] [text-shadow:0_0_36px_rgba(240,198,125,0.3),0_2px_18px_rgba(0,0,0,0.88)]">
-                        {event.date.split(" ")[0].padStart(2, "0")}
-                      </span>
-                      <span aria-hidden="true" className="h-14 w-px bg-[#f0c67d]/55" />
-                      <div>
-                        <p className="font-serif text-xl font-medium tracking-[0.2em] text-[#fff8ef]">DECEMBER</p>
-                        <p className="mt-1 text-[0.58rem] font-semibold uppercase tracking-[0.22em] text-[#f0c67d]/80">2026</p>
+                    <div className="mt-9">
+                      <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4">
+                        <span className="justify-self-center font-serif text-[4.5rem] font-light leading-none tracking-wide text-[#fff8ef] [font-variant-numeric:lining-nums] [text-shadow:0_0_36px_rgba(240,198,125,0.3),0_2px_18px_rgba(0,0,0,0.88)]">
+                          {event.date.split(" ")[0].padStart(2, "0")}
+                        </span>
+                        <span aria-hidden="true" className="h-12 w-px self-center bg-[#f0c67d]/55" />
+                        <div className="justify-self-center text-center">
+                          <p className="font-serif text-xl font-medium leading-none tracking-[0.2em] text-[#fff8ef]">
+                            DECEMBER
+                          </p>
+                          <p className="mt-2 text-[0.58rem] font-semibold uppercase tracking-[0.22em] text-[#f0c67d]/80">2026</p>
+                        </div>
                       </div>
                     </div>
                     <div className="mx-auto my-6 flex w-44 items-center gap-3">
@@ -101,7 +105,7 @@ export function EventsCardVariants({
                     </div>
                     <div className="text-center">
                       <p className="text-[0.55rem] font-semibold uppercase tracking-[0.45em] text-[#f0c67d]/55">Time</p>
-                      <p className="mt-3 font-serif text-5xl font-light leading-none tracking-[0.12em] text-[#fff8ef] [text-shadow:0_0_36px_rgba(240,198,125,0.3),0_2px_18px_rgba(0,0,0,0.88)]">{event.time}</p>
+                      <p className="mt-3 font-serif text-5xl font-light leading-none tracking-[0.12em] text-[#fff8ef] [font-variant-numeric:lining-nums] [text-shadow:0_0_36px_rgba(240,198,125,0.3),0_2px_18px_rgba(0,0,0,0.88)]">{event.time}</p>
                     </div>
                     <div className="mx-auto my-6 flex w-44 items-center gap-3">
                       <span className="h-px flex-1 bg-gradient-to-r from-transparent to-[#f0c67d]/45" />
@@ -144,11 +148,11 @@ export function EventsCardVariants({
                   </div>
                   <div className="relative hidden w-full md:block">
                     <div className="mt-6 h-px w-16 bg-[#f0c67d]/65" />
-                    <div className="mt-8 flex items-start gap-5 sm:gap-7">
-                      <span aria-hidden="true" className="font-serif text-[5.8rem] leading-[0.72] text-[#f0c67d]/15 sm:text-[7.4rem]">
+                    <div className="mt-8 flex items-center gap-5 sm:gap-7">
+                      <span aria-hidden="true" className="font-serif text-[5.8rem] leading-[0.9] text-[#f0c67d]/15 [font-variant-numeric:lining-nums] sm:text-[7.4rem]">
                         {event.date.split(" ")[0].padStart(2, "0")}
                       </span>
-                      <div className="pt-2 sm:pt-5">
+                      <div className="text-center">
                         <p className="font-serif text-3xl font-medium tracking-[0.12em] text-[#fff8ef] sm:text-4xl">
                           December
                         </p>
@@ -162,7 +166,7 @@ export function EventsCardVariants({
                     <div className="mt-7 space-y-6 border-l border-[#f0c67d]/45 pl-6">
                       <div>
                         <p className="text-[0.62rem] font-semibold uppercase tracking-[0.3em] text-[#f0c67d]/80">Time</p>
-                        <p className="mt-2 font-serif text-2xl text-[#fff8ef]">{event.time}</p>
+                        <p className="mt-2 font-serif text-2xl text-[#fff8ef] [font-variant-numeric:lining-nums]">{event.time}</p>
                       </div>
                       <div>
                         <p className="text-[0.62rem] font-semibold uppercase tracking-[0.3em] text-[#f0c67d]/80">Venue</p>

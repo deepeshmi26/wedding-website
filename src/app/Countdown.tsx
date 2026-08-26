@@ -47,7 +47,7 @@ function FlipUnit({
         ? "text-[2.3rem] sm:text-[3rem] lg:text-[3.25rem]"
         : "text-[2.7rem] sm:text-5xl lg:text-[3.8rem]";
 
-  const faceTextClass = `absolute inset-0 grid place-items-center font-serif leading-none text-[#76152d] ${valueSize}`;
+  const faceTextClass = `absolute inset-0 grid place-items-center font-serif leading-none text-[#76152d] [font-variant-numeric:lining-nums] ${valueSize}`;
 
   return (
     <div className="min-w-0 text-center">

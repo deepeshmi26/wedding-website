@@ -7,6 +7,7 @@ import { GatheringSection } from "./GatheringSection";
 import { HeroSection } from "./HeroSection";
 import type { EventsVersionId, VariantId } from "./HeroCompositionSwitcher";
 import { RsvpSection } from "./RsvpSection";
+import { SaveTheDateSection } from "./SaveTheDateSection";
 import { StorySection } from "./StorySection";
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
       <GatheringSection />
       <StorySection />
       <EventsSection version={eventsVersion} />
+      <SaveTheDateSection />
       <RsvpSection />
     </main>
   );
