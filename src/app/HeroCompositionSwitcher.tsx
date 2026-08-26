@@ -474,8 +474,10 @@ function OverlapComposition() {
               src={photos.mobileHero}
             />
           </div>
-          <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,rgba(249,235,219,0.68)_0%,rgba(249,235,219,0.32)_3%,rgba(50,27,18,0.04)_8%,rgba(50,27,18,0.58)_76%,rgba(50,27,18,0.84)_100%)]" />
-          <div aria-hidden="true" className="absolute inset-0 bg-[#b01838]/5" />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-[48%] bg-[linear-gradient(180deg,transparent_0%,rgba(50,27,18,0.08)_22%,rgba(50,27,18,0.62)_70%,rgba(50,27,18,0.88)_100%)]"
+          />
           <div className="relative z-10 flex min-h-[100dvh] items-end justify-center px-5 pb-5 pt-24 text-center sm:px-8">
             <motion.div
               className="w-full max-w-sm"
