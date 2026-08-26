@@ -44,7 +44,7 @@ export function HeroSection({
   }, [isMenuOpen]);
 
   return (
-    <section className="relative min-h-[100dvh] overflow-x-hidden bg-[#f8f3ea]">
+    <section className="relative min-h-[100svh] overflow-x-hidden bg-[#f8f3ea]">
       <div aria-hidden="true" className="paper-grain pointer-events-none absolute inset-0 opacity-35" />
 
       <a

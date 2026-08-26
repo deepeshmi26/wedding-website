@@ -459,9 +459,9 @@ function OverlapComposition() {
 
   return (
     <div
-      className="relative left-1/2 -mt-10 h-[100dvh] w-screen -translate-x-1/2 overflow-clip lg:h-[165dvh]"
+      className="relative left-1/2 -mt-10 h-[100svh] w-screen -translate-x-1/2 overflow-clip lg:h-[165dvh]"
     >
-      <div className="sticky top-0 h-[100dvh] overflow-hidden bg-[#321b12]">
+      <div className="sticky top-0 h-[100svh] overflow-hidden bg-[#321b12]">
         <div className="relative h-full lg:hidden">
           <div className="absolute inset-0">
             <Image
@@ -478,7 +478,7 @@ function OverlapComposition() {
             aria-hidden="true"
             className="pointer-events-none absolute inset-x-0 bottom-0 h-[48%] bg-[linear-gradient(180deg,transparent_0%,rgba(50,27,18,0.08)_22%,rgba(50,27,18,0.62)_70%,rgba(50,27,18,0.88)_100%)]"
           />
-          <div className="relative z-10 flex min-h-[100dvh] items-end justify-center px-5 pb-5 pt-24 text-center sm:px-8">
+          <div className="relative z-10 flex min-h-[100svh] items-end justify-center px-5 pb-5 pt-24 text-center sm:px-8">
             <motion.div
               className="w-full max-w-sm"
               initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
@@ -528,6 +528,32 @@ function OverlapComposition() {
               <HeroCopy compact tone="photo" />
             </div>
           </div>
+        </div>
+
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-6 left-5 z-20 flex flex-col items-center gap-2 text-[#fff8ef] sm:bottom-8 sm:left-8"
+        >
+          <span className="flex h-8 w-5 justify-center rounded-full border border-[#fff8ef]/75 pt-1.5">
+            <motion.span
+              className="h-1.5 w-1.5 rounded-full bg-[#ffd27d]"
+              animate={shouldReduceMotion ? undefined : { y: [0, 7, 0], opacity: [1, 0.35, 1] }}
+              transition={
+                shouldReduceMotion
+                  ? undefined
+                  : { duration: 1.65, ease: "easeInOut", repeat: Infinity }
+              }
+            />
+          </span>
+          <motion.span
+            className="h-2 w-2 rotate-45 border-b border-r border-[#fff8ef]/85"
+            animate={shouldReduceMotion ? undefined : { y: [0, 4, 0], opacity: [0.65, 1, 0.65] }}
+            transition={
+              shouldReduceMotion
+                ? undefined
+                : { duration: 1.65, ease: "easeInOut", repeat: Infinity }
+            }
+          />
         </div>
       </div>
     </div>
