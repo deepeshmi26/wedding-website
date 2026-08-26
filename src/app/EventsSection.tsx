@@ -72,12 +72,12 @@ export function EventsSection({ version }: { version: EventsVersionId }) {
       className={`relative ${isRoyalClassicEvents ? "text-[#fff8ef]" : "overflow-visible text-[#321b12]"}`}
       style={{
         backgroundImage: isRoyalClassicEvents
-          ? "linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0) 28%, rgba(0,0,0,0.08) 100%), linear-gradient(145deg, #9d2140 0%, #8f1830 28%, #781229 62%, #691123 100%)"
+          ? "url('/graphics/events-block-print-background-v1.png')"
           : "radial-gradient(circle at 18% 16%, rgba(176,24,56,0.16), transparent 28%), radial-gradient(circle at 84% 18%, rgba(240,167,47,0.18), transparent 24%), radial-gradient(circle at 78% 82%, rgba(143,24,48,0.1), transparent 28%), linear-gradient(135deg, #f6d8b1 0%, #f7e6cf 48%, #f1cfa3 100%)",
-        backgroundAttachment: isRoyalClassicEvents ? "fixed, fixed" : "scroll, scroll, scroll",
+        backgroundAttachment: "scroll",
         backgroundPosition: "center, center, center",
-        backgroundRepeat: "no-repeat, no-repeat, no-repeat",
-        backgroundSize: isRoyalClassicEvents ? "cover, cover" : "cover, cover, cover",
+        backgroundRepeat: isRoyalClassicEvents ? "repeat-y" : "no-repeat, no-repeat, no-repeat",
+        backgroundSize: isRoyalClassicEvents ? "100% auto" : "cover, cover, cover",
       }}
     >
       <div className="relative z-10 pb-20 lg:pb-24">
@@ -87,7 +87,7 @@ export function EventsSection({ version }: { version: EventsVersionId }) {
               <EventsSectionHeader isRoyalClassicEvents />
               <EventsSectionDivider isRoyalClassicEvents />
             </div>
-            <div className="mx-auto max-w-6xl pt-4 md:pt-8 lg:pt-8">
+            <div className="relative left-1/2 w-screen -translate-x-1/2 pt-4 md:pt-8 lg:pt-8">
               <EventsCardVariants events={events} version={version} />
             </div>
           </div>
