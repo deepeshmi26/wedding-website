@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion } from "motion/react";
-import { useState } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { useRef, useState } from "react";
 
 export type VariantId =
   | "joyful-collage"
@@ -455,70 +455,93 @@ function DetailCardComposition() {
 
 function OverlapComposition() {
   const shouldReduceMotion = useReducedMotion();
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end end"],
+  });
+  const desktopImageScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  const mobileImageScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
 
   return (
-    <>
-      <div className="relative left-1/2 -mt-24 min-h-screen w-screen -translate-x-1/2 overflow-hidden bg-[#321b12] px-5 pb-10 pt-32 text-center lg:hidden">
-        <Image
-          alt="Rajshree and Deepesh laughing together on a swing"
-          className="object-cover object-[54%_46%]"
-          fill
-          quality={92}
-          sizes="100vw"
-          src={photos.heroSwing}
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(50,27,18,0)_0%,rgba(50,27,18,0.08)_46%,rgba(50,27,18,0.54)_76%,rgba(50,27,18,0.82)_100%)]" />
-        <div className="absolute inset-0 bg-[#b01838]/5" />
-
-        <div className="relative z-10 flex min-h-[calc(100vh-10.5rem)] items-end justify-center">
+    <div
+      ref={heroRef}
+      className="relative left-1/2 -mt-10 h-[145dvh] w-screen -translate-x-1/2 overflow-clip lg:h-[165dvh]"
+    >
+      <div className="sticky top-0 h-[100dvh] overflow-hidden bg-[#321b12]">
+        <div className="relative h-full lg:hidden">
           <motion.div
-            className="w-full max-w-sm"
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ type: "spring", stiffness: 120, damping: 20, delay: 0.14 }}
+            className="absolute inset-0 will-change-transform"
+            style={shouldReduceMotion ? undefined : { scale: mobileImageScale }}
           >
-            <p className="mx-auto max-w-xs text-[0.58rem] font-bold uppercase tracking-[0.24em] text-[#ffd27d]">
-              Come for the vows, stay for the dancing
-            </p>
-            <h1
-              className="mx-auto mt-4 max-w-xs font-normal text-[clamp(1.85rem,9.5vw,3rem)] leading-[0.78] tracking-[0.01em] text-[#fff8ef] [text-shadow:0_10px_34px_rgba(50,27,18,0.46)]"
-              style={{ fontFamily: '"Great Vibes", cursive' }}
-            >
-              Rajshree
-              <span className="block text-[#ffd27d]">&</span>
-              Deepesh
-            </h1>
-            <div className="mt-5 flex items-center justify-center gap-3">
-              <span className="h-px w-10 bg-[#ffd27d]" />
-              <span className="h-2 w-2 rounded-full bg-[#fff8ef]" />
-              <span className="h-px w-10 bg-[#ffd27d]" />
-            </div>
-            <div className="mt-5 flex flex-col items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-[#ffe8c7]">
-              <span>3 & 4 Dec 2026</span>
-              <span>Kolkata, India</span>
-            </div>
+            <Image
+              alt="Rajshree and Deepesh sitting together and smiling"
+              className="object-cover object-[73%_50%]"
+              fill
+              priority
+              quality={92}
+              sizes="100vw"
+              src={photos.wideCouple}
+            />
           </motion.div>
+          <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,rgba(249,235,219,0.68)_0%,rgba(249,235,219,0.32)_3%,rgba(50,27,18,0.04)_8%,rgba(50,27,18,0.58)_76%,rgba(50,27,18,0.84)_100%)]" />
+          <div aria-hidden="true" className="absolute inset-0 bg-[#b01838]/5" />
+          <div className="relative z-10 flex min-h-[100dvh] items-end justify-center px-5 pb-5 pt-24 text-center sm:px-8">
+            <motion.div
+              className="w-full max-w-sm"
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 120, damping: 20, delay: 0.14 }}
+            >
+              <p className="mx-auto mb-4 max-w-[17rem] text-[0.58rem] font-bold uppercase tracking-[0.18em] text-[#ffd27d]">
+                Come for the vows and stay for the wedding
+              </p>
+              <h1
+                className="mx-auto flex max-w-full items-center justify-center gap-2 whitespace-nowrap font-normal text-[clamp(1.8rem,8.6vw,2.5rem)] leading-[1.1] tracking-[0.01em] text-[#fff8ef] [text-shadow:0_10px_34px_rgba(50,27,18,0.46)]"
+                style={{ fontFamily: '"Great Vibes", cursive' }}
+              >
+                <span>Rajshree</span>
+                <span className="text-[0.5em] text-[#ffd27d]">&amp;</span>
+                <span>Deepesh</span>
+              </h1>
+              <div className="mt-4 flex items-center justify-center gap-3">
+                <span className="h-px w-10 bg-[#ffd27d]" />
+                <span className="h-2 w-2 rounded-full bg-[#fff8ef]" />
+                <span className="h-px w-10 bg-[#ffd27d]" />
+              </div>
+              <div className="mt-4 flex flex-col items-center gap-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-[#ffe8c7]">
+                <span>3 &amp; 4 Dec 2026</span>
+                <span>Kolkata, India</span>
+              </div>
+            </motion.div>
+          </div>
         </div>
-      </div>
 
-      <div className="relative left-1/2 -mt-24 hidden min-h-screen w-screen -translate-x-1/2 overflow-hidden px-5 pb-16 pt-32 text-center sm:px-8 lg:block lg:px-12 lg:text-left">
-        <Image
-          alt="Rajshree and Deepesh laughing together on a swing"
-          className="object-cover object-[55%_45%]"
-          fill
-          quality={92}
-          sizes="100vw"
-          src={photos.heroSwingDesktop}
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(50,27,18,0.06)_0%,rgba(50,27,18,0.18)_54%,rgba(50,27,18,0.48)_100%)] lg:bg-[linear-gradient(90deg,rgba(50,27,18,0.56)_0%,rgba(50,27,18,0.34)_34%,rgba(50,27,18,0.08)_64%,rgba(50,27,18,0)_100%)]" />
-        <div className="absolute inset-0 bg-[#b01838]/5" />
-        <div className="relative z-10 mx-auto flex min-h-[calc(100vh-14rem)] max-w-6xl items-end lg:items-center">
-          <div className="relative mx-auto max-w-lg lg:mx-0 lg:max-w-[34rem]">
-            <HeroCopy compact tone="photo" />
+        <div className="relative hidden h-full lg:block">
+          <motion.div
+            className="absolute inset-0 will-change-transform"
+            style={shouldReduceMotion ? undefined : { scale: desktopImageScale }}
+          >
+            <Image
+              alt="Rajshree and Deepesh laughing together on a swing"
+              className="object-cover object-[55%_45%]"
+              fill
+              priority
+              quality={92}
+              sizes="100vw"
+              src={photos.heroSwingDesktop}
+            />
+          </motion.div>
+          <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(90deg,rgba(50,27,18,0.56)_0%,rgba(50,27,18,0.34)_34%,rgba(50,27,18,0.08)_64%,rgba(50,27,18,0)_100%)]" />
+          <div aria-hidden="true" className="absolute inset-0 bg-[#b01838]/5" />
+          <div className="relative z-10 mx-auto flex min-h-[100dvh] max-w-6xl items-center px-12 pt-12">
+            <div className="max-w-[34rem]">
+              <HeroCopy compact tone="photo" />
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
