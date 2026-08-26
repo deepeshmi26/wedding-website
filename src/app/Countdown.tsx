@@ -122,7 +122,7 @@ export function CountdownDisplay({ compact = false }: { compact?: boolean }) {
   }, []);
 
   return (
-    <div className={compact ? "mt-7" : "mt-10 sm:mt-12"} aria-label="Countdown to the wedding ceremony">
+    <div className={compact ? "mt-7" : "mt-0"} aria-label="Countdown to the wedding ceremony">
       <p className="text-[0.58rem] font-bold uppercase tracking-[0.25em] text-[#b86622]">
         Until the vows
       </p>

@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { useRef, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
+import { useState } from "react";
 
 export type VariantId =
   | "joyful-collage"
@@ -34,6 +34,7 @@ const photos = {
   handsDetail: "/photos/rav03383.jpg",
   heroSwing: "/photos/hero_mobile.png",
   heroSwingDesktop: "/photos/hero_desktop-upscaled.png",
+  mobileHero: "/photos/rav03100-mobile-original.jpg",
   wideCouple: "/photos/rav03100.jpg",
 };
 
@@ -455,35 +456,24 @@ function DetailCardComposition() {
 
 function OverlapComposition() {
   const shouldReduceMotion = useReducedMotion();
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end end"],
-  });
-  const desktopImageScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
-  const mobileImageScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
 
   return (
     <div
-      ref={heroRef}
-      className="relative left-1/2 -mt-10 h-[145dvh] w-screen -translate-x-1/2 overflow-clip lg:h-[165dvh]"
+      className="relative left-1/2 -mt-10 h-[100dvh] w-screen -translate-x-1/2 overflow-clip lg:h-[165dvh]"
     >
       <div className="sticky top-0 h-[100dvh] overflow-hidden bg-[#321b12]">
         <div className="relative h-full lg:hidden">
-          <motion.div
-            className="absolute inset-0 will-change-transform"
-            style={shouldReduceMotion ? undefined : { scale: mobileImageScale }}
-          >
+          <div className="absolute inset-0">
             <Image
-              alt="Rajshree and Deepesh sitting together and smiling"
-              className="object-cover object-[73%_50%]"
+              alt="Rajshree and Deepesh smiling together on a bench"
+              className="object-cover object-center"
               fill
               priority
               quality={92}
               sizes="100vw"
-              src={photos.wideCouple}
+              src={photos.mobileHero}
             />
-          </motion.div>
+          </div>
           <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,rgba(249,235,219,0.68)_0%,rgba(249,235,219,0.32)_3%,rgba(50,27,18,0.04)_8%,rgba(50,27,18,0.58)_76%,rgba(50,27,18,0.84)_100%)]" />
           <div aria-hidden="true" className="absolute inset-0 bg-[#b01838]/5" />
           <div className="relative z-10 flex min-h-[100dvh] items-end justify-center px-5 pb-5 pt-24 text-center sm:px-8">
@@ -518,10 +508,7 @@ function OverlapComposition() {
         </div>
 
         <div className="relative hidden h-full lg:block">
-          <motion.div
-            className="absolute inset-0 will-change-transform"
-            style={shouldReduceMotion ? undefined : { scale: desktopImageScale }}
-          >
+          <div className="absolute inset-0">
             <Image
               alt="Rajshree and Deepesh laughing together on a swing"
               className="object-cover object-[55%_45%]"
@@ -531,7 +518,7 @@ function OverlapComposition() {
               sizes="100vw"
               src={photos.heroSwingDesktop}
             />
-          </motion.div>
+          </div>
           <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(90deg,rgba(50,27,18,0.56)_0%,rgba(50,27,18,0.34)_34%,rgba(50,27,18,0.08)_64%,rgba(50,27,18,0)_100%)]" />
           <div aria-hidden="true" className="absolute inset-0 bg-[#b01838]/5" />
           <div className="relative z-10 mx-auto flex min-h-[100dvh] max-w-6xl items-center px-12 pt-12">
