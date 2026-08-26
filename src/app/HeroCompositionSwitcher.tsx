@@ -33,7 +33,7 @@ const photos = {
   closeCouple: "/photos/rav03380.jpg",
   handsDetail: "/photos/rav03383.jpg",
   heroSwing: "/photos/hero_mobile.png",
-  heroSwingDesktop: "/photos/hero_desktop-upscaled.png",
+  heroSwingDesktop: "/photos/rav03100.jpg",
   mobileHero: "/photos/rav03100-mobile-original.jpg",
   wideCouple: "/photos/rav03100.jpg",
 };
@@ -510,7 +510,7 @@ function OverlapComposition() {
         <div className="relative hidden h-full lg:block">
           <div className="absolute inset-0">
             <Image
-              alt="Rajshree and Deepesh laughing together on a swing"
+              alt="Rajshree and Deepesh smiling together on a bench"
               className="object-cover object-[55%_45%]"
               fill
               priority
