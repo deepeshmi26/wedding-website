@@ -1,19 +1,30 @@
+"use client";
+
 import Image from "next/image";
+import { motion, useReducedMotion } from "motion/react";
 
 export function RsvpSection() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
-    <section id="rsvp" className="relative overflow-hidden bg-[linear-gradient(180deg,#fbefdf_0%,#f5dfbc_100%)] px-5 py-20 sm:px-8 lg:px-12 lg:py-24">
-      <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle_at_14%_18%,rgba(240,167,47,0.16),transparent_24%),radial-gradient(circle_at_84%_78%,rgba(176,24,56,0.08),transparent_26%)]" />
+    <section id="rsvp" className="relative overflow-hidden bg-[#f1e7da] px-5 py-24 sm:px-8 sm:py-28 lg:px-12 lg:py-36">
+      <div aria-hidden="true" className="paper-grain pointer-events-none absolute inset-0 opacity-30" />
       <div className="relative mx-auto max-w-6xl">
         <div className="max-w-2xl">
-          <p className="text-[0.72rem] font-bold uppercase tracking-[0.35em] text-[#b86622]">RSVP</p>
+          <p className="text-[0.68rem] font-bold uppercase tracking-[0.2em] text-[#842b45]">RSVP</p>
         </div>
         <div className="mt-12 flex justify-center">
           <div className="relative w-full max-w-5xl">
-            <div aria-hidden="true" className="absolute inset-6 rounded-[1.6rem] bg-[radial-gradient(circle_at_50%_40%,rgba(120,74,40,0.14),transparent_70%)] blur-2xl" />
-            <div className="relative rotate-[-1deg] overflow-hidden rounded-[1.35rem] bg-[linear-gradient(180deg,rgba(249,239,220,0.98),rgba(238,220,190,0.98))] px-5 py-6 shadow-[0_28px_55px_rgba(101,61,35,0.18)] sm:px-8 sm:py-8 lg:rotate-[-2deg]">
+            <div aria-hidden="true" className="absolute inset-6 rounded-[1rem] bg-[radial-gradient(circle_at_50%_40%,rgba(100,34,56,0.1),transparent_70%)] blur-2xl" />
+            <motion.div
+              className="relative rotate-[-0.5deg] overflow-hidden rounded-[0.9rem] bg-[linear-gradient(180deg,rgba(255,252,246,0.98),rgba(245,235,220,0.98))] px-5 py-6 shadow-[0_24px_50px_rgba(87,43,50,0.13)] sm:px-8 sm:py-8 lg:rotate-[-1deg]"
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 34, rotate: 1.5 }}
+              whileInView={{ opacity: 1, y: 0, rotate: -0.5 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ type: "spring", stiffness: 105, damping: 18 }}
+            >
               <div aria-hidden="true" className="absolute inset-0 rounded-[1.6rem] opacity-[0.13] mix-blend-multiply bg-[radial-gradient(circle_at_18%_22%,rgba(134,96,56,0.34)_0_0.6px,transparent_0.7px),radial-gradient(circle_at_74%_18%,rgba(158,116,68,0.28)_0_0.55px,transparent_0.7px),radial-gradient(circle_at_32%_76%,rgba(120,84,44,0.22)_0_0.5px,transparent_0.65px),radial-gradient(circle_at_82%_70%,rgba(150,112,69,0.24)_0_0.6px,transparent_0.72px)] [background-size:18px_18px,22px_22px,20px_20px,24px_24px]" />
-              <div aria-hidden="true" className="absolute inset-[13px] rounded-[1rem] border border-[#d8b27d]/55" />
+              <div aria-hidden="true" className="absolute inset-[13px] rounded-[0.6rem] border border-[#c99b68]/40" />
               <div className="relative z-10 grid gap-10 px-5 py-9 sm:px-8 sm:py-11 lg:grid-cols-[minmax(0,1.15fr)_minmax(14rem,0.85fr)] lg:gap-12 lg:px-12">
                 <div className="flex flex-col items-start">
                   <p className="font-serif text-[1.72rem] leading-[1.22] text-[#5e3324] sm:text-[1.9rem]">Save us a yes for the wedding weekend.</p>
@@ -50,7 +61,7 @@ export function RsvpSection() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

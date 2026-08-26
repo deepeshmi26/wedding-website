@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
 export type VariantId =
@@ -31,6 +32,8 @@ const photos = {
   classicCouple: "/photos/rav03150.jpg",
   closeCouple: "/photos/rav03380.jpg",
   handsDetail: "/photos/rav03383.jpg",
+  heroSwing: "/photos/hero_mobile.png",
+  heroSwingDesktop: "/photos/hero_desktop-upscaled.png",
   wideCouple: "/photos/rav03100.jpg",
 };
 
@@ -133,9 +136,15 @@ function HeroCopy({
   tone?: "warm" | "photo";
 }) {
   const isPhotoTone = tone === "photo";
+  const shouldReduceMotion = useReducedMotion();
 
   return (
-    <div className="flex flex-col items-center lg:items-start">
+    <motion.div
+      className="flex flex-col items-center lg:items-start"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ type: "spring", stiffness: 120, damping: 20, delay: 0.1 }}
+    >
       <p
         className={`mb-5 max-w-sm text-[0.72rem] font-bold uppercase tracking-[0.34em] ${
           isPhotoTone ? "text-[#ffd27d]" : "text-[#c24a2b]"
@@ -188,7 +197,7 @@ function HeroCopy({
         />
         <span>Kolkata, India</span>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -444,22 +453,29 @@ function DetailCardComposition() {
 }
 
 function OverlapComposition() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <>
       <div className="relative left-1/2 -mt-24 min-h-screen w-screen -translate-x-1/2 overflow-hidden bg-[#321b12] px-5 pb-10 pt-32 text-center lg:hidden">
         <Image
-          alt="Rajshree and Deepesh sitting together and smiling"
-          className="object-cover object-[76%_34%]"
+          alt="Rajshree and Deepesh laughing together on a swing"
+          className="object-cover object-[54%_46%]"
           fill
           quality={92}
           sizes="100vw"
-          src={photos.wideCouple}
+          src={photos.heroSwing}
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(50,27,18,0)_0%,rgba(50,27,18,0.08)_46%,rgba(50,27,18,0.54)_76%,rgba(50,27,18,0.82)_100%)]" />
         <div className="absolute inset-0 bg-[#b01838]/5" />
 
         <div className="relative z-10 flex min-h-[calc(100vh-10.5rem)] items-end justify-center">
-          <div className="w-full max-w-sm">
+          <motion.div
+            className="w-full max-w-sm"
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: "spring", stiffness: 120, damping: 20, delay: 0.14 }}
+          >
             <p className="mx-auto max-w-xs text-[0.58rem] font-bold uppercase tracking-[0.24em] text-[#ffd27d]">
               Come for the vows, stay for the dancing
             </p>
@@ -477,18 +493,18 @@ function OverlapComposition() {
               <span>3 & 4 Dec 2026</span>
               <span>Kolkata, India</span>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
       <div className="relative left-1/2 -mt-24 hidden min-h-screen w-screen -translate-x-1/2 overflow-hidden px-5 pb-16 pt-32 text-center sm:px-8 lg:block lg:px-12 lg:text-left">
         <Image
-          alt="Rajshree and Deepesh sitting together and smiling"
-          className="object-cover object-[62%_50%]"
+          alt="Rajshree and Deepesh laughing together on a swing"
+          className="object-cover object-[55%_45%]"
           fill
           quality={92}
           sizes="100vw"
-          src={photos.wideCouple}
+          src={photos.heroSwingDesktop}
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(50,27,18,0.06)_0%,rgba(50,27,18,0.18)_54%,rgba(50,27,18,0.48)_100%)] lg:bg-[linear-gradient(90deg,rgba(50,27,18,0.56)_0%,rgba(50,27,18,0.34)_34%,rgba(50,27,18,0.08)_64%,rgba(50,27,18,0)_100%)]" />
         <div className="absolute inset-0 bg-[#b01838]/5" />
@@ -545,11 +561,13 @@ export function HeroCompositionSwitcher({
   eventsVersion,
   onHeroVariantChange,
   onEventsVersionChange,
+  showDesignControls = false,
 }: {
   activeVariant: VariantId;
   eventsVersion: EventsVersionId;
   onHeroVariantChange: (variant: VariantId) => void;
   onEventsVersionChange: (version: EventsVersionId) => void;
+  showDesignControls?: boolean;
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const currentVariant =
@@ -560,7 +578,7 @@ export function HeroCompositionSwitcher({
 
   return (
     <div className="relative mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center gap-6 py-10">
-      <div className="fixed bottom-4 right-4 z-[120] flex flex-col items-end sm:bottom-6 sm:right-6">
+      {showDesignControls ? <div className="fixed bottom-4 right-4 z-[120] flex flex-col items-end sm:bottom-6 sm:right-6">
         {isMenuOpen ? (
           <div
             className="mb-2 w-[min(88vw,22rem)] rounded-[1.15rem] border border-[#b01838]/12 bg-[#fff8ef]/90 p-2 shadow-[0_18px_48px_rgba(99,54,40,0.16)] backdrop-blur-md"
@@ -659,7 +677,7 @@ export function HeroCompositionSwitcher({
             <span className="rounded-full bg-current" />
           </span>
         </button>
-      </div>
+      </div> : null}
 
       <CompositionPreview activeVariant={activeVariant} />
     </div>

@@ -23,11 +23,7 @@ export function GatheringMessage() {
       aria-label={message}
       id="gathering-heading"
       ref={messageRef}
-      className="mx-auto mt-5 max-w-xl text-[2rem] leading-[1.36] text-[#4b2b20] sm:mt-6 sm:max-w-2xl sm:text-[2.35rem] sm:leading-[1.32]"
-      style={{
-        fontFamily:
-          '"Snell Roundhand", "Apple Chancery", "URW Chancery L", cursive',
-      }}
+      className="mx-auto mt-5 max-w-xl font-serif text-[2.3rem] font-medium leading-[1.16] text-[#4b2b20] sm:mt-6 sm:max-w-2xl sm:text-[3rem] sm:leading-[1.12]"
     >
       {lines.map((line, index) => (
         <motion.span

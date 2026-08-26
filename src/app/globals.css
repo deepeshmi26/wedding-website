@@ -1,22 +1,30 @@
 @import "tailwindcss";
+@import "@fontsource-variable/dm-sans";
+@import "@fontsource-variable/cormorant-garamond";
 
 :root {
-  --background: #fff8ef;
-  --foreground: #321b12;
+  --background: #f8f3ea;
+  --foreground: #39202b;
+  --paper: #fcf8f0;
+  --paper-deep: #efe3d3;
+  --rose: #842b45;
+  --rose-deep: #642238;
+  --saffron: #b88448;
+  --ink-muted: #704b4c;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
-  --font-serif: Georgia, "Times New Roman", serif;
+  --font-sans: "DM Sans Variable", "Segoe UI", Arial, sans-serif;
+  --font-serif: "Cormorant Garamond Variable", Georgia, serif;
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
+  font-family: "DM Sans Variable", "Segoe UI", Arial, sans-serif;
 }
 
 html {
@@ -24,6 +32,21 @@ html {
 }
 
 ::selection {
-  background: #d69b52;
-  color: #321b12;
+  background: #d9b981;
+  color: #39202b;
+}
+
+.paper-grain {
+  background-image:
+    radial-gradient(circle at 14% 19%, rgb(123 77 55 / 0.13) 0 0.55px, transparent 0.7px),
+    radial-gradient(circle at 72% 68%, rgb(123 77 55 / 0.08) 0 0.45px, transparent 0.62px);
+  background-size: 20px 20px, 27px 27px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
 }
