@@ -464,39 +464,86 @@ function OverlapComposition() {
     target: heroRef,
     offset: ["start start", "end end"],
   });
-  const desktopScaleX = useTransform(scrollYProgress, [0, 0.48, 1], [0.35, 0.66, 1.05]);
-  const desktopScaleY = useTransform(scrollYProgress, [0, 0.48, 1], [1, 1.02, 1.12]);
-  const desktopImageScale = useTransform(scrollYProgress, [0, 1], [1.08, 1]);
-  const mobileScale = useTransform(scrollYProgress, [0, 0.7, 1], [1, 1.1, 1.18]);
-  const mobileImageScale = useTransform(scrollYProgress, [0, 1], [1.05, 1]);
-  const copyOpacity = useTransform(scrollYProgress, [0, 0.38, 0.62], [1, 1, 0]);
-  const copyY = useTransform(scrollYProgress, [0, 0.62], [0, -32]);
+  const desktopImageScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  const mobileImageScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
 
   return (
-    <div ref={heroRef} className="relative -mt-[5.5rem] h-[175dvh] w-screen overflow-clip lg:h-[185dvh]">
-      <div className="sticky top-0 h-[100dvh] overflow-hidden bg-[#f8f3ea]">
-        <div aria-hidden="true" className="paper-grain pointer-events-none absolute inset-0 opacity-40" />
-        <motion.div className="absolute left-1/2 top-[7.25rem] h-[76dvh] w-[min(86vw,22rem)] -translate-x-1/2 overflow-hidden rounded-[0.75rem] bg-[#39202b] shadow-[0_24px_62px_rgba(57,32,43,0.22)] will-change-transform lg:hidden" style={shouldReduceMotion ? undefined : { scale: mobileScale }}>
-          <motion.div className="absolute inset-0 will-change-transform" style={shouldReduceMotion ? undefined : { scale: mobileImageScale }}>
-            <Image alt="Rajshree and Deepesh laughing together on a swing" className="object-cover object-[52%_48%]" fill priority quality={92} sizes="(max-width: 640px) 92vw, 352px" src={photos.heroSwing} />
+    <div
+      ref={heroRef}
+      className="relative left-1/2 -mt-10 h-[145dvh] w-screen -translate-x-1/2 overflow-clip lg:h-[165dvh]"
+    >
+      <div className="sticky top-0 h-[100dvh] overflow-hidden bg-[#321b12]">
+        <div className="relative h-full lg:hidden">
+          <motion.div
+            className="absolute inset-0 will-change-transform"
+            style={shouldReduceMotion ? undefined : { scale: mobileImageScale }}
+          >
+            <Image
+              alt="Rajshree and Deepesh sitting together and smiling"
+              className="object-cover object-[73%_50%]"
+              fill
+              priority
+              quality={92}
+              sizes="100vw"
+              src={photos.wideCouple}
+            />
           </motion.div>
-          <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,rgba(50,27,18,0.02)_20%,rgba(50,27,18,0.12)_52%,rgba(50,27,18,0.78)_100%)]" />
-        </motion.div>
-        <motion.div className="absolute left-1/2 top-[12%] hidden h-[75dvh] w-[min(90vw,76rem)] -translate-x-1/2 overflow-hidden rounded-[0.9rem] bg-[#39202b] shadow-[0_30px_76px_rgba(57,32,43,0.24)] will-change-transform lg:block" style={shouldReduceMotion ? undefined : { scaleX: desktopScaleX, scaleY: desktopScaleY }}>
-          <motion.div className="absolute inset-0 will-change-transform" style={shouldReduceMotion ? undefined : { scale: desktopImageScale }}>
-            <Image alt="Rajshree and Deepesh laughing together on a swing" className="object-cover object-[54%_45%]" fill priority quality={92} sizes="(max-width: 1280px) 90vw, 1216px" src={photos.heroSwingDesktop} />
+          <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,rgba(249,235,219,0.68)_0%,rgba(249,235,219,0.32)_3%,rgba(50,27,18,0.04)_8%,rgba(50,27,18,0.58)_76%,rgba(50,27,18,0.84)_100%)]" />
+          <div aria-hidden="true" className="absolute inset-0 bg-[#b01838]/5" />
+          <div className="relative z-10 flex min-h-[100dvh] items-end justify-center px-5 pb-5 pt-24 text-center sm:px-8">
+            <motion.div
+              className="w-full max-w-sm"
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 120, damping: 20, delay: 0.14 }}
+            >
+              <p className="mx-auto mb-4 max-w-[17rem] text-[0.58rem] font-bold uppercase tracking-[0.18em] text-[#ffd27d]">
+                Come for the vows and stay for the wedding
+              </p>
+              <h1
+                className="mx-auto flex max-w-full items-center justify-center gap-2 whitespace-nowrap font-normal text-[clamp(1.8rem,8.6vw,2.5rem)] leading-[1.1] tracking-[0.01em] text-[#fff8ef] [text-shadow:0_10px_34px_rgba(50,27,18,0.46)]"
+                style={{ fontFamily: '"Great Vibes", cursive' }}
+              >
+                <span>Rajshree</span>
+                <span className="text-[0.5em] text-[#ffd27d]">&amp;</span>
+                <span>Deepesh</span>
+              </h1>
+              <div className="mt-4 flex items-center justify-center gap-3">
+                <span className="h-px w-10 bg-[#ffd27d]" />
+                <span className="h-2 w-2 rounded-full bg-[#fff8ef]" />
+                <span className="h-px w-10 bg-[#ffd27d]" />
+              </div>
+              <div className="mt-4 flex flex-col items-center gap-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-[#ffe8c7]">
+                <span>3 &amp; 4 Dec 2026</span>
+                <span>Kolkata, India</span>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
+        <div className="relative hidden h-full lg:block">
+          <motion.div
+            className="absolute inset-0 will-change-transform"
+            style={shouldReduceMotion ? undefined : { scale: desktopImageScale }}
+          >
+            <Image
+              alt="Rajshree and Deepesh laughing together on a swing"
+              className="object-cover object-[55%_45%]"
+              fill
+              priority
+              quality={92}
+              sizes="100vw"
+              src={photos.heroSwingDesktop}
+            />
           </motion.div>
-          <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(90deg,rgba(50,27,18,0.62)_0%,rgba(50,27,18,0.26)_35%,rgba(50,27,18,0.04)_68%,rgba(50,27,18,0)_100%)]" />
-        </motion.div>
-        <motion.div className="absolute inset-x-5 bottom-10 z-10 text-center will-change-transform sm:inset-x-8 lg:hidden" style={shouldReduceMotion ? undefined : { opacity: copyOpacity, y: copyY }}>
-          <p className="mx-auto max-w-xs text-[0.58rem] font-bold uppercase tracking-[0.24em] text-[#ffd27d]">Come for the vows, stay for the dancing</p>
-          <WeddingNames className="mx-auto mt-4 max-w-xs text-[clamp(1.9rem,9.5vw,3rem)] text-[#fff8ef] [text-shadow:0_10px_34px_rgba(50,27,18,0.46)]" />
-          <div className="mt-5 flex items-center justify-center gap-3"><span className="h-px w-10 bg-[#ffd27d]" /><span className="h-2 w-2 rounded-full bg-[#fff8ef]" /><span className="h-px w-10 bg-[#ffd27d]" /></div>
-          <div className="mt-5 flex flex-col items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-[#ffe8c7]"><span>3 &amp; 4 Dec 2026</span><span>Kolkata, India</span></div>
-        </motion.div>
-        <motion.div className="absolute left-[max(3rem,calc((100vw-76rem)/2))] top-1/2 z-10 hidden w-[min(25rem,31vw)] -translate-y-1/2 will-change-transform lg:block" style={shouldReduceMotion ? undefined : { opacity: copyOpacity, y: copyY }}>
-          <HeroCopy compact tone="photo" />
-        </motion.div>
+          <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(90deg,rgba(50,27,18,0.56)_0%,rgba(50,27,18,0.34)_34%,rgba(50,27,18,0.08)_64%,rgba(50,27,18,0)_100%)]" />
+          <div aria-hidden="true" className="absolute inset-0 bg-[#b01838]/5" />
+          <div className="relative z-10 mx-auto flex min-h-[100dvh] max-w-6xl items-center px-12 pt-12">
+            <div className="max-w-[34rem]">
+              <HeroCopy compact tone="photo" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
