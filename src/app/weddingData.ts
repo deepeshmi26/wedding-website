@@ -11,7 +11,7 @@ export type WeddingEvent = {
 
 export const events: WeddingEvent[] = [
   {
-    name: "Sangeet and Engagement",
+    name: "Engagement & Sangeet",
     date: "3 December",
     time: "7:00 PM",
     place: "Peerlese Nagar, Sodepur, Kolkata",

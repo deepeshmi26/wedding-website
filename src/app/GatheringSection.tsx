@@ -1,58 +1,76 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { useRef } from "react";
 
-import { CountdownDisplay } from "./Countdown";
-import { GatheringMessage } from "./GatheringMessage";
+const kolkataImages = [
+  "/graphics/howrah-bridge-sunset-wash.jpeg",
+  "/graphics/kolkata-tram-wash.webp",
+  "/graphics/victoria-memorial-card.jpg",
+  "/graphics/dakshineswar-temple-wash.jpg",
+  "/graphics/howrah-bridge-card.jpg",
+];
+
+type KolkataStripProps = {
+  entryProgress: MotionValue<number>;
+  index: number;
+  shouldReduceMotion: boolean | null;
+  src: string;
+};
+
+function KolkataStrip({ entryProgress, index, shouldReduceMotion, src }: KolkataStripProps) {
+  const entryStart = 0.05 + index * 0.08;
+  const x = useTransform(entryProgress, [entryStart, entryStart + 0.27], [index % 2 === 0 ? "-110%" : "110%", "0%"]);
+
+  return (
+    <motion.div className="relative overflow-hidden will-change-transform" style={{ x: shouldReduceMotion ? "0%" : x }}>
+      <Image alt="" className="object-cover" fill sizes="100vw" src={src} />
+    </motion.div>
+  );
+}
 
 export function GatheringSection() {
+  const sectionRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end end"] });
+  const paperCoverY = useTransform(scrollYProgress, [0.68, 0.96], ["100%", "0%"]);
 
   return (
     <section
       aria-labelledby="gathering-heading"
-      className="relative overflow-hidden bg-[#f8f3ea] px-5 pb-12 pt-0 sm:min-h-[100dvh] sm:px-8 sm:pb-16 sm:pt-0 lg:px-12 lg:pb-20 lg:pt-0"
+      id="gathering"
+      ref={sectionRef}
+      className="relative isolate min-h-[200svh] bg-[#f8f3ea]"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute bottom-0 left-0 hidden w-[min(100vw,62rem)] opacity-60 sm:block"
-      >
-        <Image
-          src="/graphics/music-floral-frame-v1.png"
-          alt=""
-          width={1024}
-          height={1536}
-          className="h-auto w-full"
-          sizes="(max-width: 1024px) 100vw, 1024px"
-        />
-      </div>
-      <motion.div
-        className="relative z-10 mx-auto flex max-w-3xl items-start justify-center pt-0 text-center sm:min-h-[calc(100dvh-8rem)] sm:items-center"
-        initial={shouldReduceMotion ? false : { opacity: 0, y: 26 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ type: "spring", stiffness: 110, damping: 19 }}
-      >
-        <div className="flex w-full flex-col items-center gap-10 sm:gap-14">
-          <div className="flex w-full justify-center">
-            <CountdownDisplay />
-          </div>
-          <div className="relative w-full sm:flex sm:min-h-[15rem] sm:items-center sm:justify-center">
-            <Image
-              src="/graphics/music-floral-frame-v1.png"
-              alt=""
-              width={1024}
-              height={1536}
-              className="mr-auto h-auto w-[calc(100%-2rem)] opacity-60 sm:hidden"
-              sizes="(max-width: 639px) calc(100vw - 72px), 0px"
+      <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden">
+        <div aria-hidden="true" className="absolute inset-0 grid grid-rows-5">
+          {kolkataImages.map((src, index) => (
+            <KolkataStrip
+              entryProgress={scrollYProgress}
+              index={index}
+              key={src}
+              shouldReduceMotion={shouldReduceMotion}
+              src={src}
             />
-            <div className="absolute right-[3%] top-[2%] w-[74%] sm:static sm:w-auto">
-              <GatheringMessage />
-            </div>
-          </div>
+          ))}
         </div>
-      </motion.div>
+
+        <motion.div
+          className="absolute inset-0 z-[5] flex items-center justify-center bg-[linear-gradient(180deg,rgba(248,243,234,0)_0%,rgba(248,243,234,0.18)_12%,rgba(248,243,234,0.78)_42%,rgba(248,243,234,0.78)_72%,rgba(248,243,234,0.22)_92%,rgba(248,243,234,0)_100%)] px-5 text-center will-change-transform sm:px-12"
+          style={{ y: shouldReduceMotion ? "100%" : paperCoverY }}
+        >
+          <div>
+            <h2 id="gathering-heading" className="font-serif text-6xl font-semibold italic leading-none tracking-normal text-[#592537] sm:text-7xl md:text-8xl lg:text-9xl">
+              <span className="block">An invitation</span>
+              <span className="block">to Bengal</span>
+            </h2>
+            <p className="mx-auto mt-8 max-w-xl font-serif text-xl leading-relaxed text-[#5d3b38] sm:mt-10 sm:text-2xl">
+              We are gathering our favourite people for music, food, happy chaos, loud laughter, and a weekend that feels like one big family party.
+            </p>
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }

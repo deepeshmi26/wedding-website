@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { CountdownSection } from "./CountdownSection";
+import { OurJourneySection } from "./OurJourneySection";
 import { EventsSection } from "./EventsSection";
 import { GatheringSection } from "./GatheringSection";
 import { HeroSection } from "./HeroSection";
@@ -15,15 +17,17 @@ export default function Home() {
   const [eventsVersion, setEventsVersion] = useState<EventsVersionId>("v3");
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[#fff4e1] text-[#321b12]">
+    <main className="min-h-screen overflow-x-clip bg-[#fff4e1] text-[#321b12]">
       <HeroSection
         heroVariant={heroVariant}
         eventsVersion={eventsVersion}
         onHeroVariantChange={setHeroVariant}
         onEventsVersionChange={setEventsVersion}
       />
+      <CountdownSection />
       <GatheringSection />
       <StorySection />
+      <OurJourneySection />
       <EventsSection version={eventsVersion} />
       <SaveTheDateSection />
       <RsvpSection />

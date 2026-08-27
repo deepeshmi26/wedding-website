@@ -74,62 +74,50 @@ export function EventsCardVariants({
                   </p>
                 </div>
 
-                <div className="relative flex items-center overflow-hidden bg-transparent px-6 py-8 sm:px-12 md:bg-[linear-gradient(145deg,#7d1d3b_0%,#58102a_100%)] md:px-14 lg:px-16">
+                <div className="relative flex items-start overflow-hidden bg-transparent px-6 pb-8 pt-16 sm:px-12 md:items-center md:bg-[linear-gradient(145deg,#7d1d3b_0%,#58102a_100%)] md:px-14 md:py-8 lg:px-16">
                   <div aria-hidden="true" className="absolute inset-0 opacity-[0.09] [background-size:20px_20px,29px_29px] bg-[radial-gradient(circle_at_18%_22%,rgba(240,198,125,0.46)_0_0.6px,transparent_0.7px),radial-gradient(circle_at_76%_74%,rgba(255,248,239,0.22)_0_0.45px,transparent_0.65px)] md:opacity-[0.13]" />
                   <div aria-hidden="true" className="absolute bottom-0 left-0 top-0 hidden w-px bg-[linear-gradient(180deg,transparent,rgba(240,198,125,0.55),transparent)] md:block" />
                   <div className="relative w-full md:hidden">
-                    <h3 className={`text-center font-serif leading-[0.85] text-[#fff8ef] [text-shadow:0_2px_18px_rgba(0,0,0,0.82)] ${event.name.length > 16 ? "text-4xl sm:text-5xl" : "text-5xl"}`}>
+                    <h3 className={`font-great-vibes mx-auto max-w-[19rem] text-center font-normal tracking-normal text-[#f0c67d] [text-shadow:0_2px_18px_rgba(0,0,0,0.82)] ${event.name.length > 16 ? "text-[3.25rem] leading-[1.08] sm:text-[3.8rem]" : "text-[3.75rem] leading-[0.92]"}`}>
                       {event.name}
                     </h3>
-                    <p className="mt-1 text-center font-serif text-3xl italic leading-none text-[#f0c67d] [text-shadow:0_0_18px_rgba(240,198,125,0.3)]">
-                      Ceremony
-                    </p>
-                    <div className="mt-7">
-                      <div className="grid grid-cols-[auto_auto_auto] items-center justify-center gap-4">
-                        <span className="justify-self-center font-serif text-[4.5rem] font-light leading-none tracking-wide text-[#fff8ef] [font-variant-numeric:lining-nums] [text-shadow:0_0_36px_rgba(240,198,125,0.3),0_2px_18px_rgba(0,0,0,0.88)]">
-                          {event.date.split(" ")[0].padStart(2, "0")}
-                        </span>
-                        <span aria-hidden="true" className="h-12 w-px self-center bg-[#f0c67d]/55" />
-                        <div className="justify-self-center text-center">
-                          <p className="font-serif text-xl font-medium leading-none tracking-[0.2em] text-[#fff8ef]">
-                            DECEMBER
-                          </p>
-                          <p className="mt-2 text-[0.58rem] font-semibold uppercase tracking-[0.22em] text-[#f0c67d]/80">2026</p>
-                        </div>
-                      </div>
+                    <div className="mt-8">
+                      <p className="text-center font-serif text-[1.35rem] font-medium leading-none tracking-[0.08em] text-[#fff8ef] [font-variant-numeric:lining-nums]">
+                        {event.date.split(" ")[0].padStart(2, "0")} {event.date.split(" ")[1]} 2026
+                      </p>
                     </div>
-                    <div className="mx-auto my-5 flex w-44 items-center gap-3">
+                    <div className="mx-auto my-4 flex w-40 items-center gap-3">
                       <span className="h-px flex-1 bg-gradient-to-r from-transparent to-[#f0c67d]/45" />
                       <span aria-hidden="true" className="text-[0.58rem] tracking-[0.28em] text-[#f0c67d]/70">✦ ✦ ✦</span>
                       <span className="h-px flex-1 bg-gradient-to-l from-transparent to-[#f0c67d]/45" />
                     </div>
                     <div className="text-center">
-                      <p className="text-[0.55rem] font-semibold uppercase tracking-[0.45em] text-[#f0c67d]/55">Time</p>
-                      <p className="mt-2.5 font-serif text-5xl font-light leading-none tracking-[0.12em] text-[#fff8ef] [font-variant-numeric:lining-nums] [text-shadow:0_0_36px_rgba(240,198,125,0.3),0_2px_18px_rgba(0,0,0,0.88)]">{event.time}</p>
+                      <p className="text-[0.58rem] font-semibold uppercase tracking-[0.28em] text-[#f0c67d]/75">Time</p>
+                      <p className="mt-2.5 font-serif text-[1.35rem] font-medium leading-none tracking-[0.04em] text-[#fff8ef] [font-variant-numeric:lining-nums] [text-shadow:0_0_18px_rgba(240,198,125,0.16),0_2px_18px_rgba(0,0,0,0.88)]">{event.time}</p>
                     </div>
-                    <div className="mx-auto my-5 flex w-44 items-center gap-3">
+                    <div className="mx-auto my-4 flex w-40 items-center gap-3">
                       <span className="h-px flex-1 bg-gradient-to-r from-transparent to-[#f0c67d]/45" />
                       <span aria-hidden="true" className="text-[0.58rem] tracking-[0.28em] text-[#f0c67d]/70">✦ ✦ ✦</span>
                       <span className="h-px flex-1 bg-gradient-to-l from-transparent to-[#f0c67d]/45" />
                     </div>
                     <div className="text-center">
-                      <p className="text-[0.55rem] font-semibold uppercase tracking-[0.45em] text-[#f0c67d]/55">Venue</p>
-                      <a href={event.mapUrl} target="_blank" rel="noreferrer" className="mt-2.5 block font-serif text-xl font-medium tracking-wide text-[#fff8ef] [text-shadow:0_0_20px_rgba(240,198,125,0.25)] transition hover:text-[#f0c67d]">
+                      <p className="text-[0.58rem] font-semibold uppercase tracking-[0.28em] text-[#f0c67d]/75">Venue</p>
+                      <a href={event.mapUrl} target="_blank" rel="noreferrer" className="mx-auto mt-2.5 block max-w-[18rem] font-serif text-[1.35rem] font-medium leading-[1.35] tracking-normal text-[#fff8ef] [text-shadow:0_0_18px_rgba(240,198,125,0.16)] transition hover:text-[#f0c67d]">
                         {event.place}
                       </a>
                     </div>
-                    <a href={event.mapUrl} target="_blank" rel="noreferrer" className="mx-auto mt-5 flex w-fit border-b border-[#f0c67d]/35 pb-1 text-[0.62rem] font-semibold uppercase tracking-[0.26em] text-[#f0c67d]/80 transition hover:border-[#f0c67d] hover:text-[#f0c67d]">
+                    <a href={event.mapUrl} target="_blank" rel="noreferrer" className="mx-auto mt-6 flex w-fit border-b border-[#f0c67d]/45 pb-1 text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#f0c67d] transition hover:border-[#f0c67d] hover:text-[#f0c67d]">
                       Get directions &rarr;
                     </a>
-                    {index < 2 && event.dressCodeColors?.length ? (
+                    {index === 1 && event.dressCodeColors?.length ? (
                       <>
-                        <div className="mx-auto my-5 flex w-44 items-center gap-3">
+                        <div className="mx-auto my-4 flex w-40 items-center gap-3">
                           <span className="h-px flex-1 bg-gradient-to-r from-transparent to-[#f0c67d]/45" />
                           <span aria-hidden="true" className="text-[0.58rem] tracking-[0.28em] text-[#f0c67d]/70">✦ ✦ ✦</span>
                           <span className="h-px flex-1 bg-gradient-to-l from-transparent to-[#f0c67d]/45" />
                         </div>
                         <div className="text-center">
-                          <p className="text-[0.55rem] font-semibold uppercase tracking-[0.34em] text-[#f0c67d]/80">
+                          <p className="text-[0.58rem] font-semibold uppercase tracking-[0.24em] text-[#f0c67d]/75">
                             Dress code
                           </p>
                           <div className="mt-3 flex items-center justify-center gap-3">
