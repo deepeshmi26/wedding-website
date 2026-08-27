@@ -293,8 +293,8 @@ export function JourneyTrail({ className }: JourneyTrailProps) {
 
     const updateScrollProgress = () => {
       const bounds = canvas.getBoundingClientRect();
-      const startLine = window.innerHeight * 0.75;
-      const endLine = window.innerHeight * 0.5;
+      const startLine = window.innerHeight * 0.25;
+      const endLine = window.innerHeight * 0.25;
       const travelDistance = bounds.height + startLine - endLine;
 
       scrollProgress = Math.min(Math.max((startLine - bounds.top) / travelDistance, 0), 1);

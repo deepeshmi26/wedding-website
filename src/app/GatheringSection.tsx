@@ -34,7 +34,7 @@ export function GatheringSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end end"] });
-  const paperCoverY = useTransform(scrollYProgress, [0.68, 0.96], ["100%", "0%"]);
+  const paperCoverY = useTransform(scrollYProgress, [0.48, 1], ["100%", "0%"]);
 
   return (
     <section
@@ -65,7 +65,7 @@ export function GatheringSection() {
               <span className="block">An invitation</span>
               <span className="block">to Bengal</span>
             </h2>
-            <p className="mx-auto mt-8 max-w-xl font-serif text-xl leading-relaxed text-[#5d3b38] sm:mt-10 sm:text-2xl">
+            <p className="mx-auto mt-8 max-w-xl font-serif text-2xl font-medium leading-relaxed text-[#5d3b38] sm:mt-10 sm:text-3xl">
               We are gathering our favourite people for music, food, happy chaos, loud laughter, and a weekend that feels like one big family party.
             </p>
           </div>
