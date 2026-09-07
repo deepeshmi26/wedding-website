@@ -31,6 +31,14 @@ export default function Home() {
       <EventsSection version={eventsVersion} />
       <SaveTheDateSection />
       <RsvpSection />
+      <footer className="bg-[#f1e7da] px-5 pb-10 pt-1 text-center sm:px-8 sm:pb-12">
+        <p className="font-serif text-base italic text-[#7a4b42] sm:text-lg">
+          <span className="block">
+            Made with <span aria-label="love">❤️</span>
+          </span>
+          <span className="block">by Deepesh &amp; Rajshree</span>
+        </p>
+      </footer>
     </main>
   );
 }
