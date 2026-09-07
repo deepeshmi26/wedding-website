@@ -1,11 +1,16 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 type Point = { x: number; y: number };
-type JourneyLabel = {
+type ArcLengthMap = {
+  samples: Array<{ distance: number; progress: number }>;
+  totalDistance: number;
+};
+type JourneyMoment = {
   kicker: string;
-  lines: [string, string];
+  copy: string;
   align: "left" | "right" | "center";
   offsetX: number;
   offsetY: number;
@@ -13,51 +18,43 @@ type JourneyLabel = {
 
 // Every curve after the first adds two handles and a new endpoint.
 const initialPoints: Point[] = [
-  { x: 0.03, y: 0.0693 },
-  { x: 0.107, y: 0.1237 },
-  { x: 0.6449, y: 0.03 },
-  { x: 0.8031, y: 0.1178 },
-  { x: 0.8432, y: 0.2304 },
-  { x: 0.3768, y: 0.1513 },
-  { x: 0.2627, y: 0.196 },
-  { x: 0.1448, y: 0.3105 },
-  { x: 0.3875, y: 0.2519 },
-  { x: 0.7912, y: 0.2737 },
-  { x: 0.97, y: 0.3307 },
-  { x: 0.1795, y: 0.5139 },
-  { x: 0.1933, y: 0.3923 },
-  { x: 0.3773, y: 0.3263 },
-  { x: 0.877, y: 0.4223 },
-  { x: 0.6392, y: 0.4538 },
-  { x: 0.275, y: 0.5298 },
-  { x: 0.0311, y: 0.6368 },
-  { x: 0.2377, y: 0.6875 },
-  { x: 0.7367, y: 0.6659 },
-  { x: 0.415, y: 0.83 },
-  { x: 0.68, y: 0.82 },
-  { x: 0.94, y: 0.8 },
-  { x: 0.7506, y: 0.9156 },
-  { x: 0.4, y: 0.88 },
-  { x: 0.1235, y: 0.9352 },
-  { x: 0.2316, y: 0.97 },
-  { x: 0.92, y: 0.97 },
+  { x: 0.1576, y: 0.06 },
+  { x: 0.0463, y: 0.1304 },
+  { x: 0.8579, y: 0.0458 },
+  { x: 0.8506, y: 0.1578 },
+  { x: 0.7857, y: 0.2914 },
+  { x: 0.3768, y: 0.2072 },
+  { x: 0.2627, y: 0.2556 },
+  { x: 0.1448, y: 0.3809 },
+  { x: 0.3875, y: 0.3259 },
+  { x: 0.7912, y: 0.3533 },
+  { x: 0.97, y: 0.396 },
+  { x: 0.2485, y: 0.3945 },
+  { x: 0.3411, y: 0.4511 },
+  { x: 0.3552, y: 0.5075 },
+  { x: 0.877, y: 0.4865 },
+  { x: 0.6392, y: 0.5489 },
+  { x: 0.275, y: 0.5985 },
+  { x: 0.1718, y: 0.6254 },
+  { x: 0.3977, y: 0.6467 },
+  { x: 0.7367, y: 0.6748 },
+  { x: 0.415, y: 0.7627 },
+  { x: 0.68, y: 0.7444 },
+  { x: 0.94, y: 0.7354 },
+  { x: 0.7506, y: 0.8849 },
+  { x: 0.5154, y: 0.8422 },
+  { x: 0.093, y: 0.8218 },
+  { x: 0.2316, y: 0.94 },
+  { x: 0.92, y: 0.94 },
 ];
 
 const curveCount = (initialPoints.length - 1) / 3;
+const routeIntroProgress = 0.08;
 const showEditorGuides = false;
 const showTram = true;
 const isEditable = false;
-const journeyLabels: Array<JourneyLabel | null> = [
-  { kicker: "Before the plot twist", lines: ["Living our own", "rocking lives."], align: "left", offsetX: 16, offsetY: -46 },
-  { kicker: "First call", lines: ["Two hours", "just vanished."], align: "right", offsetX: -16, offsetY: 14 },
-  { kicker: "First date", lines: ["Two hungry birds", "finally met."], align: "left", offsetX: 16, offsetY: 14 },
-  { kicker: "The next day", lines: ["So we met", "again."], align: "right", offsetX: -16, offsetY: 14 },
-  { kicker: "Somewhere between", lines: ["What the hell", "is love?"], align: "center", offsetX: 0, offsetY: 16 },
-  { kicker: "One month later", lines: ["We were", "in love."], align: "left", offsetX: 16, offsetY: 14 },
-  { kicker: "Test of time", lines: ["Ultraaa long", "distance calls."], align: "center", offsetX: 0, offsetY: 16 },
-  { kicker: "Big reveal", lines: ["We told", "our parents."], align: "left", offsetX: 16, offsetY: -46 },
-  { kicker: "Right now", lines: ["You are", "reading this."], align: "right", offsetX: -16, offsetY: -20 },
-  { kicker: "Future", lines: ["See yaa at", "the wedding."], align: "right", offsetX: -16, offsetY: -54 },
+const journeyMomentLayout: Array<Omit<JourneyMoment, "kicker" | "copy">> = [
+  { align: "left", offsetX: 44, offsetY: 56 }, { align: "right", offsetX: -16, offsetY: 14 }, { align: "left", offsetX: 16, offsetY: 14 }, { align: "right", offsetX: -16, offsetY: 14 }, { align: "left", offsetX: 16, offsetY: 16 }, { align: "right", offsetX: 0, offsetY: 14 }, { align: "left", offsetX: 0, offsetY: 16 }, { align: "right", offsetX: 0, offsetY: -46 }, { align: "center", offsetX: 0, offsetY: -150 }, { align: "right", offsetX: -16, offsetY: 60 }
 ];
 
 function cubicPointAt(start: Point, controlOne: Point, controlTwo: Point, end: Point, progress: number): Point {
@@ -88,14 +85,58 @@ function curvePositionAt(progress: number) {
   };
 }
 
-function tramProgressAt(progress: number) {
-  return Math.min(Math.max(progress, 0), 1);
+function createArcLengthMap(points: Point[], width: number, height: number): ArcLengthMap {
+  const samples: ArcLengthMap["samples"] = [{ distance: 0, progress: 0 }];
+  let distance = 0;
+  let previous = { x: points[0].x * width, y: points[0].y * height };
+
+  for (let curveIndex = 0; curveIndex < curveCount; curveIndex += 1) {
+    const pointIndex = curveIndex * 3;
+    const start = points[pointIndex];
+    const controlOne = points[pointIndex + 1];
+    const controlTwo = points[pointIndex + 2];
+    const end = points[pointIndex + 3];
+
+    for (let step = 1; step <= 96; step += 1) {
+      const curveProgress = step / 96;
+      const point = cubicPointAt(start, controlOne, controlTwo, end, curveProgress);
+      const scaled = { x: point.x * width, y: point.y * height };
+      distance += Math.hypot(scaled.x - previous.x, scaled.y - previous.y);
+      samples.push({ distance, progress: (curveIndex + curveProgress) / curveCount });
+      previous = scaled;
+    }
+  }
+
+  return { samples, totalDistance: distance };
 }
 
-function stationArrivalAt(progress: number) {
-  const nearestStation = Math.round(Math.min(Math.max(progress, 0), 1) * curveCount) / curveCount;
+function routeProgressAtDistance(map: ArcLengthMap, distanceProgress: number) {
+  const targetDistance = Math.min(Math.max(distanceProgress, 0), 1) * map.totalDistance;
+  const sampleIndex = map.samples.findIndex((sample) => sample.distance >= targetDistance);
+  if (sampleIndex === -1) return map.samples.at(-1)?.progress ?? 1;
+  if (sampleIndex <= 0) return map.samples[0].progress;
 
-  return Math.max(0, 1 - Math.abs(progress - nearestStation) / 0.035);
+  const previous = map.samples[sampleIndex - 1];
+  const next = map.samples[sampleIndex] ?? previous;
+  const segmentDistance = next.distance - previous.distance;
+  const segmentProgress = segmentDistance === 0 ? 0 : (targetDistance - previous.distance) / segmentDistance;
+
+  return previous.progress + (next.progress - previous.progress) * segmentProgress;
+}
+
+function distanceProgressAtRoute(map: ArcLengthMap, routeProgress: number) {
+  const sampleIndex = map.samples.findIndex((sample) => sample.progress >= routeProgress);
+  if (sampleIndex <= 0 || map.totalDistance === 0) return 0;
+
+  const previous = map.samples[sampleIndex - 1];
+  const next = map.samples[sampleIndex] ?? previous;
+  const segmentProgress = next.progress === previous.progress ? 0 : (routeProgress - previous.progress) / (next.progress - previous.progress);
+
+  return (previous.distance + (next.distance - previous.distance) * segmentProgress) / map.totalDistance;
+}
+
+function stationArrivalAt(progress: number, stationProgresses: number[]) {
+  return Math.max(...stationProgresses.map((stationProgress) => Math.max(0, 1 - Math.abs(progress - stationProgress) / 0.035)));
 }
 
 function pointAt(points: Point[], progress: number): Point {
@@ -122,8 +163,39 @@ function tangentAt(points: Point[], progress: number): Point {
   );
 }
 
+function drawRouteUntil(context: CanvasRenderingContext2D, points: Point[], progress: number) {
+  const { pointIndex, progress: curveProgress } = curvePositionAt(progress);
+
+  context.beginPath();
+  context.moveTo(points[0].x, points[0].y);
+
+  for (let curveIndex = 0; curveIndex < curveCount; curveIndex += 1) {
+    const curvePointIndex = curveIndex * 3;
+    const start = points[curvePointIndex];
+    const controlOne = points[curvePointIndex + 1];
+    const controlTwo = points[curvePointIndex + 2];
+    const end = points[curvePointIndex + 3];
+
+    if (curvePointIndex < pointIndex) {
+      context.bezierCurveTo(controlOne.x, controlOne.y, controlTwo.x, controlTwo.y, end.x, end.y);
+      continue;
+    }
+
+    if (curvePointIndex === pointIndex) {
+      const steps = Math.max(1, Math.ceil(curveProgress * 28));
+      for (let step = 1; step <= steps; step += 1) {
+        const point = cubicPointAt(start, controlOne, controlTwo, end, (curveProgress * step) / steps);
+        context.lineTo(point.x, point.y);
+      }
+    }
+    break;
+  }
+
+  context.stroke();
+}
+
 function drawTram(context: CanvasRenderingContext2D, image: HTMLImageElement, x: number, y: number, angle: number, width: number, scale: number) {
-  const tramWidth = Math.min(Math.max(width * 0.15, 52), 76) * scale;
+  const tramWidth = Math.min(Math.max(width * 0.17, 58), 86) * scale;
   const tramHeight = tramWidth * 0.76;
 
   context.save();
@@ -134,56 +206,32 @@ function drawTram(context: CanvasRenderingContext2D, image: HTMLImageElement, x:
   context.restore();
 }
 
-function drawJourneyLabel(context: CanvasRenderingContext2D, label: JourneyLabel, anchor: Point, fontSize: number, arrival: number) {
-  const kickerSize = Math.max(fontSize * 0.58, 9);
-  const lineHeight = fontSize * 0.98;
-
-  context.textAlign = "left";
-  context.font = `700 ${kickerSize}px Arial, sans-serif`;
-  const kickerWidth = context.measureText(label.kicker.toUpperCase()).width;
-  context.font = `600 ${fontSize}px "Cormorant Garamond Variable", Georgia, serif`;
-  const copyWidth = Math.max(...label.lines.map((line) => context.measureText(line).width));
-  const labelWidth = Math.max(kickerWidth, copyWidth);
-  const labelX =
-    label.align === "left"
-      ? anchor.x + label.offsetX
-      : label.align === "right"
-        ? anchor.x + label.offsetX - labelWidth
-        : anchor.x + label.offsetX - labelWidth / 2;
-  const labelY = anchor.y + label.offsetY;
-
-  context.fillStyle = arrival > 0 ? "#c8424d" : "#b86b3f";
-  context.font = `700 ${kickerSize}px Arial, sans-serif`;
-  context.textBaseline = "top";
-  context.fillText(label.kicker.toUpperCase(), labelX, labelY);
-  context.fillRect(labelX, labelY + kickerSize + 2, Math.min(labelWidth, 28), 1);
-
-  context.fillStyle = "#2f1723";
-  context.font = `600 ${fontSize}px "Cormorant Garamond Variable", Georgia, serif`;
-  context.shadowColor = arrival > 0 ? `rgba(245, 53, 69, ${0.68 * arrival})` : "rgba(248, 243, 234, 0.98)";
-  context.shadowBlur = arrival > 0 ? 10 + arrival * 11 : 9;
-  context.fillText(label.lines[0], labelX, labelY + kickerSize + 7);
-  context.fillText(label.lines[1], labelX, labelY + kickerSize + 7 + lineHeight);
-  context.shadowColor = "transparent";
-  context.shadowBlur = 0;
-}
-
 type JourneyTrailProps = {
   className?: string;
 };
 
 export function JourneyTrail({ className }: JourneyTrailProps) {
+  const t = useTranslations();
+  const journeyMoments = useMemo(() => {
+    const copy = t.raw("journey.moments") as Array<Pick<JourneyMoment, "kicker" | "copy">>;
+    return journeyMomentLayout.map((layout, index) => ({ ...layout, ...copy[index] }));
+  }, [t]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const trackRef = useRef<HTMLOListElement>(null);
+  const [revealedStation, setRevealedStation] = useState(0);
+  const [isOpeningMomentVisible, setIsOpeningMomentVisible] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const scrollRoot = canvas?.closest<HTMLElement>("[data-journey-scroll]");
+    if (!canvas || !scrollRoot) return;
 
     const points = initialPoints.map((point) => ({ ...point }));
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const tramImage = new Image();
     let activePoint = -1;
     let scrollProgress = 0;
+    let routeProgress = 0;
 
     const draw = () => {
       const context = canvas.getContext("2d");
@@ -196,9 +244,24 @@ export function JourneyTrail({ className }: JourneyTrailProps) {
       context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
       context.clearRect(0, 0, width, height);
 
-      const scaled = points.map((point) => ({ x: point.x * width, y: point.y * height }));
-      const trainProgress = reducedMotion ? 0 : scrollProgress;
-      const tramProgress = tramProgressAt(trainProgress);
+      const trackHeight = height * (width < 768 ? 5.5 : 4.5);
+      const distanceProgress = reducedMotion ? 1 : Math.max(routeProgress, 0.01);
+      const arcLengthMap = createArcLengthMap(points, width, trackHeight);
+      const revealedProgress = routeProgressAtDistance(arcLengthMap, distanceProgress);
+      const tramProgress = reducedMotion ? 0 : revealedProgress;
+      const tramDistanceProgress = reducedMotion ? 0 : distanceProgress;
+      const stationProgresses = Array.from({ length: curveCount + 1 }, (_, index) => distanceProgressAtRoute(arcLengthMap, index / curveCount));
+      const traveler = pointAt(points, tramProgress);
+      const trackOffset = height * 0.33 - traveler.y * trackHeight;
+      const scaled = points.map((point) => ({ x: point.x * width, y: point.y * trackHeight }));
+
+      if (trackRef.current) {
+        trackRef.current.style.height = `${trackHeight}px`;
+        trackRef.current.style.transform = `translate3d(0, ${trackOffset}px, 0)`;
+      }
+
+      context.save();
+      context.translate(0, trackOffset);
 
       if (showEditorGuides) {
         context.strokeStyle = "rgba(184, 132, 72, 0.42)";
@@ -224,23 +287,22 @@ export function JourneyTrail({ className }: JourneyTrailProps) {
       context.lineWidth = 2;
       context.setLineDash([6, 10]);
       context.lineCap = "round";
-      context.beginPath();
-      context.moveTo(scaled[0].x, scaled[0].y);
-      for (let curveIndex = 0; curveIndex < curveCount; curveIndex += 1) {
-        const pointIndex = curveIndex * 3;
-        const controlOne = scaled[pointIndex + 1];
-        const controlTwo = scaled[pointIndex + 2];
-        const end = scaled[pointIndex + 3];
-        context.bezierCurveTo(controlOne.x, controlOne.y, controlTwo.x, controlTwo.y, end.x, end.y);
-      }
-      context.stroke();
+      drawRouteUntil(context, scaled, 1);
+
+      context.strokeStyle = "#842b45";
+      context.lineWidth = 2;
+      context.setLineDash([6, 10]);
+      context.lineCap = "round";
+      drawRouteUntil(context, scaled, revealedProgress);
 
       context.setLineDash([]);
       scaled.forEach((point, index) => {
         const isAnchor = index % 3 === 0;
         if (!isAnchor && !showEditorGuides) return;
-        const stationProgress = isAnchor ? index / (3 * curveCount) : 0;
-        const arrival = isAnchor ? Math.max(0, 1 - Math.abs(tramProgress - stationProgress) / 0.035) : 0;
+        const stationProgress = isAnchor ? stationProgresses[index / 3] : 0;
+        const arrival = isAnchor ? Math.max(0, 1 - Math.abs(tramDistanceProgress - stationProgress) / 0.035) : 0;
+
+        context.globalAlpha = 1;
 
         if (arrival > 0) {
           const glowRadius = 10 + arrival * 20;
@@ -272,37 +334,34 @@ export function JourneyTrail({ className }: JourneyTrailProps) {
           context.arc(point.x, point.y, 1.25, 0, Math.PI * 2);
           context.fill();
         }
-      });
 
-      const labelFontSize = Math.min(Math.max(width * 0.044, 15), 21);
-      journeyLabels.forEach((label, index) => {
-        if (!label) return;
-        const anchor = scaled[index * 3];
-        const stationProgress = index / curveCount;
-        const arrival = Math.max(0, 1 - Math.abs(tramProgress - stationProgress) / 0.035);
-        drawJourneyLabel(context, label, anchor, labelFontSize, arrival);
+        context.globalAlpha = 1;
       });
 
       if (showTram && tramImage.complete && tramImage.naturalWidth > 0) {
-        const traveler = pointAt(points, tramProgress);
         const tangent = tangentAt(points, tramProgress);
-        const angle = Math.atan2(tangent.y * height, tangent.x * width);
-        drawTram(context, tramImage, traveler.x * width, traveler.y * height, angle, width, 1 + stationArrivalAt(tramProgress) * 0.08);
+        const angle = Math.atan2(tangent.y * trackHeight, tangent.x * width);
+        drawTram(context, tramImage, traveler.x * width, traveler.y * trackHeight, angle, width, 1 + stationArrivalAt(tramDistanceProgress, stationProgresses) * 0.08);
       }
+
+      context.restore();
     };
 
     const updateScrollProgress = () => {
-      const bounds = canvas.getBoundingClientRect();
-      const startLine = window.innerHeight * 0.25;
-      const endLine = window.innerHeight * 0.25;
-      const travelDistance = bounds.height + startLine - endLine;
+      const bounds = scrollRoot.getBoundingClientRect();
+      const travelDistance = bounds.height - window.innerHeight;
 
-      scrollProgress = Math.min(Math.max((startLine - bounds.top) / travelDistance, 0), 1);
+      scrollProgress = travelDistance > 0 ? Math.min(Math.max(-bounds.top / travelDistance, 0), 1) : 0;
+      routeProgress = reducedMotion ? 1 : Math.max((scrollProgress - routeIntroProgress) / (1 - routeIntroProgress), 0);
+      const nextRevealedStation = reducedMotion ? curveCount : Math.floor(Math.min(routeProgress + 0.035, 1) * curveCount);
+      setRevealedStation((current) => (current === nextRevealedStation ? current : nextRevealedStation));
+      setIsOpeningMomentVisible(reducedMotion || scrollProgress >= routeIntroProgress);
       draw();
     };
 
     const resizeObserver = new ResizeObserver(updateScrollProgress);
     resizeObserver.observe(canvas);
+    resizeObserver.observe(scrollRoot);
     window.addEventListener("scroll", updateScrollProgress, { passive: true });
     tramImage.addEventListener("load", updateScrollProgress);
     tramImage.src = "/graphics/kolkata-tram-journey.png";
@@ -310,7 +369,19 @@ export function JourneyTrail({ className }: JourneyTrailProps) {
 
     const pointFromEvent = (event: PointerEvent) => {
       const bounds = canvas.getBoundingClientRect();
-      return { x: (event.clientX - bounds.left) / bounds.width, y: (event.clientY - bounds.top) / bounds.height };
+      const trackHeight = bounds.height * (bounds.width < 768 ? 5.5 : 4.5);
+      const distanceProgress = reducedMotion ? 1 : Math.max(routeProgress, 0.01);
+      const arcLengthMap = createArcLengthMap(points, bounds.width, trackHeight);
+      const tramProgress = reducedMotion ? 0 : routeProgressAtDistance(arcLengthMap, distanceProgress);
+      const traveler = pointAt(points, tramProgress);
+      const trackOffset = bounds.height * 0.33 - traveler.y * trackHeight;
+
+      return {
+        trackHeight,
+        width: bounds.width,
+        x: event.clientX - bounds.left,
+        y: event.clientY - bounds.top - trackOffset,
+      };
     };
 
     const logPoints = () => {
@@ -323,7 +394,7 @@ export function JourneyTrail({ className }: JourneyTrailProps) {
 
     const onPointerDown = (event: PointerEvent) => {
       const pointer = pointFromEvent(event);
-      activePoint = points.findIndex((point) => Math.hypot(point.x - pointer.x, point.y - pointer.y) < 0.06);
+      activePoint = points.findIndex((point) => Math.hypot(point.x * pointer.width - pointer.x, point.y * pointer.trackHeight - pointer.y) < 30);
       if (activePoint !== -1) canvas.setPointerCapture(event.pointerId);
     };
 
@@ -331,8 +402,8 @@ export function JourneyTrail({ className }: JourneyTrailProps) {
       if (activePoint === -1) return;
       const pointer = pointFromEvent(event);
       points[activePoint] = {
-        x: Math.min(Math.max(pointer.x, 0.03), 0.97),
-        y: Math.min(Math.max(pointer.y, 0.03), 0.97),
+        x: Math.min(Math.max(pointer.x / pointer.width, 0.03), 0.97),
+        y: Math.min(Math.max(pointer.y / pointer.trackHeight, 0.03), 0.97),
       };
       draw();
     };
@@ -363,7 +434,33 @@ export function JourneyTrail({ className }: JourneyTrailProps) {
         canvas.removeEventListener("pointercancel", releasePoint);
       }
     };
-  }, []);
+  }, [journeyMoments]);
 
-  return <canvas ref={canvasRef} className={`h-full w-full ${className ?? ""}`} aria-label="Wedding journey trail" />;
+  return (
+    <div className={`relative h-full w-full ${className ?? ""}`}>
+      <canvas ref={canvasRef} className={`absolute inset-0 h-full w-full ${isEditable ? "cursor-grab touch-none" : ""}`} aria-label={t("accessibility.journeyTrail")} />
+      <ol ref={trackRef} aria-label={t("accessibility.journeyList")} className="pointer-events-none absolute left-0 top-0 m-0 w-full list-none p-0 will-change-transform">
+        {journeyMoments.map((moment, index) => {
+          const anchor = initialPoints[index * 3];
+          const transform = moment.align === "left" ? "translate(0, -50%)" : moment.align === "right" ? "translate(-100%, -50%)" : "translate(-50%, -50%)";
+
+          return (
+            <li
+              className="absolute w-[min(17rem,60vw)] text-[#2f1723] transition-[opacity,transform] duration-500 ease-out [text-shadow:0_1px_14px_rgba(248,243,234,0.98)]"
+              key={moment.kicker}
+              style={{
+                left: `calc(${anchor.x * 100}% + ${moment.offsetX}px)`,
+                opacity: index === 0 ? (isOpeningMomentVisible ? 1 : 0) : index <= revealedStation ? 1 : 0,
+                top: `calc(${anchor.y * 100}% + ${moment.offsetY}px)`,
+                transform: `${transform} ${index === 0 ? (isOpeningMomentVisible ? "translateY(0)" : "translateY(1rem)") : index <= revealedStation ? "translateY(0)" : "translateY(1rem)"}`,
+              }}
+            >
+              <p className="m-0 font-sans text-[0.65rem] font-bold uppercase tracking-[0.12em] text-[#842b45]">{moment.kicker}</p>
+              <p className="mt-2 font-serif text-[1.1rem] font-semibold italic leading-[1.2] text-[#2f1723]">{moment.copy}</p>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  );
 }

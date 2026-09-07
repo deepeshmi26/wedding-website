@@ -1,76 +1,172 @@
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 import { storyPhotos } from "./weddingData";
 
 type StoryPhoto = {
-  alt: string;
   height: number;
+  layoutClassName?: string;
+  rotation?: string;
   src: string;
   width: number;
 };
 
 const storyPhotosGrid: StoryPhoto[] = [
   {
-    alt: "Rajshree and Deepesh laughing together on a bench",
-    height: 4672,
-    src: storyPhotos.sharedLaughter,
-    width: 7008,
+    height: 2048,
+    layoutClassName: "row-span-3",
+    src: "/photos/IMG-20240311-WA0000.jpg",
+    width: 1536,
   },
   {
-    alt: "Rajshree and Deepesh sharing a laugh together",
-    height: 4672,
-    src: storyPhotos.sharedLaughterPortrait,
-    width: 2561,
+    height: 2048,
+    layoutClassName: "row-span-3",
+    src: "/photos/IMG-20260327-WA0044.jpg",
+    width: 1536,
   },
   {
-    alt: "Rajshree and Deepesh looking at each other",
     height: 7008,
-    src: storyPhotos.classicCouple,
-    width: 4672,
-  },
-  {
-    alt: "Rajshree and Deepesh with their wedding rings",
-    height: 7008,
+    layoutClassName: "order-2 row-span-3 sm:order-none",
+    rotation: "rotate-[1.15deg]",
     src: storyPhotos.closeCouple,
     width: 4672,
   },
   {
-    alt: "Rajshree and Deepesh showing their wedding rings",
+    height: 2220,
+    layoutClassName: "order-2 row-span-2 sm:order-none sm:col-span-2",
+    src: "/photos/second-date.jpg",
+    width: 2979,
+  },
+  {
+    height: 1024,
+    layoutClassName: "order-2 row-span-2 sm:order-none sm:col-span-2",
+    rotation: "rotate-[0.55deg]",
+    src: "/photos/rav02938-hero-clean.png",
+    width: 1536,
+  },
+  {
+    height: 3648,
+    layoutClassName: "order-2 row-span-3 sm:order-none",
+    rotation: "rotate-[-1deg]",
+    src: "/photos/PXL_20260726_161715171.RAW-01.jpg",
+    width: 2736,
+  },
+  {
     height: 7008,
-    src: storyPhotos.handsDetail,
+    layoutClassName: "order-2 row-span-3 sm:order-none",
+    src: storyPhotos.classicCouple,
     width: 4672,
+  },
+  {
+    height: 3648,
+    layoutClassName: "order-2 row-span-3 sm:order-none",
+    rotation: "rotate-[0.8deg]",
+    src: "/photos/PXL_20260807_202233069.PORTRAIT.jpg",
+    width: 2736,
+  },
+  {
+    height: 3396,
+    layoutClassName: "order-2 row-span-3 sm:order-none",
+    src: "/photos/PXL_20251002_101627009~2.jpg",
+    width: 2613,
+  },
+  {
+    height: 3648,
+    layoutClassName: "order-2 row-span-3 sm:order-none",
+    rotation: "rotate-[-0.7deg]",
+    src: "/photos/PXL_20260808_105044174.RAW-01.jpg",
+    width: 2736,
+  },
+  {
+    height: 4032,
+    layoutClassName: "order-2 row-span-3 sm:order-none",
+    src: "/photos/IMG-20260802-WA0016.jpg",
+    width: 3024,
+  },
+  {
+    height: 1013,
+    layoutClassName: "order-1 col-span-2 row-span-2 sm:order-none sm:col-span-3 sm:row-span-5 lg:col-span-4 lg:row-span-6",
+    rotation: "rotate-[-0.45deg]",
+    src: "/photos/couple-portrait-retouched.png",
+    width: 1552,
   },
 ];
 
 export function StorySection() {
+  const t = useTranslations();
+  const photoCopy = t.raw("story.photos") as Array<{ alt: string; caption: string }>;
   return (
     <section id="story" className="relative bg-[#fcf8f0] px-5 py-24 sm:px-8 sm:py-28 lg:px-12 lg:py-36">
       <div className="mx-auto max-w-6xl">
         <div className="max-w-2xl">
-          <h2 className="font-serif text-[2.75rem] leading-[1.02] text-[#39202b] sm:text-6xl">A few favorite frames, shared with our favorite people.</h2>
-          <p className="mt-8 max-w-[34rem] text-[1.02rem] leading-8 text-[#704b4c]">Here are a few pieces of us before the celebrations begin: quiet smiles, small details, and the people who have seen us become who we are together. We cannot wait to gather with you.</p>
-          <div className="mt-10 flex flex-col items-start gap-3 text-sm font-semibold uppercase tracking-[0.16em] text-[#842b45] sm:flex-row sm:gap-5">
-            <span>Rajshree &amp; Deepesh</span>
-            <span className="hidden h-1.5 w-1.5 rounded-full bg-[#f0a72f] sm:block" />
-            <span>3 &amp; 4 Dec 2026</span>
+          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-[#842b45]">{t("story.eyebrow")}</p>
+          <h2 className="mt-5 font-serif font-medium text-[#39202b]">
+            <span className="block text-[2.35rem] leading-[1.06] sm:text-5xl">{t("story.titleOne")}</span>
+            <span className="mt-1 block pb-1 text-[3.45rem] italic leading-[0.98] text-[#842b45] sm:text-7xl">{t("story.titleTwo")}</span>
+          </h2>
+          <p className="mt-7 max-w-[34rem] text-[1.02rem] leading-8 text-[#704b4c]">{t("story.intro")}</p>
+        </div>
+
+        <div aria-label={t("story.chatLabel")} className="mt-12 max-w-xl overflow-hidden border border-[#d5d0c7] bg-[#efeae2] shadow-[0_12px_28px_rgba(91,52,45,0.1)] sm:mt-14">
+          <div className="flex items-center gap-3 bg-[#075e54] px-4 py-3 text-white">
+            <span aria-hidden="true" className="flex h-8 w-8 items-center justify-center rounded-full bg-[#d9fdd3] text-[0.62rem] font-bold tracking-[0.08em] text-[#075e54]">R+D</span>
+            <div>
+              <p className="text-sm font-semibold">{t("story.chatTitle")}</p>
+              <p className="text-[0.6rem] text-white/70">{t("story.chatMembers")}</p>
+            </div>
+          </div>
+          <div className="space-y-3 bg-[radial-gradient(rgba(115,102,87,0.1)_0.7px,transparent_0.8px)] bg-[size:12px_12px] px-4 py-4 sm:px-5">
+            <div className="flex justify-start">
+              <div className="max-w-[76%] rounded-[0.5rem] bg-white px-3 py-2 text-[#111b21] shadow-[0_1px_1px_rgba(11,20,26,0.13)] sm:max-w-[62%]">
+                <p className="text-[0.9rem] leading-[1.28]">{t("story.chat.0")}</p>
+              </div>
+            </div>
+            <div className="flex justify-end">
+              <div className="max-w-[76%] rounded-[0.5rem] bg-[#d9fdd3] px-3 py-2 text-[#111b21] shadow-[0_1px_1px_rgba(11,20,26,0.13)] sm:max-w-[62%]">
+                <p className="text-[0.9rem] leading-[1.28]">{t("story.chat.1")}</p>
+              </div>
+            </div>
+            <div className="flex justify-start">
+              <div className="max-w-[76%] rounded-[0.5rem] bg-white px-3 py-2 text-[#111b21] shadow-[0_1px_1px_rgba(11,20,26,0.13)] sm:max-w-[62%]">
+                <p className="text-[0.9rem] leading-[1.28]">{t("story.chat.2")}</p>
+              </div>
+            </div>
+            <div className="flex justify-end">
+              <div className="max-w-[76%] rounded-[0.5rem] bg-[#d9fdd3] px-3 py-2 text-[#111b21] shadow-[0_1px_1px_rgba(11,20,26,0.13)] sm:max-w-[62%]">
+                <p className="text-[0.9rem] leading-[1.28]">{t("story.chat.3")}</p>
+              </div>
+            </div>
+            <div className="flex justify-start">
+              <div className="max-w-[76%] rounded-[0.5rem] bg-white px-3 py-2 text-[#111b21] shadow-[0_1px_1px_rgba(11,20,26,0.13)] sm:max-w-[62%]">
+                <p className="text-[0.9rem] leading-[1.28]">{t("story.chat.4")}</p>
+              </div>
+            </div>
+            <div className="flex justify-end">
+              <div className="max-w-[76%] rounded-[0.5rem] bg-[#d9fdd3] px-3 py-2 text-[#111b21] shadow-[0_1px_1px_rgba(11,20,26,0.13)] sm:max-w-[62%]">
+                <p className="text-[0.9rem] leading-[1.28]">{t("story.chat.5")}</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="mt-14 columns-2 gap-3 sm:mt-16 sm:columns-3 sm:gap-4 lg:columns-4">
-          {storyPhotosGrid.map((photo) => (
+        <div className="mt-12 grid auto-rows-[5rem] grid-cols-2 gap-3 sm:mt-14 sm:auto-rows-[6rem] sm:grid-cols-3 sm:gap-4 lg:auto-rows-[7rem] lg:grid-cols-4">
+          {storyPhotosGrid.map((photo, index) => (
             <figure
               key={photo.src}
-              className="mb-3 break-inside-avoid rounded-[0.7rem] bg-[#fffdf8] p-1.5 shadow-[0_16px_36px_rgba(87,43,50,0.11)] sm:mb-4 sm:p-2"
+              className={`flex min-h-0 flex-col overflow-hidden bg-[#fffdf8] p-2 pb-3 shadow-[0_14px_30px_rgba(87,43,50,0.12)] transition-transform duration-300 hover:z-10 hover:scale-[1.02] sm:p-2.5 sm:pb-4 ${photo.layoutClassName ?? ""} ${photo.rotation ?? ""}`}
             >
               <Image
-                alt={photo.alt}
-                className="h-auto w-full rounded-[0.45rem]"
+                alt={photoCopy[index].alt}
+                className="h-0 min-h-0 w-full flex-1 object-cover"
                 height={photo.height}
                 quality={86}
                 sizes="(max-width: 639px) 44vw, (max-width: 1023px) 28vw, 22vw"
                 src={photo.src}
                 width={photo.width}
               />
+              <figcaption className="px-1 pt-2 font-serif text-[1.05rem] italic leading-none text-[#754b49] sm:pt-2.5 sm:text-[1.15rem]">
+                {photoCopy[index].caption}
+              </figcaption>
             </figure>
           ))}
         </div>

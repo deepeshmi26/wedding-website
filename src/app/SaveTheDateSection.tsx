@@ -1,12 +1,5 @@
 import Image from "next/image";
-
-const calendarUrl = `https://calendar.google.com/calendar/render?${new URLSearchParams({
-  action: "TEMPLATE",
-  text: "Rajshree & Deepesh's Wedding Weekend",
-  dates: "20261203/20261204",
-  details: "We would love to celebrate with you.",
-  location: "Kolkata",
-}).toString()}`;
+import { useTranslations } from "next-intl";
 
 function CalendarMark() {
   return (
@@ -22,6 +15,8 @@ function CalendarMark() {
 }
 
 export function SaveTheDateSection() {
+  const t = useTranslations();
+  const calendarUrl = `https://calendar.google.com/calendar/render?${new URLSearchParams({ action: "TEMPLATE", text: t("calendar.calendarTitle"), dates: "20261203/20261204", details: t("calendar.calendarDetails"), location: t("calendar.calendarLocation") }).toString()}`;
   return (
     <section
       id="save-the-date"
@@ -40,7 +35,7 @@ export function SaveTheDateSection() {
             <div className="relative h-52 overflow-hidden rounded-[0.9rem] sm:h-64">
               <Image
                 src="/graphics/kolkata-cab.jpg"
-                alt="Yellow Kolkata taxi illustration"
+                alt={t("calendar.taxiAlt")}
                 fill
                 unoptimized
                 className="object-cover object-center"
@@ -54,19 +49,19 @@ export function SaveTheDateSection() {
               <div className="flex items-center justify-center gap-2 text-[#a86129]">
                 <CalendarMark />
                 <p className="text-[0.64rem] font-semibold uppercase tracking-[0.28em] sm:text-[0.7rem]">
-                  Save the date
+                  {t("calendar.eyebrow")}
                 </p>
               </div>
 
               <div className="mt-5 grid grid-cols-[minmax(0,1fr)_6rem_minmax(0,1fr)] sm:mt-6 sm:grid-cols-[minmax(0,1fr)_8rem_minmax(0,1fr)]">
                 <p className="col-start-1 w-full text-right text-[0.6rem] font-semibold uppercase tracking-[0.22em] text-[#80595a] sm:text-[0.66rem]">
-                  Thursday
+                  {t("calendar.weekday")}
                 </p>
               </div>
 
               <div className="mt-1 grid grid-cols-[minmax(0,1fr)_6rem_minmax(0,1fr)] items-center sm:grid-cols-[minmax(0,1fr)_8rem_minmax(0,1fr)]">
                 <p className="col-start-1 w-full text-right font-serif text-6xl leading-none text-[#8c1e3d] [font-variant-numeric:lining-nums] sm:text-8xl">
-                  03
+                  {t("calendar.dateDay")}
                 </p>
                 <div className="col-start-2 flex items-center justify-center gap-2 text-[#d38345]">
                   <span className="h-px w-6 bg-current sm:w-10" />
@@ -76,10 +71,10 @@ export function SaveTheDateSection() {
                 <div className="col-start-3 w-full text-left">
                   <div className="inline-flex flex-col items-center">
                     <p className="font-serif text-[2.1rem] italic leading-none text-[#74434a] sm:text-5xl">
-                      Dec
+                      {t("calendar.dateMonth")}
                     </p>
                     <p className="mt-2 text-[0.6rem] font-semibold uppercase tracking-[0.26em] text-[#80595a] sm:text-[0.66rem]">
-                      2026
+                      {t("common.year")}
                     </p>
                   </div>
                 </div>
@@ -95,7 +90,7 @@ export function SaveTheDateSection() {
               <span aria-hidden="true" className="text-base leading-none text-[#ffd58f]">
                 ♥
               </span>
-              Add our day to calendar
+              {t("calendar.add")}
               <span className="text-[#ffd58f]">
                 <CalendarMark />
               </span>

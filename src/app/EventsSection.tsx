@@ -2,16 +2,18 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
+import { useTranslations } from "next-intl";
 
 import { EventsCardVariants } from "./EventsCardVariants";
 import type { EventsVersionId } from "./HeroCompositionSwitcher";
-import { events } from "./weddingData";
+import { getEvents, type WeddingEvent } from "./weddingData";
 
 function EventsSectionHeader({
   isRoyalClassicEvents = false,
 }: {
   isRoyalClassicEvents?: boolean;
 }) {
+  const t = useTranslations();
   const useRoyalPalette = isRoyalClassicEvents;
   const shouldReduceMotion = useReducedMotion();
 
@@ -34,11 +36,14 @@ function EventsSectionHeader({
         </>
       ) : null}
       <div className="relative mx-auto max-w-3xl text-center">
-        <p className={`text-[0.72rem] font-semibold uppercase tracking-[0.32em] ${useRoyalPalette ? "text-[#f0c67d]" : "text-[#b86622]"}`}>
-          Come celebrate with us in
+        <p className={`text-[0.68rem] font-semibold uppercase tracking-[0.26em] ${useRoyalPalette ? "text-[#f0c67d]" : "text-[#b86622]"}`}>
+          {t("events.eyebrow")}
+        </p>
+        <p className={`mt-5 text-[0.72rem] font-semibold uppercase tracking-[0.32em] ${useRoyalPalette ? "text-[#f0c67d]" : "text-[#b86622]"}`}>
+          {t("events.invite")}
         </p>
         <h2 className={`mt-4 font-serif text-5xl leading-[0.92] sm:text-6xl ${useRoyalPalette ? "text-[#fff8ef]" : "text-[#8f1830]"}`}>
-          the <span className={useRoyalPalette ? "text-[#f0c67d]" : "text-[#b01838]"}>City of Joy</span>.
+          {t("events.cityPrefix")} <span className={useRoyalPalette ? "text-[#f0c67d]" : "text-[#b01838]"}>{t("events.city")}</span>.
         </h2>
       </div>
     </motion.div>
@@ -64,6 +69,8 @@ function EventsSectionDivider({
 }
 
 export function EventsSection({ version }: { version: EventsVersionId }) {
+  const t = useTranslations();
+  const events = getEvents(t.raw("events.items") as WeddingEvent[]);
   const isRoyalClassicEvents = version === "v3";
 
   return (

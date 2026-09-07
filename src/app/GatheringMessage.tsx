@@ -1,26 +1,19 @@
 "use client";
 
 import { motion, useInView, useReducedMotion } from "motion/react";
+import { useTranslations } from "next-intl";
 import { useRef } from "react";
 
-const message =
-  "We are gathering our favorite people for music, food, happy chaos, loud laughter, and a weekend that feels like one big family party.";
-
-const lines = [
-  "We are gathering our favorite people",
-  "for music, food, happy chaos,",
-  "loud laughter, and a weekend",
-  "that feels like one big family party.",
-];
-
 export function GatheringMessage() {
+  const t = useTranslations();
+  const lines = t.raw("gathering.lines") as string[];
   const messageRef = useRef<HTMLHeadingElement>(null);
   const isInView = useInView(messageRef, { amount: 0.35, once: true });
   const shouldReduceMotion = useReducedMotion();
 
   return (
     <h2
-      aria-label={message}
+      aria-label={t("gathering.copy")}
       id="gathering-heading"
       ref={messageRef}
       className="mx-auto mt-5 max-w-xl font-serif text-[2.3rem] font-medium leading-[1.16] text-[#4b2b20] sm:mt-6 sm:max-w-2xl sm:text-[3rem] sm:leading-[1.12]"

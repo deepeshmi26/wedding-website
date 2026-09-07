@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
+import { useTranslations } from "next-intl";
 import type { EventsVersionId } from "./HeroCompositionSwitcher";
 
 type EventCard = {
@@ -24,6 +25,7 @@ export function EventsCardVariants({
   events,
   version,
 }: EventsCardVariantsProps) {
+  const t = useTranslations();
   const isRoyalClassic = version === "v3";
   const shouldReduceMotion = useReducedMotion();
 
@@ -92,7 +94,7 @@ export function EventsCardVariants({
                       <span className="h-px flex-1 bg-gradient-to-l from-transparent to-[#f0c67d]/45" />
                     </div>
                     <div className="text-center">
-                      <p className="text-[0.58rem] font-semibold uppercase tracking-[0.28em] text-[#f0c67d]/75">Time</p>
+                      <p className="text-[0.58rem] font-semibold uppercase tracking-[0.28em] text-[#f0c67d]/75">{t("events.time")}</p>
                       <p className="mt-2.5 font-serif text-[1.35rem] font-medium leading-none tracking-[0.04em] text-[#fff8ef] [font-variant-numeric:lining-nums] [text-shadow:0_0_18px_rgba(240,198,125,0.16),0_2px_18px_rgba(0,0,0,0.88)]">{event.time}</p>
                     </div>
                     <div className="mx-auto my-4 flex w-40 items-center gap-3">
@@ -101,13 +103,13 @@ export function EventsCardVariants({
                       <span className="h-px flex-1 bg-gradient-to-l from-transparent to-[#f0c67d]/45" />
                     </div>
                     <div className="text-center">
-                      <p className="text-[0.58rem] font-semibold uppercase tracking-[0.28em] text-[#f0c67d]/75">Venue</p>
+                      <p className="text-[0.58rem] font-semibold uppercase tracking-[0.28em] text-[#f0c67d]/75">{t("events.venue")}</p>
                       <a href={event.mapUrl} target="_blank" rel="noreferrer" className="mx-auto mt-2.5 block max-w-[18rem] font-serif text-[1.35rem] font-medium leading-[1.35] tracking-normal text-[#fff8ef] [text-shadow:0_0_18px_rgba(240,198,125,0.16)] transition hover:text-[#f0c67d]">
                         {event.place}
                       </a>
                     </div>
                     <a href={event.mapUrl} target="_blank" rel="noreferrer" className="mx-auto mt-6 flex w-fit border-b border-[#f0c67d]/45 pb-1 text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#f0c67d] transition hover:border-[#f0c67d] hover:text-[#f0c67d]">
-                      Get directions &rarr;
+                      {t("events.directions")}
                     </a>
                     {index === 1 && event.dressCodeColors?.length ? (
                       <>
@@ -118,7 +120,7 @@ export function EventsCardVariants({
                         </div>
                         <div className="text-center">
                           <p className="text-[0.58rem] font-semibold uppercase tracking-[0.24em] text-[#f0c67d]/75">
-                            Dress code
+                            {t("events.dressCode")}
                           </p>
                           <div className="mt-3 flex items-center justify-center gap-3">
                             {event.dressCodeColors.map((color) => (
@@ -153,11 +155,11 @@ export function EventsCardVariants({
                     </h3>
                     <div className="mt-7 space-y-6 border-l border-[#f0c67d]/45 pl-6">
                       <div>
-                        <p className="text-[0.62rem] font-semibold uppercase tracking-[0.3em] text-[#f0c67d]/80">Time</p>
+                        <p className="text-[0.62rem] font-semibold uppercase tracking-[0.3em] text-[#f0c67d]/80">{t("events.time")}</p>
                         <p className="mt-2 font-serif text-2xl text-[#fff8ef] [font-variant-numeric:lining-nums]">{event.time}</p>
                       </div>
                       <div>
-                        <p className="text-[0.62rem] font-semibold uppercase tracking-[0.3em] text-[#f0c67d]/80">Venue</p>
+                        <p className="text-[0.62rem] font-semibold uppercase tracking-[0.3em] text-[#f0c67d]/80">{t("events.venue")}</p>
                         <a href={event.mapUrl} target="_blank" rel="noreferrer" className="mt-2 block max-w-sm text-base leading-7 text-[#fff4e1]/90 transition hover:text-[#f0c67d] hover:underline">
                           {event.place}
                         </a>
@@ -170,7 +172,7 @@ export function EventsCardVariants({
                       {event.dressCodeColors?.length ? (
                         <div className="flex items-center gap-2.5">
                           {event.dressCodeColors.map((color) => (
-                            <span key={color} aria-label={`Suggested color ${color}`} className="h-4 w-4 rounded-full border border-[#fff8ef]/60" style={{ backgroundColor: color }} />
+                            <span key={color} aria-label={t("events.suggestedColor", { color })} className="h-4 w-4 rounded-full border border-[#fff8ef]/60" style={{ backgroundColor: color }} />
                           ))}
                         </div>
                       ) : null}

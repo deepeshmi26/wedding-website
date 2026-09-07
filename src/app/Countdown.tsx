@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 const WEDDING_START = new Date("2026-12-04T17:45:00+05:30");
@@ -111,6 +112,7 @@ function FlipUnit({
 }
 
 export function CountdownDisplay({ compact = false }: { compact?: boolean }) {
+  const t = useTranslations();
   const [countdown, setCountdown] = useState(getCountdownValue);
 
   useEffect(() => {
@@ -122,15 +124,15 @@ export function CountdownDisplay({ compact = false }: { compact?: boolean }) {
   }, []);
 
   return (
-    <div className={compact ? "mt-7" : "mt-0"} aria-label="Countdown to the wedding ceremony">
+    <div className={compact ? "mt-7" : "mt-0"} aria-label={t("accessibility.countdown")}>
       <p className="text-[0.58rem] font-bold uppercase tracking-[0.25em] text-[#b86622]">
-        Until the vows
+        {t("countdown.eyebrow")}
       </p>
       <div className={`mt-3 grid grid-cols-4 ${compact ? "max-w-[25rem] gap-2 sm:gap-3" : "max-w-[32rem] gap-2.5 sm:gap-5"}`}>
-        <FlipUnit compact={compact} label="Days" value={countdown.days} />
-        <FlipUnit compact={compact} label="Hours" value={countdown.hours} />
-        <FlipUnit compact={compact} label="Minutes" value={countdown.minutes} />
-        <FlipUnit compact={compact} label="Seconds" value={countdown.seconds} />
+        <FlipUnit compact={compact} label={t("countdown.days")} value={countdown.days} />
+        <FlipUnit compact={compact} label={t("countdown.hours")} value={countdown.hours} />
+        <FlipUnit compact={compact} label={t("countdown.minutes")} value={countdown.minutes} />
+        <FlipUnit compact={compact} label={t("countdown.seconds")} value={countdown.seconds} />
       </div>
     </div>
   );

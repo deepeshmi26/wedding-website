@@ -2,7 +2,18 @@
   isolation: isolate;
   position: relative;
   background: #f8f3ea;
-  padding: 0 0 6.5rem;
+}
+
+.storyScroll {
+  min-height: 600svh;
+  position: relative;
+}
+
+.storyStage {
+  height: 100svh;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
 }
 
 .photoStage {
@@ -32,6 +43,7 @@
 }
 
 .inner {
+  height: 100%;
   margin: 0 auto;
   max-width: 68rem;
   padding: 0 1.25rem;
@@ -39,9 +51,22 @@
   z-index: 1;
 }
 
+.headerFlow {
+  left: 0;
+  margin: 0 auto;
+  max-width: 68rem;
+  padding: 0 1.25rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2;
+}
+
 .header {
   max-width: 42rem;
   position: relative;
+  padding-top: 1.75rem;
+  z-index: 2;
 }
 
 .routeStamp {
@@ -105,23 +130,31 @@
 }
 
 .canvasWrap {
-  aspect-ratio: 1 / 3;
-  margin-top: 0;
+  inset: 0;
+  margin: 0;
+  position: absolute;
   overflow: hidden;
   background: transparent;
 }
 
 @media (min-width: 768px) {
-  .section {
-    padding-bottom: 8.5rem;
+  .storyScroll {
+    min-height: 500svh;
   }
 
   .inner {
     padding: 0 2rem;
   }
 
+  .headerFlow {
+    padding: 0 2rem;
+  }
+
+  .header {
+    padding-top: 2.5rem;
+  }
+
   .canvasWrap {
-    margin-top: 3.5rem;
-    max-width: 42rem;
+    max-width: none;
   }
 }

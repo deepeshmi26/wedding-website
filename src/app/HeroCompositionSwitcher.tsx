@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export type VariantId =
   | "joyful-collage"
@@ -53,31 +55,28 @@ const joyfulPetals = [
 
 const joyfulMoments = [
   {
-    label: "dance-floor laughs",
+    id: "dance",
     rotate: "-rotate-3",
     frame: "from-[#f5b83b] via-[#ec6a42] to-[#b01838]",
     src: photos.wideCouple,
-    alt: "Rajshree and Deepesh sitting together and smiling",
     imageClassName: "object-[62%_50%]",
     placement:
       "left-[4%] top-[8%] w-[44%] lg:left-[8%] lg:top-[6%] lg:w-[46%]",
   },
   {
-    label: "mehendi smiles",
+    id: "mehendi",
     rotate: "rotate-2",
     frame: "from-[#e95d95] via-[#f0a72f] to-[#fff4a8]",
     src: photos.closeCouple,
-    alt: "Rajshree and Deepesh smiling close together",
     imageClassName: "object-[48%_48%]",
     placement:
       "right-[2%] top-[22%] w-[40%] lg:right-[8%] lg:top-[18%] lg:w-[42%]",
   },
   {
-    label: "family hugs",
+    id: "family",
     rotate: "-rotate-1",
     frame: "from-[#ffcf6b] via-[#d23f73] to-[#8f1830]",
     src: photos.classicCouple,
-    alt: "Rajshree and Deepesh looking at each other",
     imageClassName: "object-[50%_54%]",
     placement:
       "left-[30%] bottom-[0%] w-[44%] lg:left-[30%] lg:bottom-[4%] lg:w-[45%]",
@@ -136,6 +135,7 @@ function HeroCopy({
   compact?: boolean;
   tone?: "warm" | "photo";
 }) {
+  const t = useTranslations();
   const isPhotoTone = tone === "photo";
   const shouldReduceMotion = useReducedMotion();
 
@@ -151,7 +151,7 @@ function HeroCopy({
           isPhotoTone ? "text-[#ffd27d]" : "text-[#c24a2b]"
         }`}
       >
-        Come for the vows, stay for the dancing
+        {t("hero.tagline")}
       </p>
       <h1
         className={`max-w-4xl font-normal leading-[0.78] tracking-[0.01em] ${
@@ -165,13 +165,13 @@ function HeroCopy({
         }`}
         style={{ fontFamily: '"Great Vibes", cursive' }}
       >
-        Rajshree
+        {t("common.rajshree")}
         <span
           className={`block ${isPhotoTone ? "text-[#ffd27d]" : "text-[#ee9b22]"}`}
         >
           &
         </span>
-        Deepesh
+        {t("common.deepesh")}
       </h1>
       <div className="mt-8 flex items-center gap-3">
         <span
@@ -191,13 +191,13 @@ function HeroCopy({
           isPhotoTone ? "text-[#ffe8c7]" : "text-[#774231]"
         }`}
       >
-        <span>3 & 4 Dec 2026</span>
+        <span>{t("common.date")}</span>
         <span
           className={`hidden h-1.5 w-1.5 rounded-full sm:block ${
             isPhotoTone ? "bg-[#ffd27d]" : "bg-[#f0a72f]"
           }`}
         />
-        <span>Kolkata, India</span>
+        <span>{t("common.location")}</span>
       </div>
     </motion.div>
   );
@@ -230,15 +230,16 @@ function FramedImage({
 }
 
 function MobileIntroNameDate() {
+  const t = useTranslations();
   return (
     <div className="flex flex-col items-center text-center">
       <p className="mb-4 max-w-xs text-[0.66rem] font-bold uppercase tracking-[0.28em] text-[#c24a2b]">
-        Come for the vows, stay for the dancing
+        {t("hero.tagline")}
       </p>
       <h1 className="max-w-xs font-serif text-[clamp(2.55rem,15vw,4.7rem)] leading-[0.9] text-[#b01838]">
-        Rajshree
+        {t("common.rajshree")}
         <span className="block text-[#ee9b22]">&</span>
-        Deepesh
+        {t("common.deepesh")}
       </h1>
       <div className="mt-6 flex items-center gap-3">
         <span className="h-px w-10 bg-[#f0a72f]" />
@@ -246,14 +247,15 @@ function MobileIntroNameDate() {
         <span className="h-px w-10 bg-[#f0a72f]" />
       </div>
       <div className="mt-6 flex flex-col items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-[#774231]">
-        <span>3 & 4 Dec 2026</span>
-        <span>Kolkata, India</span>
+        <span>{t("common.date")}</span>
+        <span>{t("common.location")}</span>
       </div>
     </div>
   );
 }
 
 function JoyfulCollageComposition() {
+  const t = useTranslations();
   return (
     <>
       <div className="relative flex flex-col items-center gap-8 text-center lg:hidden">
@@ -276,11 +278,11 @@ function JoyfulCollageComposition() {
           {joyfulMoments.map((moment) => (
             <div
               className={`absolute ${moment.placement} ${moment.rotate} rounded-[1.25rem] bg-gradient-to-br ${moment.frame} p-2 shadow-[0_18px_45px_rgba(176,24,56,0.18)]`}
-              key={`${moment.label}-mobile`}
+              key={`${moment.id}-mobile`}
             >
               <div className="relative aspect-[4/5] overflow-hidden rounded-[0.95rem]">
                 <Image
-                  alt={moment.alt}
+                  alt={t(`hero.alt.${moment.id === "mehendi" ? "close" : "looking"}`)}
                   className={`object-cover ${moment.imageClassName}`}
                   fill
                   quality={82}
@@ -292,10 +294,10 @@ function JoyfulCollageComposition() {
           ))}
           <div className="absolute bottom-[18%] right-[8%] rounded-full bg-[#fff8ef]/85 px-4 py-3 text-left shadow-[0_14px_36px_rgba(176,24,56,0.13)]">
             <p className="text-[0.6rem] font-bold uppercase tracking-[0.22em] text-[#b01838]">
-              music
+              {t("hero.music")}
             </p>
             <p className="mt-1 font-serif text-2xl leading-none text-[#ee9b22]">
-              all night
+              {t("hero.allNight")}
             </p>
           </div>
         </div>
@@ -322,11 +324,11 @@ function JoyfulCollageComposition() {
           {joyfulMoments.map((moment) => (
             <div
               className={`absolute ${moment.placement} ${moment.rotate} rounded-[1.25rem] bg-gradient-to-br ${moment.frame} p-2 shadow-[0_18px_45px_rgba(176,24,56,0.18)]`}
-              key={moment.label}
+              key={moment.id}
             >
               <div className="relative aspect-[4/5] overflow-hidden rounded-[0.95rem]">
                 <Image
-                  alt={moment.alt}
+                  alt={t(`hero.alt.${moment.id === "mehendi" ? "close" : "looking"}`)}
                   className={`object-cover ${moment.imageClassName}`}
                   fill
                   quality={82}
@@ -338,10 +340,10 @@ function JoyfulCollageComposition() {
           ))}
           <div className="absolute bottom-[20%] right-[2%] rounded-full bg-[#fff8ef]/85 px-4 py-3 text-left shadow-[0_14px_36px_rgba(176,24,56,0.13)]">
             <p className="text-[0.6rem] font-bold uppercase tracking-[0.22em] text-[#b01838]">
-              music
+              {t("hero.music")}
             </p>
             <p className="mt-1 font-serif text-2xl leading-none text-[#ee9b22]">
-              all night
+              {t("hero.allNight")}
             </p>
           </div>
         </div>
@@ -351,6 +353,7 @@ function JoyfulCollageComposition() {
 }
 
 function RightPhotoComposition() {
+  const t = useTranslations();
   return (
     <>
       <div className="flex flex-col items-center gap-8 text-center lg:hidden">
@@ -358,7 +361,7 @@ function RightPhotoComposition() {
         <div className="relative mx-auto h-[390px] w-full max-w-[430px]">
           <div className="absolute left-[18%] top-[18%] h-48 w-48 rounded-full bg-[#f0a72f]/20 blur-3xl" />
           <FramedImage
-            alt="Rajshree and Deepesh smiling at each other"
+            alt={t("hero.alt.smiling")}
             className="h-full w-full"
             imageClassName="object-[50%_48%]"
             quality={88}
@@ -373,7 +376,7 @@ function RightPhotoComposition() {
         <div className="relative mx-auto h-[560px] w-full max-w-none">
           <div className="absolute left-[26%] top-[20%] h-72 w-72 rounded-full bg-[#f0a72f]/20 blur-3xl" />
           <FramedImage
-            alt="Rajshree and Deepesh smiling at each other"
+            alt={t("hero.alt.smiling")}
             className="h-full w-full"
             imageClassName="object-[50%_48%]"
             quality={88}
@@ -387,6 +390,7 @@ function RightPhotoComposition() {
 }
 
 function DetailCardComposition() {
+  const t = useTranslations();
   return (
     <>
       <div className="flex flex-col items-center gap-8 text-center lg:hidden">
@@ -394,7 +398,7 @@ function DetailCardComposition() {
         <div className="relative mx-auto mb-14 h-[420px] w-full max-w-[430px]">
           <div className="absolute left-[12%] top-[16%] h-56 w-56 rounded-full bg-[#d23f73]/14 blur-3xl" />
           <FramedImage
-            alt="Rajshree and Deepesh smiling close together"
+            alt={t("hero.alt.close")}
             className="absolute right-[3%] top-0 h-[84%] w-[78%] rotate-1"
             imageClassName="object-[48%_48%]"
             quality={88}
@@ -402,7 +406,7 @@ function DetailCardComposition() {
             src={photos.closeCouple}
           />
           <FramedImage
-            alt="Rajshree and Deepesh showing their rings"
+            alt={t("hero.alt.rings")}
             className="absolute bottom-[2%] left-[1%] h-[38%] w-[45%] -rotate-3"
             imageClassName="object-[50%_60%]"
             quality={88}
@@ -411,10 +415,10 @@ function DetailCardComposition() {
           />
           <div className="absolute bottom-[13%] right-[2%] rounded-full bg-[#fff8ef]/90 px-4 py-3 text-left shadow-[0_14px_36px_rgba(176,24,56,0.13)]">
             <p className="text-[0.6rem] font-bold uppercase tracking-[0.22em] text-[#b01838]">
-              just us
+              {t("hero.justUs")}
             </p>
             <p className="mt-1 font-serif text-2xl leading-none text-[#ee9b22]">
-              with you
+              {t("hero.withYou")}
             </p>
           </div>
         </div>
@@ -425,7 +429,7 @@ function DetailCardComposition() {
         <div className="relative mx-auto h-[560px] w-full max-w-none">
           <div className="absolute left-[24%] top-[18%] h-72 w-72 rounded-full bg-[#d23f73]/14 blur-3xl" />
           <FramedImage
-            alt="Rajshree and Deepesh smiling close together"
+            alt={t("hero.alt.close")}
             className="absolute right-[3%] top-0 h-[84%] w-[78%] rotate-1"
             imageClassName="object-[48%_48%]"
             quality={88}
@@ -433,7 +437,7 @@ function DetailCardComposition() {
             src={photos.closeCouple}
           />
           <FramedImage
-            alt="Rajshree and Deepesh showing their rings"
+            alt={t("hero.alt.rings")}
             className="absolute bottom-[2%] left-[1%] h-[38%] w-[45%] -rotate-3"
             imageClassName="object-[50%_60%]"
             quality={88}
@@ -442,10 +446,10 @@ function DetailCardComposition() {
           />
           <div className="absolute bottom-[13%] right-[2%] rounded-full bg-[#fff8ef]/90 px-4 py-3 text-left shadow-[0_14px_36px_rgba(176,24,56,0.13)]">
             <p className="text-[0.6rem] font-bold uppercase tracking-[0.22em] text-[#b01838]">
-              just us
+              {t("hero.justUs")}
             </p>
             <p className="mt-1 font-serif text-2xl leading-none text-[#ee9b22]">
-              with you
+              {t("hero.withYou")}
             </p>
           </div>
         </div>
@@ -456,6 +460,7 @@ function DetailCardComposition() {
 
 function OverlapComposition() {
   const shouldReduceMotion = useReducedMotion();
+  const t = useTranslations();
 
   return (
     <div
@@ -465,7 +470,7 @@ function OverlapComposition() {
         <div className="relative h-full lg:hidden">
           <div className="absolute inset-0">
             <Image
-              alt="Rajshree and Deepesh smiling together on a bench"
+              alt={t("hero.alt.bench")}
               className="object-cover object-center"
               fill
               priority
@@ -486,15 +491,15 @@ function OverlapComposition() {
               transition={{ type: "spring", stiffness: 120, damping: 20, delay: 0.14 }}
             >
               <p className="mx-auto mb-4 max-w-[17rem] text-[0.58rem] font-bold uppercase tracking-[0.18em] text-[#ffd27d]">
-                Come for the vows and stay for the wedding
+                {t("hero.overlapTagline")}
               </p>
               <h1
                 className="mx-auto flex max-w-full items-center justify-center gap-2 whitespace-nowrap font-normal text-[clamp(1.8rem,8.6vw,2.5rem)] leading-[1.1] tracking-[0.01em] text-[#fff8ef] [text-shadow:0_10px_34px_rgba(50,27,18,0.46)]"
                 style={{ fontFamily: '"Great Vibes", cursive' }}
               >
-                <span>Rajshree</span>
+                <span>{t("common.rajshree")}</span>
                 <span className="text-[0.5em] text-[#ffd27d]">&amp;</span>
-                <span>Deepesh</span>
+                <span>{t("common.deepesh")}</span>
               </h1>
               <div className="mt-4 flex items-center justify-center gap-3">
                 <span className="h-px w-10 bg-[#ffd27d]" />
@@ -502,8 +507,8 @@ function OverlapComposition() {
                 <span className="h-px w-10 bg-[#ffd27d]" />
               </div>
               <div className="mt-4 flex flex-col items-center gap-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-[#ffe8c7]">
-                <span>3 &amp; 4 Dec 2026</span>
-                <span>Kolkata, India</span>
+                <span>{t("common.date")}</span>
+                <span>{t("common.location")}</span>
               </div>
             </motion.div>
           </div>
@@ -512,7 +517,7 @@ function OverlapComposition() {
         <div className="relative hidden h-full lg:block">
           <div className="absolute inset-0">
             <Image
-              alt="Rajshree and Deepesh smiling together on a bench"
+              alt={t("hero.alt.bench")}
               className="object-cover object-[55%_45%]"
               fill
               priority
@@ -532,39 +537,33 @@ function OverlapComposition() {
 
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute bottom-6 left-5 z-20 flex flex-col items-center gap-2 text-[#fff8ef] sm:bottom-8 sm:left-8"
+          className="pointer-events-none absolute bottom-5 left-5 z-20 flex flex-col items-center gap-2 text-[#fff8ef] sm:bottom-8 sm:left-8"
         >
           <span className="flex h-8 w-5 justify-center rounded-full border border-[#fff8ef]/75 pt-1.5">
             <motion.span
               className="h-1.5 w-1.5 rounded-full bg-[#ffd27d]"
               animate={shouldReduceMotion ? undefined : { y: [0, 7, 0], opacity: [1, 0.35, 1] }}
-              transition={
-                shouldReduceMotion
-                  ? undefined
-                  : { duration: 1.65, ease: "easeInOut", repeat: Infinity }
-              }
+              transition={shouldReduceMotion ? undefined : { duration: 1.65, ease: "easeInOut", repeat: Infinity }}
             />
           </span>
           <motion.span
             className="h-2 w-2 rotate-45 border-b border-r border-[#fff8ef]/85"
             animate={shouldReduceMotion ? undefined : { y: [0, 4, 0], opacity: [0.65, 1, 0.65] }}
-            transition={
-              shouldReduceMotion
-                ? undefined
-                : { duration: 1.65, ease: "easeInOut", repeat: Infinity }
-            }
+            transition={shouldReduceMotion ? undefined : { duration: 1.65, ease: "easeInOut", repeat: Infinity }}
           />
         </div>
+        <LanguageSwitcher className="absolute bottom-5 right-5 z-20 text-[#fff8ef] [text-shadow:0_2px_8px_rgba(45,20,13,0.55)] sm:bottom-8 sm:right-8" />
       </div>
     </div>
   );
 }
 
 function CenteredComposition() {
+  const t = useTranslations();
   return (
     <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
       <FramedImage
-        alt="Rajshree and Deepesh looking at each other"
+        alt={t("hero.alt.looking")}
         className="h-[320px] w-full max-w-[620px] sm:h-[420px]"
         imageClassName="object-[50%_54%]"
         quality={88}

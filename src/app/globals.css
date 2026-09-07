@@ -3,6 +3,10 @@
 @import "@fontsource-variable/cormorant-garamond";
 @import "@fontsource-variable/cormorant-garamond/wght-italic.css";
 @import "@fontsource/great-vibes/400.css";
+@import "@fontsource/noto-sans-bengali/400.css";
+@import "@fontsource/noto-sans-bengali/600.css";
+@import "@fontsource/noto-serif-bengali/400.css";
+@import "@fontsource/noto-serif-bengali/600.css";
 
 :root {
   --background: #f8f3ea;
@@ -31,6 +35,15 @@ body {
 
 .font-great-vibes {
   font-family: "Great Vibes", cursive;
+}
+
+:lang(bn) {
+  font-family: "Noto Sans Bengali", sans-serif;
+}
+
+:lang(bn) .font-serif,
+:lang(bn) .font-great-vibes {
+  font-family: "Noto Serif Bengali", serif;
 }
 
 html {

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { useTranslations } from "next-intl";
 import { useRef } from "react";
 
 const kolkataImages = [
@@ -31,6 +32,7 @@ function KolkataStrip({ entryProgress, index, shouldReduceMotion, src }: Kolkata
 }
 
 export function GatheringSection() {
+  const t = useTranslations();
   const sectionRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end end"] });
@@ -62,11 +64,11 @@ export function GatheringSection() {
         >
           <div>
             <h2 id="gathering-heading" className="font-serif text-6xl font-semibold italic leading-none tracking-normal text-[#592537] sm:text-7xl md:text-8xl lg:text-9xl">
-              <span className="block">An invitation</span>
-              <span className="block">to Bengal</span>
+              <span className="block">{t("gathering.lineOne")}</span>
+              <span className="block">{t("gathering.lineTwo")}</span>
             </h2>
             <p className="mx-auto mt-8 max-w-xl font-serif text-2xl font-medium leading-relaxed text-[#5d3b38] sm:mt-10 sm:text-3xl">
-              We are gathering our favourite people for music, food, happy chaos, loud laughter, and a weekend that feels like one big family party.
+              {t("gathering.copy")}
             </p>
           </div>
         </motion.div>
