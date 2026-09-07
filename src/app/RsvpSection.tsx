@@ -32,7 +32,7 @@ export function RsvpSection() {
                   <p className="font-serif text-[1.72rem] leading-[1.22] text-[#5e3324] sm:text-[1.9rem]">{t("rsvp.title")}</p>
                   <p className="mt-4 max-w-[18rem] text-[0.98rem] leading-7 text-[#6b4334]">{t("rsvp.copy")}</p>
                   <p className="mt-7 text-sm font-semibold uppercase tracking-[0.18em] text-[#a3633d]">{t("common.names")}</p>
-                  <a href="#" className="group mt-8 inline-flex -rotate-[1deg] items-center rounded-[0.4rem] border-2 border-[#8f1830] bg-[#fff5e5] px-3 py-2.5 text-left shadow-[3px_4px_0_rgba(143,24,48,0.18)] transition hover:-translate-y-0.5 hover:rotate-0 hover:shadow-[4px_5px_0_rgba(143,24,48,0.22)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8f1830]">
+                  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfuAZgHWb6qDUd7oW3KMIs4TIUGytB9n14BpKvc2v9lbUGbdQ/viewform" target="_blank" rel="noreferrer" className="group mt-8 inline-flex -rotate-[1deg] items-center rounded-[0.4rem] border-2 border-[#8f1830] bg-[#fff5e5] px-3 py-2.5 text-left shadow-[3px_4px_0_rgba(143,24,48,0.18)] transition hover:-translate-y-0.5 hover:rotate-0 hover:shadow-[4px_5px_0_rgba(143,24,48,0.22)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8f1830]">
                     <span className="border-r border-dashed border-[#b86622]/70 pr-2 text-base leading-none text-[#8f1830] transition group-hover:translate-x-0.5">&rarr;</span>
                     <span className="pl-2 text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[#6b3028]">{t("common.rsvp")}</span>
                   </a>
