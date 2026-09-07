@@ -124,7 +124,7 @@ export function CountdownDisplay({ compact = false }: { compact?: boolean }) {
   }, []);
 
   return (
-    <div className={compact ? "mt-7" : "mt-0"} aria-label={t("accessibility.countdown")}>
+    <div className={compact ? "mt-3" : "mt-0"} aria-label={t("accessibility.countdown")}>
       <p className="text-[0.58rem] font-bold uppercase tracking-[0.25em] text-[#b86622]">
         {t("countdown.eyebrow")}
       </p>

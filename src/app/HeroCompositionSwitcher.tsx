@@ -490,9 +490,6 @@ function OverlapComposition() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ type: "spring", stiffness: 120, damping: 20, delay: 0.14 }}
             >
-              <p className="mx-auto mb-4 max-w-[17rem] text-[0.58rem] font-bold uppercase tracking-[0.18em] text-[#ffd27d]">
-                {t("hero.overlapTagline")}
-              </p>
               <h1
                 className="mx-auto flex max-w-full items-center justify-center gap-2 whitespace-nowrap font-normal text-[clamp(1.8rem,8.6vw,2.5rem)] leading-[1.1] tracking-[0.01em] text-[#fff8ef] [text-shadow:0_10px_34px_rgba(50,27,18,0.46)]"
                 style={{ fontFamily: '"Great Vibes", cursive' }}

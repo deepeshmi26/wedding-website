@@ -8,7 +8,7 @@ const en = {
   common: { names: "Rajshree & Deepesh", rajshree: "Rajshree", deepesh: "Deepesh", date: "3 & 4 Dec 2026", datesLong: "3 & 4 December", location: "Kolkata, India", year: "2026", rsvp: "RSVP" },
   nav: { story: "Photo album", journey: "Our journey", events: "Events", calendar: "Add to calendar", rsvp: "RSVP" },
   hero: {
-    tagline: "Come for the vows, stay for the dancing", overlapTagline: "Come for the vows and stay for the wedding",
+    tagline: "Come for the vows, stay for the dancing",
     music: "music", allNight: "all night", justUs: "just us", withYou: "with you",
     moments: { dance: "dance-floor laughs", mehendi: "mehendi smiles", family: "family hugs" },
     alt: { smiling: "Rajshree and Deepesh smiling at each other", close: "Rajshree and Deepesh smiling close together", rings: "Rajshree and Deepesh showing their rings", bench: "Rajshree and Deepesh smiling together on a bench", looking: "Rajshree and Deepesh looking at each other" },
@@ -27,16 +27,14 @@ const en = {
   journey: {
     stampLeft: "You & me", stampRight: "Us", titleLead: "Our", title: "journey", intro: "A few turns, a lot of laughter, and one shared way home.",
     moments: [
-      { kicker: "A small opening", copy: "We were both busy with work, studies, and the lives we were building. Then a wedding made Deepesh pause and imagine this for himself, while Rajshree's best friend persuaded her to give him a chance." },
-      { kicker: "The call", copy: "Our first conversation felt unexpectedly easy. We planned a call, spoke for three or four hours straight, and neither of us wanted to be the one to end it." },
-      { kicker: "Cubbon Park", copy: "We met at Cubbon Park the very next day. Deepesh says: \"The moment I saw Rajshree from afar, everything around me slowed down. I was completely mesmerized. I would relive that first glimpse again and again.\"" },
-      { kicker: "Again, the next day", copy: "Our first date went so well that we met again the very next day. We spent five hours cafe-hopping across Bangalore, talking, eating, and discovering that we were both equally serious about good food." },
-      { kicker: "The question", copy: "We started dating slowly, with more curiosity than certainty. We would tease each other about love and keep asking what it really meant, unaware that the answer was growing in every day we chose to return to each other." },
-      { kicker: "A new routine", copy: "Even in long distance, five hours did not seem like much anymore. We stayed on video calls while reading, studying, working, and telling each other even the smallest details of our days." },
-      { kicker: "Secret chapters", copy: "Between the calls, there were a few meetings we kept to ourselves. Those stolen little pockets of time made us feel even closer. Sorry, parents." },
-      { kicker: "The big reveal", copy: "Somewhere along the way, forever stopped sounding impossible. When we told our families, their excitement made our own joy feel larger, louder, and beautifully real." },
-      { kicker: "Two yeses", copy: "Rajshree proposed first. A day later, Deepesh did too, with friends on both sides helping us plan two moments we will always remember." },
-      { kicker: "The next stop", copy: "Now you are reading this just before we see you on 3rd and 4th December. We cannot wait for 5 December, when we celebrate our transition from fiances to a married couple." }
+      { kicker: "A beginning", copy: "We were both busy building our lives. Then one wedding made us both pause and imagine a shared future." },
+      { kicker: "The call", copy: "Our first conversation felt unexpectedly easy. We spoke for three or four hours, and neither wanted to hang up." },
+      { kicker: "Cubbon Park", copy: "We met at Cubbon Park the next day. Deepesh says the first glimpse of Rajshree made everything around him slow down." },
+      { kicker: "Again, the next day", copy: "Our first date went so well that we met again the next day: five hours of cafe-hopping, talking, and eating." },
+      { kicker: "A new routine", copy: "Long distance made five-hour calls feel normal. We stayed on video while reading, working, and sharing the smallest details of our days." },
+      { kicker: "Secret chapters", copy: "Between calls came a few secret meetups. Those stolen pockets of time made us feel even closer. Sorry, parents." },
+      { kicker: "The big reveal", copy: "Somewhere along the way, forever stopped sounding impossible. Telling our families made the joy feel larger and real." },
+      { kicker: "The next stop", copy: "We cannot contain our excitement to officially be married on 4 December." }
     ]
   },
   events: {

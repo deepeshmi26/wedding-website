@@ -1,105 +1,83 @@
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 
+import { StoryPhotoCarousel, type CarouselPhoto } from "./StoryPhotoCarousel";
 import { storyPhotos } from "./weddingData";
 
-type StoryPhoto = {
+type StoryPhoto = CarouselPhoto & {
   copyIndex: number;
-  height: number;
-  layoutClassName?: string;
-  rotation?: string;
-  src: string;
-  width: number;
 };
 
 const storyPhotosGrid: StoryPhoto[] = [
   {
     copyIndex: 0,
     height: 2048,
-    layoutClassName: "row-span-3",
     src: "/photos/IMG-20240311-WA0000.jpg",
     width: 1536,
   },
   {
     copyIndex: 3,
     height: 2220,
-    layoutClassName: "row-span-2 sm:col-span-2",
     src: "/photos/second-date.jpg",
     width: 2979,
   },
   {
     copyIndex: 4,
     height: 1024,
-    layoutClassName: "col-start-2 row-span-2 sm:col-start-auto sm:col-span-2",
-    rotation: "rotate-[0.55deg]",
     src: "/photos/rav02938-hero-clean.png",
     width: 1536,
   },
   {
     copyIndex: 11,
     height: 1013,
-    layoutClassName: "col-span-2 row-span-2 sm:col-span-3 sm:row-span-5 lg:col-span-4 lg:row-span-6",
-    rotation: "rotate-[-0.45deg]",
+    objectPosition: "18% center",
     src: "/photos/couple-portrait-retouched.png",
     width: 1552,
   },
   {
     copyIndex: 6,
     height: 7008,
-    layoutClassName: "row-span-3",
     src: storyPhotos.classicCouple,
     width: 4672,
   },
   {
     copyIndex: 5,
     height: 3648,
-    layoutClassName: "row-span-3",
-    rotation: "rotate-[-1deg]",
     src: "/photos/PXL_20260726_161715171.RAW-01.jpg",
     width: 2736,
   },
   {
     copyIndex: 8,
     height: 3396,
-    layoutClassName: "row-span-3",
     src: "/photos/PXL_20251002_101627009~2.jpg",
     width: 2613,
   },
   {
     copyIndex: 7,
     height: 3648,
-    layoutClassName: "row-span-3",
-    rotation: "rotate-[0.8deg]",
     src: "/photos/PXL_20260807_202233069.PORTRAIT.jpg",
     width: 2736,
   },
   {
     copyIndex: 9,
     height: 3648,
-    layoutClassName: "row-span-3",
-    rotation: "rotate-[-0.7deg]",
     src: "/photos/PXL_20260808_105044174.RAW-01.jpg",
     width: 2736,
   },
   {
     copyIndex: 1,
     height: 2048,
-    layoutClassName: "row-span-3",
     src: "/photos/IMG-20260327-WA0044.jpg",
     width: 1536,
   },
   {
     copyIndex: 2,
     height: 7008,
-    layoutClassName: "row-span-3",
-    rotation: "rotate-[1.15deg]",
     src: storyPhotos.closeCouple,
     width: 4672,
   },
   {
     copyIndex: 10,
     height: 4032,
-    layoutClassName: "row-span-3",
     src: "/photos/IMG-20260802-WA0016.jpg",
     width: 3024,
   },
@@ -162,27 +140,13 @@ export function StorySection() {
           </div>
         </div>
 
-        <div className="mt-12 grid auto-rows-[5rem] grid-cols-2 gap-3 sm:mt-14 sm:auto-rows-[6rem] sm:grid-cols-3 sm:gap-4 lg:auto-rows-[7rem] lg:grid-cols-4">
-          {storyPhotosGrid.map((photo) => (
-            <figure
-              key={photo.src}
-              className={`flex min-h-0 flex-col overflow-hidden bg-[#fffdf8] p-2 pb-3 shadow-[0_14px_30px_rgba(87,43,50,0.12)] transition-transform duration-300 hover:z-10 hover:scale-[1.02] sm:p-2.5 sm:pb-4 ${photo.layoutClassName ?? ""} ${photo.rotation ?? ""}`}
-            >
-              <Image
-                alt={photoCopy[photo.copyIndex].alt}
-                className="h-0 min-h-0 w-full flex-1 object-cover"
-                height={photo.height}
-                quality={86}
-                sizes="(max-width: 639px) 44vw, (max-width: 1023px) 28vw, 22vw"
-                src={photo.src}
-                width={photo.width}
-              />
-              <figcaption className="px-1 pt-2 font-serif text-[1.05rem] italic leading-none text-[#754b49] sm:pt-2.5 sm:text-[1.15rem]">
-                {photoCopy[photo.copyIndex].caption}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+        <StoryPhotoCarousel
+          photos={storyPhotosGrid.map((photo) => ({
+            ...photo,
+            alt: photoCopy[photo.copyIndex].alt,
+            caption: photoCopy[photo.copyIndex].caption,
+          }))}
+        />
       </div>
     </section>
   );

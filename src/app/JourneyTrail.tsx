@@ -18,43 +18,37 @@ type JourneyMoment = {
 
 // Every curve after the first adds two handles and a new endpoint.
 const initialPoints: Point[] = [
-  { x: 0.1576, y: 0.06 },
-  { x: 0.0463, y: 0.1304 },
-  { x: 0.8579, y: 0.0458 },
-  { x: 0.8506, y: 0.1578 },
-  { x: 0.7857, y: 0.2914 },
-  { x: 0.3768, y: 0.2072 },
-  { x: 0.2627, y: 0.2556 },
-  { x: 0.1448, y: 0.3809 },
-  { x: 0.3875, y: 0.3259 },
-  { x: 0.7912, y: 0.3533 },
-  { x: 0.97, y: 0.396 },
-  { x: 0.2485, y: 0.3945 },
-  { x: 0.3411, y: 0.4511 },
-  { x: 0.3552, y: 0.5075 },
-  { x: 0.877, y: 0.4865 },
-  { x: 0.6392, y: 0.5489 },
-  { x: 0.275, y: 0.5985 },
-  { x: 0.1718, y: 0.6254 },
-  { x: 0.3977, y: 0.6467 },
-  { x: 0.7367, y: 0.6748 },
-  { x: 0.415, y: 0.7627 },
-  { x: 0.68, y: 0.7444 },
-  { x: 0.94, y: 0.7354 },
-  { x: 0.7506, y: 0.8849 },
-  { x: 0.5154, y: 0.8422 },
-  { x: 0.093, y: 0.8218 },
-  { x: 0.2316, y: 0.94 },
-  { x: 0.92, y: 0.94 },
+  { x: 0.0991, y: 0.03 },
+  { x: 0.092, y: 0.0695 },
+  { x: 0.5589, y: 0.03 },
+  { x: 0.8336, y: 0.0856 },
+  { x: 0.8689, y: 0.2348 },
+  { x: 0.1559, y: 0.1161 },
+  { x: 0.1908, y: 0.1851 },
+  { x: 0.1549, y: 0.2884 },
+  { x: 0.4821, y: 0.241 },
+  { x: 0.7868, y: 0.2749 },
+  { x: 0.8312, y: 0.3321 },
+  { x: 0.9552, y: 0.3313 },
+  { x: 0.7606, y: 0.3703 },
+  { x: 0.7027, y: 0.4698 },
+  { x: 0.1409, y: 0.4184 },
+  { x: 0.2679, y: 0.4639 },
+  { x: 0.3565, y: 0.547 },
+  { x: 0.7218, y: 0.509 },
+  { x: 0.7163, y: 0.5386 },
+  { x: 0.7221, y: 0.5543 },
+  { x: 0.4959, y: 0.628 },
+  { x: 0.8281, y: 0.6263 },
 ];
 
 const curveCount = (initialPoints.length - 1) / 3;
-const routeIntroProgress = 0.08;
+const routeIntroProgress = 0;
 const showEditorGuides = false;
 const showTram = true;
 const isEditable = false;
 const journeyMomentLayout: Array<Omit<JourneyMoment, "kicker" | "copy">> = [
-  { align: "left", offsetX: 44, offsetY: 56 }, { align: "right", offsetX: -16, offsetY: 14 }, { align: "left", offsetX: 16, offsetY: 14 }, { align: "right", offsetX: -16, offsetY: 14 }, { align: "left", offsetX: 16, offsetY: 16 }, { align: "right", offsetX: 0, offsetY: 14 }, { align: "left", offsetX: 0, offsetY: 16 }, { align: "right", offsetX: 0, offsetY: -46 }, { align: "center", offsetX: 0, offsetY: -150 }, { align: "right", offsetX: -16, offsetY: 60 }
+  { align: "left", offsetX: 36, offsetY: -4 }, { align: "right", offsetX: -18, offsetY: 12 }, { align: "left", offsetX: 18, offsetY: 16 }, { align: "right", offsetX: -36, offsetY: 20 }, { align: "right", offsetX: -18, offsetY: 20 }, { align: "left", offsetX: 18, offsetY: -16 }, { align: "right", offsetX: -18, offsetY: 18 }, { align: "right", offsetX: -18, offsetY: -20 }
 ];
 
 function cubicPointAt(start: Point, controlOne: Point, controlTwo: Point, end: Point, progress: number): Point {
@@ -137,6 +131,11 @@ function distanceProgressAtRoute(map: ArcLengthMap, routeProgress: number) {
 
 function stationArrivalAt(progress: number, stationProgresses: number[]) {
   return Math.max(...stationProgresses.map((stationProgress) => Math.max(0, 1 - Math.abs(progress - stationProgress) / 0.035)));
+}
+
+function trackAnchorY(height: number, distanceProgress: number) {
+  const exitProgress = Math.min(Math.max((distanceProgress - 0.82) / 0.18, 0), 1);
+  return height * (0.4 + 0.45 * exitProgress);
 }
 
 function pointAt(points: Point[], progress: number): Point {
@@ -244,7 +243,7 @@ export function JourneyTrail({ className }: JourneyTrailProps) {
       context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
       context.clearRect(0, 0, width, height);
 
-      const trackHeight = height * (width < 768 ? 5.5 : 4.5);
+      const trackHeight = height * (width < 768 ? 4.7 : 3.8);
       const distanceProgress = reducedMotion ? 1 : Math.max(routeProgress, 0.01);
       const arcLengthMap = createArcLengthMap(points, width, trackHeight);
       const revealedProgress = routeProgressAtDistance(arcLengthMap, distanceProgress);
@@ -252,7 +251,7 @@ export function JourneyTrail({ className }: JourneyTrailProps) {
       const tramDistanceProgress = reducedMotion ? 0 : distanceProgress;
       const stationProgresses = Array.from({ length: curveCount + 1 }, (_, index) => distanceProgressAtRoute(arcLengthMap, index / curveCount));
       const traveler = pointAt(points, tramProgress);
-      const trackOffset = height * 0.33 - traveler.y * trackHeight;
+      const trackOffset = trackAnchorY(height, distanceProgress) - traveler.y * trackHeight;
       const scaled = points.map((point) => ({ x: point.x * width, y: point.y * trackHeight }));
 
       if (trackRef.current) {
@@ -369,12 +368,12 @@ export function JourneyTrail({ className }: JourneyTrailProps) {
 
     const pointFromEvent = (event: PointerEvent) => {
       const bounds = canvas.getBoundingClientRect();
-      const trackHeight = bounds.height * (bounds.width < 768 ? 5.5 : 4.5);
+      const trackHeight = bounds.height * (bounds.width < 768 ? 4.7 : 3.8);
       const distanceProgress = reducedMotion ? 1 : Math.max(routeProgress, 0.01);
       const arcLengthMap = createArcLengthMap(points, bounds.width, trackHeight);
       const tramProgress = reducedMotion ? 0 : routeProgressAtDistance(arcLengthMap, distanceProgress);
       const traveler = pointAt(points, tramProgress);
-      const trackOffset = bounds.height * 0.33 - traveler.y * trackHeight;
+      const trackOffset = trackAnchorY(bounds.height, distanceProgress) - traveler.y * trackHeight;
 
       return {
         trackHeight,
@@ -455,8 +454,8 @@ export function JourneyTrail({ className }: JourneyTrailProps) {
                 transform: `${transform} ${index === 0 ? (isOpeningMomentVisible ? "translateY(0)" : "translateY(1rem)") : index <= revealedStation ? "translateY(0)" : "translateY(1rem)"}`,
               }}
             >
-              <p className="m-0 font-sans text-[0.65rem] font-bold uppercase tracking-[0.12em] text-[#842b45]">{moment.kicker}</p>
-              <p className="mt-2 font-serif text-[1.1rem] font-semibold italic leading-[1.2] text-[#2f1723]">{moment.copy}</p>
+              <p className="m-0 font-sans text-[0.76rem] font-bold uppercase tracking-[0.12em] text-[#842b45]">{moment.kicker}</p>
+              <p className="mt-2 font-serif text-[1.35rem] font-semibold italic leading-[1.2] text-[#2f1723]">{moment.copy}</p>
             </li>
           );
         })}

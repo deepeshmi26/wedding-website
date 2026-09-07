@@ -18,7 +18,7 @@ const eventDetails = [
   {
     mapUrl: "https://maps.app.goo.gl/ur6KqC3tBMqw4i7NA",
     washImage: "/photos/event-haldi-background-v1.png",
-    dressCodeColors: ["#f1be3d", "#f5d97a", "#8a9d6f", "#fff4d6"],
+    dressCodeColors: ["#f1be3d", "#df7f96"],
   },
   {
     mapUrl: "https://maps.app.goo.gl/ur6KqC3tBMqw4i7NA",

@@ -6,8 +6,8 @@ import { useTranslations } from "next-intl";
 import { useRef } from "react";
 
 const kolkataImages = [
-  "/graphics/howrah-bridge-sunset-wash.jpeg",
-  "/graphics/kolkata-tram-wash.webp",
+  "/graphics/howrah-bridge-sunset-wash-v2.jpeg",
+  "/graphics/kolkata-tram-wash-v2.webp",
   "/graphics/victoria-memorial-card.jpg",
   "/graphics/dakshineswar-temple-wash.jpg",
   "/graphics/howrah-bridge-card.jpg",
