@@ -1,17 +1,24 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 const WEDDING_START = new Date("2026-12-04T17:45:00+05:30");
 
 type CountdownValue = {
-  days: string;
-  hours: string;
-  minutes: string;
-  seconds: string;
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
 };
+
+function formatCountdownValue(value: number, locale: string) {
+  return new Intl.NumberFormat(locale === "bn" ? "bn-BD" : "en-US", {
+    minimumIntegerDigits: 2,
+    useGrouping: false,
+  }).format(value);
+}
 
 function getCountdownValue(): CountdownValue {
   const remaining = Math.max(0, WEDDING_START.getTime() - Date.now());
@@ -22,25 +29,29 @@ function getCountdownValue(): CountdownValue {
   const seconds = totalSeconds % 60;
 
   return {
-    days: String(days).padStart(2, "0"),
-    hours: String(hours).padStart(2, "0"),
-    minutes: String(minutes).padStart(2, "0"),
-    seconds: String(seconds).padStart(2, "0"),
+    days,
+    hours,
+    minutes,
+    seconds,
   };
 }
 
 function FlipUnit({
   compact = false,
   label,
+  locale,
   value,
 }: {
   compact?: boolean;
   label: string;
-  value: string;
+  locale: string;
+  value: number;
 }) {
   const shouldReduceMotion = useReducedMotion();
+  const isBengali = locale === "bn";
+  const displayValue = formatCountdownValue(value, locale);
   const valueSize =
-    value.length > 2
+    displayValue.length > 2
       ? compact
         ? "text-[1.85rem] sm:text-[2.55rem] lg:text-[2.8rem]"
         : "text-[2.2rem] sm:text-4xl lg:text-[3.15rem]"
@@ -48,13 +59,13 @@ function FlipUnit({
         ? "text-[2.3rem] sm:text-[3rem] lg:text-[3.25rem]"
         : "text-[2.7rem] sm:text-5xl lg:text-[3.8rem]";
 
-  const faceTextClass = `absolute inset-0 grid place-items-center font-serif leading-none text-[#76152d] [font-variant-numeric:lining-nums] ${valueSize}`;
+  const faceTextClass = `absolute inset-0 grid place-items-center font-serif text-[#76152d] [font-variant-numeric:lining-nums] ${isBengali ? "translate-y-[0.035em] leading-[1.16]" : "leading-none"} ${valueSize}`;
 
   return (
     <div className="min-w-0 text-center">
       <div
         className={`relative isolate aspect-[0.96/1] min-w-0 overflow-hidden rounded-[0.45rem] border border-[#c58a58]/55 bg-[#fff9ed] shadow-[0_8px_0_rgba(177,106,61,0.13),0_15px_25px_rgba(94,51,36,0.1)] ${
-          compact ? "sm:min-w-[4.6rem] lg:min-w-[5.1rem]" : "sm:min-w-[5.7rem] lg:min-w-[6.6rem]"
+          compact ? "min-w-[3.85rem] sm:min-w-[4.6rem] lg:min-w-[5.1rem]" : "min-w-[4.5rem] sm:min-w-[5.7rem] lg:min-w-[6.6rem]"
         }`}
         style={{ perspective: "680px" }}
       >
@@ -71,18 +82,18 @@ function FlipUnit({
           className="absolute inset-0 z-10 overflow-hidden"
           style={{ clipPath: "inset(0 0 50% 0)" }}
         >
-          <span className={faceTextClass}>{value}</span>
+          <span className={faceTextClass}>{displayValue}</span>
         </div>
         <div
           aria-hidden="true"
           className="absolute inset-0 z-10 overflow-hidden"
           style={{ clipPath: "inset(50% 0 0 0)" }}
         >
-          <span className={faceTextClass}>{value}</span>
+          <span className={faceTextClass}>{displayValue}</span>
         </div>
         <AnimatePresence initial={false} mode="popLayout">
           <motion.div
-            key={value}
+            key={displayValue}
             initial={shouldReduceMotion ? false : { rotateX: -88 }}
             animate={{ rotateX: 0 }}
             exit={shouldReduceMotion ? undefined : { opacity: 0 }}
@@ -94,7 +105,7 @@ function FlipUnit({
               transformOrigin: "50% 100%",
             }}
           >
-            <span className={faceTextClass}>{value}</span>
+            <span className={faceTextClass}>{displayValue}</span>
           </motion.div>
         </AnimatePresence>
         <span
@@ -112,6 +123,7 @@ function FlipUnit({
 }
 
 export function CountdownDisplay({ compact = false }: { compact?: boolean }) {
+  const locale = useLocale();
   const t = useTranslations();
   const [countdown, setCountdown] = useState(getCountdownValue);
 
@@ -129,10 +141,10 @@ export function CountdownDisplay({ compact = false }: { compact?: boolean }) {
         {t("countdown.eyebrow")}
       </p>
       <div className={`mt-3 grid grid-cols-4 ${compact ? "max-w-[25rem] gap-2 sm:gap-3" : "max-w-[32rem] gap-2.5 sm:gap-5"}`}>
-        <FlipUnit compact={compact} label={t("countdown.days")} value={countdown.days} />
-        <FlipUnit compact={compact} label={t("countdown.hours")} value={countdown.hours} />
-        <FlipUnit compact={compact} label={t("countdown.minutes")} value={countdown.minutes} />
-        <FlipUnit compact={compact} label={t("countdown.seconds")} value={countdown.seconds} />
+        <FlipUnit compact={compact} label={t("countdown.days")} locale={locale} value={countdown.days} />
+        <FlipUnit compact={compact} label={t("countdown.hours")} locale={locale} value={countdown.hours} />
+        <FlipUnit compact={compact} label={t("countdown.minutes")} locale={locale} value={countdown.minutes} />
+        <FlipUnit compact={compact} label={t("countdown.seconds")} locale={locale} value={countdown.seconds} />
       </div>
     </div>
   );
