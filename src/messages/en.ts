@@ -5,7 +5,7 @@ const en = {
     navigation: "Primary navigation", siteNavigation: "Site navigation", countdown: "Countdown to the wedding ceremony",
     countdownSection: "Countdown to the wedding", journeyTrail: "Wedding journey trail", journeyList: "Our journey", love: "love"
   },
-  common: { names: "Rajshree & Deepesh", rajshree: "Rajshree", deepesh: "Deepesh", date: "3 & 4 Dec 2026", datesLong: "3 & 4 December", location: "Kolkata, India", year: "2026", rsvp: "RSVP" },
+  common: { names: "Rajshree & Deepesh", rajshree: "Rajshree", deepesh: "Deepesh", date: "3rd & 4th December 2026", datesLong: "3 & 4 December", location: "Kolkata, India", year: "2026", rsvp: "RSVP" },
   nav: { story: "Photo album", journey: "Our journey", events: "Events", calendar: "Add to calendar", rsvp: "RSVP" },
   hero: {
     tagline: "Come for the vows, stay for the dancing",
@@ -32,7 +32,7 @@ const en = {
       { kicker: "Cubbon Park", copy: "We met at Cubbon Park the next day. Deepesh says the first glimpse of Rajshree made everything around him slow down." },
       { kicker: "Again, the next day", copy: "Our first date went so well that we met again the next day: five hours of cafe-hopping, talking, and eating." },
       { kicker: "A new routine", copy: "Long distance made five-hour calls feel normal. We stayed on video while reading, working, and sharing the smallest details of our days." },
-      { kicker: "Secret chapters", copy: "Between calls came a few secret meetups. Those stolen pockets of time made us feel even closer. Sorry, parents." },
+      { kicker: "Secret chapters", copy: "Between calls came a few secret meetups. Those stolen pockets of time made us feel even closer." },
       { kicker: "The big reveal", copy: "Somewhere along the way, forever stopped sounding impossible. Telling our families made the joy feel larger and real." },
       { kicker: "The next stop", copy: "We cannot contain our excitement to officially be married on 4 December." }
     ]
@@ -45,7 +45,7 @@ const en = {
       { name: "Wedding", date: "4 December", time: "5:45 PM", place: "Shrishti Garden, Jessore Rd, Kolkata", washImageAlt: "A candlelit floral mandap prepared for the wedding" }
     ]
   },
-  calendar: { eyebrow: "Save the date", title: "Our wedding weekend", weekday: "Thursday", dateDay: "03", dateMonth: "Dec", add: "Add our day to calendar", taxiAlt: "Yellow Kolkata taxi illustration", calendarTitle: "Rajshree & Deepesh's Wedding Weekend", calendarDetails: "We would love to celebrate with you.", calendarLocation: "Kolkata" },
+  calendar: { eyebrow: "Save the date", title: "Our wedding weekend", weekday: "Friday", dateDay: "04", dateMonth: "Dec", add: "Add our day to calendar", taxiAlt: "Yellow Kolkata taxi illustration", calendarTitle: "Rajshree & Deepesh's Wedding", calendarDetails: "Join us for the wedding ceremony at 5:45 PM.", calendarLocation: "Shrishti Garden, Jessore Rd, Kolkata" },
   rsvp: { eyebrow: "RSVP", title: "Save us a yes for the wedding weekend.", copy: "Send us your reply when you are ready. We cannot wait to celebrate with you in Kolkata." },
   footer: { madeWith: "Made with", by: "by Deepesh & Rajshree" }
 } as const;

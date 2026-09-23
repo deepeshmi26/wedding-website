@@ -16,7 +16,7 @@ function CalendarMark() {
 
 export function SaveTheDateSection() {
   const t = useTranslations();
-  const calendarUrl = `https://calendar.google.com/calendar/render?${new URLSearchParams({ action: "TEMPLATE", text: t("calendar.calendarTitle"), dates: "20261203/20261204", details: t("calendar.calendarDetails"), location: t("calendar.calendarLocation") }).toString()}`;
+  const calendarUrl = `https://calendar.google.com/calendar/render?${new URLSearchParams({ action: "TEMPLATE", text: t("calendar.calendarTitle"), dates: "20261204T174500/20261204T234500", ctz: "Asia/Kolkata", details: t("calendar.calendarDetails"), location: t("calendar.calendarLocation") }).toString()}`;
   return (
     <section
       id="save-the-date"
@@ -83,8 +83,6 @@ export function SaveTheDateSection() {
 
             <a
               href={calendarUrl}
-              target="_blank"
-              rel="noreferrer"
               className="mt-5 inline-flex w-full items-center justify-center gap-3 rounded-full bg-[#b9143c] px-5 py-3.5 text-[0.62rem] font-bold uppercase tracking-[0.15em] text-[#fff9f1] shadow-[0_9px_18px_rgba(134,14,43,0.25)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#94102f] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#b9143c] sm:mt-6 sm:text-[0.68rem]"
             >
               <span aria-hidden="true" className="text-base leading-none text-[#ffd58f]">

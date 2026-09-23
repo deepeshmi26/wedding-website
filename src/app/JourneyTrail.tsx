@@ -48,7 +48,7 @@ const showEditorGuides = false;
 const showTram = true;
 const isEditable = false;
 const journeyMomentLayout: Array<Omit<JourneyMoment, "kicker" | "copy">> = [
-  { align: "left", offsetX: 36, offsetY: -4 }, { align: "right", offsetX: -18, offsetY: 12 }, { align: "left", offsetX: 18, offsetY: 16 }, { align: "right", offsetX: -36, offsetY: 20 }, { align: "right", offsetX: -18, offsetY: 20 }, { align: "left", offsetX: 18, offsetY: -16 }, { align: "right", offsetX: -18, offsetY: 18 }, { align: "right", offsetX: -18, offsetY: -20 }
+  { align: "left", offsetX: 36, offsetY: -4 }, { align: "right", offsetX: -18, offsetY: 12 }, { align: "left", offsetX: 18, offsetY: 16 }, { align: "right", offsetX: -36, offsetY: 20 }, { align: "right", offsetX: -18, offsetY: 20 }, { align: "left", offsetX: 18, offsetY: -24 }, { align: "right", offsetX: -18, offsetY: 18 }, { align: "right", offsetX: -18, offsetY: -20 }
 ];
 
 function cubicPointAt(start: Point, controlOne: Point, controlTwo: Point, end: Point, progress: number): Point {
@@ -247,6 +247,7 @@ export function JourneyTrail({ className }: JourneyTrailProps) {
       const distanceProgress = reducedMotion ? 1 : Math.max(routeProgress, 0.01);
       const arcLengthMap = createArcLengthMap(points, width, trackHeight);
       const revealedProgress = routeProgressAtDistance(arcLengthMap, distanceProgress);
+      const isTramVisible = !reducedMotion && routeProgress > 0.015;
       const tramProgress = reducedMotion ? 0 : revealedProgress;
       const tramDistanceProgress = reducedMotion ? 0 : distanceProgress;
       const stationProgresses = Array.from({ length: curveCount + 1 }, (_, index) => distanceProgressAtRoute(arcLengthMap, index / curveCount));
@@ -337,7 +338,7 @@ export function JourneyTrail({ className }: JourneyTrailProps) {
         context.globalAlpha = 1;
       });
 
-      if (showTram && tramImage.complete && tramImage.naturalWidth > 0) {
+      if (showTram && isTramVisible && tramImage.complete && tramImage.naturalWidth > 0) {
         const tangent = tangentAt(points, tramProgress);
         const angle = Math.atan2(tangent.y * trackHeight, tangent.x * width);
         drawTram(context, tramImage, traveler.x * width, traveler.y * trackHeight, angle, width, 1 + stationArrivalAt(tramDistanceProgress, stationProgresses) * 0.08);
