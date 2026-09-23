@@ -83,6 +83,27 @@ const joyfulMoments = [
   },
 ];
 
+function WeddingDate({ date }: { date: string }) {
+  const match = date.match(/^(\d+)(st|nd|rd|th)(.*?)(\d+)(st|nd|rd|th)(.*)$/i);
+
+  if (!match) {
+    return <span>{date}</span>;
+  }
+
+  const [, firstDay, firstOrdinal, middle, secondDay, secondOrdinal, rest] = match;
+
+  return (
+    <span>
+      {firstDay}
+      <sup className="ml-px align-super text-[0.62em] normal-case tracking-normal">{firstOrdinal}</sup>
+      {middle}
+      {secondDay}
+      <sup className="ml-px align-super text-[0.62em] normal-case tracking-normal">{secondOrdinal}</sup>
+      {rest}
+    </span>
+  );
+}
+
 const variants: Variant[] = [
   {
     id: "joyful-collage",
@@ -191,7 +212,7 @@ function HeroCopy({
           isPhotoTone ? "text-[#ffe8c7]" : "text-[#774231]"
         }`}
       >
-        <span>{t("common.date")}</span>
+        <WeddingDate date={t("common.date")} />
         <span
           className={`hidden h-1.5 w-1.5 rounded-full sm:block ${
             isPhotoTone ? "bg-[#ffd27d]" : "bg-[#f0a72f]"
@@ -247,7 +268,7 @@ function MobileIntroNameDate() {
         <span className="h-px w-10 bg-[#f0a72f]" />
       </div>
       <div className="mt-6 flex flex-col items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-[#774231]">
-        <span>{t("common.date")}</span>
+        <WeddingDate date={t("common.date")} />
         <span>{t("common.location")}</span>
       </div>
     </div>
@@ -504,7 +525,7 @@ function OverlapComposition() {
                 <span className="h-px w-10 bg-[#ffd27d]" />
               </div>
               <div className="mt-4 flex flex-col items-center gap-1.5 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-[#ffe8c7]">
-                <span>{t("common.date")}</span>
+                <WeddingDate date={t("common.date")} />
                 <span>{t("common.location")}</span>
               </div>
             </motion.div>
