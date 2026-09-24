@@ -6,6 +6,7 @@ const saveTheDate = readFileSync(new URL("../src/app/SaveTheDateSection.tsx", im
 const gatheringSection = readFileSync(new URL("../src/app/GatheringSection.tsx", import.meta.url), "utf8");
 const journeyTrail = readFileSync(new URL("../src/app/JourneyTrail.tsx", import.meta.url), "utf8");
 const journeyStyles = readFileSync(new URL("../src/app/OurJourneySection.module.css", import.meta.url), "utf8");
+const journeySection = readFileSync(new URL("../src/app/OurJourneySection.tsx", import.meta.url), "utf8");
 const englishMessages = readFileSync(new URL("../src/messages/en.ts", import.meta.url), "utf8");
 const bengaliMessages = readFileSync(new URL("../src/messages/bn.ts", import.meta.url), "utf8");
 const rootLayout = readFileSync(new URL("../src/app/layout.tsx", import.meta.url), "utf8");
@@ -33,6 +34,12 @@ test("secret chapters sits closer to its trail point", () => {
 test("journey hides its optional intro on short screens", () => {
   assert.match(journeyStyles, /@media \(max-height: 44rem\)/);
   assert.match(journeyStyles, /\.intro \{\s*display: none;/);
+});
+
+test("desktop journey keeps its introduction clear of the route canvas", () => {
+  assert.match(journeySection, /className=\{styles\.headingRow\}/);
+  assert.match(journeyStyles, /\.headingRow \{\s*align-items: flex-end;\s*display: flex;/);
+  assert.match(journeyStyles, /@media \(min-width: 768px\)[\s\S]*?\.canvasWrap \{\s*height: 68svh;\s*max-width: none;\s*top: 23svh;/);
 });
 
 test("Kolkata invitation keeps the photo strips on mobile and uses one Howrah scene on desktop", () => {

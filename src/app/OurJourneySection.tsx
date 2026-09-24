@@ -15,10 +15,12 @@ export function OurJourneySection() {
             <p className={styles.routeStamp}>
               {t("journey.stampLeft")} <span aria-hidden="true" /> {t("journey.stampRight")}
             </p>
-            <h2>
-              <span>{t("journey.titleLead")}</span> {t("journey.title")}
-            </h2>
-            <p className={styles.intro}>{t("journey.intro")}</p>
+            <div className={styles.headingRow}>
+              <h2>
+                <span>{t("journey.titleLead")}</span> {t("journey.title")}
+              </h2>
+              <p className={styles.intro}>{t("journey.intro")}</p>
+            </div>
           </header>
         </div>
         <div className={styles.storyStage}>

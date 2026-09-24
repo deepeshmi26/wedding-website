@@ -120,6 +120,10 @@
   margin-bottom: 0.18em;
 }
 
+.headingRow {
+  display: block;
+}
+
 .intro {
   color: #5d3b38;
   font-family: "Cormorant Garamond Variable", Georgia, serif;
@@ -160,10 +164,28 @@
   }
 
   .header {
+    max-width: none;
     padding-top: 2.5rem;
   }
 
+  .headingRow {
+    align-items: flex-end;
+    display: flex;
+    gap: clamp(1.5rem, 4vw, 4rem);
+  }
+
+  .header h2 {
+    flex: 0 0 auto;
+  }
+
+  .intro {
+    margin: 0 0 0.55rem;
+    max-width: 22rem;
+  }
+
   .canvasWrap {
+    height: 68svh;
     max-width: none;
+    top: 23svh;
   }
 }
