@@ -22,6 +22,14 @@ test("first-screen dates use ordinal wording in both locales", () => {
   assert.match(bengaliMessages, /date: "৩রা ও ৪ঠা ডিসেম্বর ২০২৬"/);
 });
 
+test("Bengali events invite guests to celebrate with করুন", () => {
+  assert.match(bengaliMessages, /invite: "আসুন আমাদের সঙ্গে উদযাপন করুন"/);
+});
+
+test("Bengali Haldi event uses the full traditional name", () => {
+  assert.match(bengaliMessages, /name: "গায়ে হলুদ"/);
+});
+
 test("journey keeps the tram out of the opening mobile moment", () => {
   assert.match(journeyTrail, /const isTramVisible = !reducedMotion && routeProgress > 0\.015;/);
   assert.match(journeyTrail, /showTram && isTramVisible/);
