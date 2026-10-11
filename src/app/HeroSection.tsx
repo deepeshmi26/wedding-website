@@ -9,6 +9,7 @@ import {
 } from "./HeroCompositionSwitcher";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useTranslations } from "next-intl";
+import { BackgroundMusic } from "./BackgroundMusic";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 type HeroSectionProps = {
@@ -67,7 +68,7 @@ export function HeroSection({
         />
       </a>
 
-      <LanguageSwitcher className="absolute right-16 top-3 z-40 text-[#fff8ef] [text-shadow:0_2px_8px_rgba(45,20,13,0.55)] lg:hidden" />
+      <BackgroundMusic className="absolute right-16 top-3 z-40 lg:bottom-8 lg:right-8 lg:top-auto" />
 
       <motion.button
         type="button"

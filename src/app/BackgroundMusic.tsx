@@ -42,24 +42,24 @@ export function BackgroundMusic({ className }: { className: string }) {
         ref={audioRef}
         src="/audio/pardesiya.mp3"
       />
-      <span className="relative block h-9 w-9">
+      <span className="relative block h-8 w-8">
         {!isPlaying && !shouldReduceMotion ? (
           <motion.span
-            animate={{ opacity: [0, 0.42, 0], scale: [1, 1.7, 1.95] }}
+            animate={{ opacity: [0, 0.56, 0], scale: [1, 1.7, 1.95] }}
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 rounded-full border border-[#ffd27d]/70"
-            transition={{ duration: 2.8, ease: "easeOut", repeat: Infinity, repeatDelay: 1.4 }}
+            transition={{ duration: 1.45, ease: "easeOut", repeat: Infinity, repeatDelay: 0.55 }}
           />
         ) : null}
         <button
           aria-label={isPlaying ? t("audio.pause") : t("audio.play")}
           aria-pressed={isPlaying}
-          className="relative z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#fff8ef]/70 bg-[#321b12]/35 text-[#fff8ef] shadow-[0_5px_18px_rgba(45,20,13,0.18)] backdrop-blur-[2px] transition-[transform,color,border-color,background-color] duration-200 hover:border-[#ffd27d] hover:bg-[#321b12]/55 hover:text-[#ffd27d] active:scale-[0.94] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ffd27d]"
+          className="relative z-10 inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#fff8ef]/70 bg-[#321b12]/35 text-[#fff8ef] shadow-[0_5px_18px_rgba(45,20,13,0.18)] backdrop-blur-[2px] transition-[transform,color,border-color,background-color] duration-200 hover:border-[#ffd27d] hover:bg-[#321b12]/55 hover:text-[#ffd27d] active:scale-[0.94] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ffd27d]"
           onClick={togglePlayback}
           title={isPlaying ? t("audio.pause") : t("audio.play")}
           type="button"
         >
-          {isPlaying ? <Volume2 aria-hidden="true" size={15} strokeWidth={1.5} /> : <VolumeX aria-hidden="true" size={15} strokeWidth={1.5} />}
+          {isPlaying ? <Volume2 aria-hidden="true" size={13} strokeWidth={1.5} /> : <VolumeX aria-hidden="true" size={13} strokeWidth={1.5} />}
         </button>
       </span>
     </div>

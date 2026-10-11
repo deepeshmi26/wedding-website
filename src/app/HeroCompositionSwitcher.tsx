@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
-import { BackgroundMusic } from "./BackgroundMusic";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export type VariantId =
   | "joyful-collage"
@@ -581,7 +581,7 @@ function OverlapComposition() {
             transition={shouldReduceMotion ? undefined : { duration: 1.65, ease: "easeInOut", repeat: Infinity }}
           />
         </div>
-        <BackgroundMusic className="absolute bottom-5 right-5 z-20 sm:bottom-8 sm:right-8" />
+        <LanguageSwitcher className="absolute bottom-5 right-5 z-20 text-[#fff8ef] [text-shadow:0_2px_8px_rgba(45,20,13,0.55)] sm:bottom-8 sm:right-8 lg:hidden" />
       </div>
     </div>
   );

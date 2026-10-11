@@ -74,16 +74,18 @@ test("background music attempts to begin on arrival and remains controllable", (
   assert.match(backgroundMusic, /loop/);
   assert.match(backgroundMusic, /audio\.play\(\)/);
   assert.match(backgroundMusic, /aria-label=\{isPlaying \? t\("audio\.pause"\) : t\("audio\.play"\)\}/);
-  assert.match(backgroundMusic, /h-9 w-9/);
+  assert.match(backgroundMusic, /h-8 w-8/);
   assert.match(backgroundMusic, /border-\[\#fff8ef\]\/70/);
   assert.match(backgroundMusic, /active:scale-\[0\.94\]/);
   assert.match(backgroundMusic, /useReducedMotion/);
   assert.match(backgroundMusic, /!isPlaying && !shouldReduceMotion/);
   assert.match(backgroundMusic, /scale: \[1, 1\.7, 1\.95\]/);
-  assert.match(backgroundMusic, /repeatDelay: 1\.4/);
-  assert.match(heroSection, /<LanguageSwitcher className="absolute right-16 top-3 z-40 text-\[\#fff8ef\] \[text-shadow:0_2px_8px_rgba\(45,20,13,0\.55\)\] lg:hidden" \/>/);
-  assert.match(heroCompositionSwitcher, /import \{ BackgroundMusic \} from "\.\/BackgroundMusic"/);
-  assert.match(heroCompositionSwitcher, /<BackgroundMusic className="absolute bottom-5 right-5 z-20 sm:bottom-8 sm:right-8" \/>/);
+  assert.match(backgroundMusic, /duration: 1\.45/);
+  assert.match(backgroundMusic, /repeatDelay: 0\.55/);
+  assert.match(heroSection, /import \{ BackgroundMusic \} from "\.\/BackgroundMusic"/);
+  assert.match(heroSection, /<BackgroundMusic className="absolute right-16 top-3 z-40 lg:bottom-8 lg:right-8 lg:top-auto" \/>/);
+  assert.match(heroCompositionSwitcher, /import \{ LanguageSwitcher \} from "\.\/LanguageSwitcher"/);
+  assert.match(heroCompositionSwitcher, /<LanguageSwitcher className="absolute bottom-5 right-5 z-20 text-\[\#fff8ef\] \[text-shadow:0_2px_8px_rgba\(45,20,13,0\.55\)\] sm:bottom-8 sm:right-8 lg:hidden" \/>/);
 });
 
 test("Kolkata invitation keeps the photo strips on mobile and uses one Howrah scene on desktop", () => {
