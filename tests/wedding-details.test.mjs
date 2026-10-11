@@ -7,6 +7,7 @@ const gatheringSection = readFileSync(new URL("../src/app/GatheringSection.tsx",
 const journeyTrail = readFileSync(new URL("../src/app/JourneyTrail.tsx", import.meta.url), "utf8");
 const journeyStyles = readFileSync(new URL("../src/app/OurJourneySection.module.css", import.meta.url), "utf8");
 const journeySection = readFileSync(new URL("../src/app/OurJourneySection.tsx", import.meta.url), "utf8");
+const storyPhotoCarousel = readFileSync(new URL("../src/app/StoryPhotoCarousel.tsx", import.meta.url), "utf8");
 const englishMessages = readFileSync(new URL("../src/messages/en.ts", import.meta.url), "utf8");
 const bengaliMessages = readFileSync(new URL("../src/messages/bn.ts", import.meta.url), "utf8");
 const rootLayout = readFileSync(new URL("../src/app/layout.tsx", import.meta.url), "utf8");
@@ -48,6 +49,10 @@ test("desktop journey keeps its introduction clear of the route canvas", () => {
   assert.match(journeySection, /className=\{styles\.headingRow\}/);
   assert.match(journeyStyles, /\.headingRow \{\s*align-items: flex-end;\s*display: flex;/);
   assert.match(journeyStyles, /@media \(min-width: 768px\)[\s\S]*?\.canvasWrap \{\s*height: 68svh;\s*max-width: none;\s*top: 23svh;/);
+});
+
+test("desktop photo album cards are capped by viewport height", () => {
+  assert.match(storyPhotoCarousel, /lg:flex-\[0_0_min\(42vw,56svh\)\]/);
 });
 
 test("Kolkata invitation keeps the photo strips on mobile and uses one Howrah scene on desktop", () => {

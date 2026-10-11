@@ -65,7 +65,7 @@ export function StoryPhotoCarousel({ photos }: StoryPhotoCarouselProps) {
             const isSelected = index === selectedIndex;
 
             return (
-              <div className="min-w-0 flex-[0_0_86%] px-2.5 sm:flex-[0_0_68%] sm:px-3.5 lg:flex-[0_0_56%]" key={photo.src}>
+              <div className="min-w-0 flex-[0_0_86%] px-2.5 sm:flex-[0_0_68%] sm:px-3.5 lg:flex-[0_0_min(42vw,56svh)]" key={photo.src}>
                 <figure
                   aria-hidden={!isSelected}
                   className={`bg-[#fffdf8] p-2.5 pb-4 shadow-[0_18px_36px_rgba(87,43,50,0.14)] transition-[transform,opacity] duration-500 ease-out sm:p-3 sm:pb-5 ${
@@ -78,7 +78,7 @@ export function StoryPhotoCarousel({ photos }: StoryPhotoCarouselProps) {
                       className="object-cover"
                       fill
                       quality={88}
-                      sizes="(max-width: 639px) 82vw, (max-width: 1023px) 64vw, 52vw"
+                      sizes="(max-width: 639px) 82vw, (max-width: 1023px) 64vw, 42vw"
                       src={photo.src}
                       style={{ objectPosition: photo.objectPosition }}
                     />
