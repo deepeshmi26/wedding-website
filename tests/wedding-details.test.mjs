@@ -11,6 +11,12 @@ const storyPhotoCarousel = readFileSync(new URL("../src/app/StoryPhotoCarousel.t
 const englishMessages = readFileSync(new URL("../src/messages/en.ts", import.meta.url), "utf8");
 const bengaliMessages = readFileSync(new URL("../src/messages/bn.ts", import.meta.url), "utf8");
 const rootLayout = readFileSync(new URL("../src/app/layout.tsx", import.meta.url), "utf8");
+const heroCompositionSwitcher = readFileSync(
+  new URL("../src/app/HeroCompositionSwitcher.tsx", import.meta.url),
+  "utf8",
+);
+const backgroundMusic = readFileSync(new URL("../src/app/BackgroundMusic.tsx", import.meta.url), "utf8");
+const heroSection = readFileSync(new URL("../src/app/HeroSection.tsx", import.meta.url), "utf8");
 
 test("save-the-date opens a timed wedding event on 4 December", () => {
   assert.ok(saveTheDate.includes('dates: "20261204T174500/20261204T234500"'));
@@ -53,6 +59,31 @@ test("desktop journey keeps its introduction clear of the route canvas", () => {
 
 test("desktop photo album cards are capped by viewport height", () => {
   assert.match(storyPhotoCarousel, /lg:flex-\[0_0_min\(42vw,56svh\)\]/);
+});
+
+test("Bengali desktop hero reserves a readable text rhythm", () => {
+  assert.match(heroCompositionSwitcher, /useLocale/);
+  assert.match(heroCompositionSwitcher, /const isBengali = locale === "bn";/);
+  assert.match(heroCompositionSwitcher, /font-serif leading-\[0\.96\] tracking-normal/);
+  assert.match(heroCompositionSwitcher, /mb-7 max-w-\[34rem\] leading-relaxed tracking-\[0\.2em\]/);
+});
+
+test("background music attempts to begin on arrival and remains controllable", () => {
+  assert.match(backgroundMusic, /src="\/audio\/pardesiya\.mp3"/);
+  assert.match(backgroundMusic, /autoPlay/);
+  assert.match(backgroundMusic, /loop/);
+  assert.match(backgroundMusic, /audio\.play\(\)/);
+  assert.match(backgroundMusic, /aria-label=\{isPlaying \? t\("audio\.pause"\) : t\("audio\.play"\)\}/);
+  assert.match(backgroundMusic, /h-9 w-9/);
+  assert.match(backgroundMusic, /border-\[\#fff8ef\]\/70/);
+  assert.match(backgroundMusic, /active:scale-\[0\.94\]/);
+  assert.match(backgroundMusic, /useReducedMotion/);
+  assert.match(backgroundMusic, /!isPlaying && !shouldReduceMotion/);
+  assert.match(backgroundMusic, /scale: \[1, 1\.7, 1\.95\]/);
+  assert.match(backgroundMusic, /repeatDelay: 1\.4/);
+  assert.match(heroSection, /<LanguageSwitcher className="absolute right-16 top-3 z-40 text-\[\#fff8ef\] \[text-shadow:0_2px_8px_rgba\(45,20,13,0\.55\)\] lg:hidden" \/>/);
+  assert.match(heroCompositionSwitcher, /import \{ BackgroundMusic \} from "\.\/BackgroundMusic"/);
+  assert.match(heroCompositionSwitcher, /<BackgroundMusic className="absolute bottom-5 right-5 z-20 sm:bottom-8 sm:right-8" \/>/);
 });
 
 test("Kolkata invitation keeps the photo strips on mobile and uses one Howrah scene on desktop", () => {

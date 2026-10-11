@@ -67,6 +67,8 @@ export function HeroSection({
         />
       </a>
 
+      <LanguageSwitcher className="absolute right-16 top-3 z-40 text-[#fff8ef] [text-shadow:0_2px_8px_rgba(45,20,13,0.55)] lg:hidden" />
+
       <motion.button
         type="button"
         aria-controls="site-menu"

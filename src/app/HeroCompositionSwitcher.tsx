@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
-import { LanguageSwitcher } from "./LanguageSwitcher";
+import { BackgroundMusic } from "./BackgroundMusic";
 
 export type VariantId =
   | "joyful-collage"
@@ -156,7 +156,9 @@ function HeroCopy({
   compact?: boolean;
   tone?: "warm" | "photo";
 }) {
+  const locale = useLocale();
   const t = useTranslations();
+  const isBengali = locale === "bn";
   const isPhotoTone = tone === "photo";
   const shouldReduceMotion = useReducedMotion();
 
@@ -168,14 +170,22 @@ function HeroCopy({
       transition={{ type: "spring", stiffness: 120, damping: 20, delay: 0.1 }}
     >
       <p
-        className={`mb-5 max-w-sm text-[0.72rem] font-bold uppercase tracking-[0.34em] ${
+        className={`${
+          isBengali
+            ? "mb-7 max-w-[34rem] leading-relaxed tracking-[0.2em]"
+            : "mb-5 max-w-sm tracking-[0.34em]"
+        } text-[0.72rem] font-bold uppercase ${
           isPhotoTone ? "text-[#ffd27d]" : "text-[#c24a2b]"
         }`}
       >
         {t("hero.tagline")}
       </p>
       <h1
-        className={`max-w-4xl font-normal leading-[0.78] tracking-[0.01em] ${
+        className={`max-w-4xl ${
+          isBengali
+            ? "font-serif leading-[0.96] tracking-normal"
+            : "font-great-vibes font-normal leading-[0.78] tracking-[0.01em]"
+        } ${
           isPhotoTone
             ? "text-[#fff8ef] [text-shadow:0_10px_34px_rgba(50,27,18,0.38)]"
             : "text-[#b01838]"
@@ -184,7 +194,6 @@ function HeroCopy({
             ? "text-[clamp(2.8rem,7vw,5.65rem)]"
             : "text-[clamp(3rem,8.5vw,6.4rem)]"
         }`}
-        style={{ fontFamily: '"Great Vibes", cursive' }}
       >
         {t("common.rajshree")}
         <span
@@ -208,7 +217,9 @@ function HeroCopy({
         />
       </div>
       <div
-        className={`mt-10 flex flex-col items-center gap-3 text-sm font-semibold uppercase tracking-[0.22em] sm:flex-row sm:gap-6 lg:items-start ${
+        className={`${
+          isBengali ? "mt-8 tracking-[0.14em]" : "mt-10 tracking-[0.22em]"
+        } flex flex-col items-center gap-3 text-sm font-semibold uppercase sm:flex-row sm:gap-6 lg:items-start ${
           isPhotoTone ? "text-[#ffe8c7]" : "text-[#774231]"
         }`}
       >
@@ -570,7 +581,7 @@ function OverlapComposition() {
             transition={shouldReduceMotion ? undefined : { duration: 1.65, ease: "easeInOut", repeat: Infinity }}
           />
         </div>
-        <LanguageSwitcher className="absolute bottom-5 right-5 z-20 text-[#fff8ef] [text-shadow:0_2px_8px_rgba(45,20,13,0.55)] sm:bottom-8 sm:right-8" />
+        <BackgroundMusic className="absolute bottom-5 right-5 z-20 sm:bottom-8 sm:right-8" />
       </div>
     </div>
   );

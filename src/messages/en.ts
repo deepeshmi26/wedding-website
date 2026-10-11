@@ -1,5 +1,6 @@
 const en = {
   language: { switchLabel: "Language", english: "English", bengali: "বাংলা", switchTo: "Switch to {language}" },
+  audio: { play: "Play background music", pause: "Pause background music" },
   accessibility: {
     homepage: "Wedding homepage", openNavigation: "Open site navigation", closeNavigation: "Close site navigation",
     navigation: "Primary navigation", siteNavigation: "Site navigation", countdown: "Countdown to the wedding ceremony",
@@ -15,7 +16,7 @@ const en = {
     variants: { joyful: { label: "Joyful collage", note: "Colorful, lively, fun." }, formal: { label: "Formal invite", note: "Clean, focused, formal." }, asymmetry: { label: "Asymmetry", note: "Joyful, intimate, expressive" }, overlap: { label: "Overlap story", note: "Couple focussed intimate" }, photo: { label: "Photo first", note: "Personal, direct, quieter." } }
   },
   countdown: { eyebrow: "Until the vows", days: "Days", hours: "Hours", minutes: "Minutes", seconds: "Seconds" },
-  gathering: { lineOne: "An invitation", lineTwo: "to Bengal", copy: "We are gathering our favourite people for music, food, happy chaos, loud laughter, and a weekend that feels like one big family party.", lines: ["We are gathering our favorite people", "for music, food, happy chaos,", "loud laughter, and a weekend", "that feels like one big family party."] },
+  gathering: { lineOne: "An invitation", lineTwo: "to Bengal", copy: "We are gathering our favourite people for music, food, happy chaos, loud laughter, and two days that feel like one big family party.", lines: ["We are gathering our favorite people", "for music, food, happy chaos,", "loud laughter, and two days", "that feel like one big family party."] },
   story: {
     eyebrow: "Photo album", titleOne: "All the little ways", titleTwo: "we found each other.", intro: "Rajshree approved the beautiful photos. Deepesh saved the rest from deletion.",
     chatLabel: "A conversation between Rajshree and Deepesh about the photo album", chatTitle: "Wedding planning", chatMembers: "Rajshree, Deepesh",
