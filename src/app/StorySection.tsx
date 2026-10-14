@@ -81,6 +81,12 @@ const storyPhotosGrid: StoryPhoto[] = [
     src: "/photos/IMG-20260802-WA0016.jpg",
     width: 3024,
   },
+  {
+    copyIndex: 12,
+    height: 2000,
+    src: "/photos/siblings.jpg",
+    width: 2000,
+  },
 ];
 
 export function StorySection() {

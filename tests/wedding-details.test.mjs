@@ -8,6 +8,7 @@ const journeyTrail = readFileSync(new URL("../src/app/JourneyTrail.tsx", import.
 const journeyStyles = readFileSync(new URL("../src/app/OurJourneySection.module.css", import.meta.url), "utf8");
 const journeySection = readFileSync(new URL("../src/app/OurJourneySection.tsx", import.meta.url), "utf8");
 const storyPhotoCarousel = readFileSync(new URL("../src/app/StoryPhotoCarousel.tsx", import.meta.url), "utf8");
+const storySection = readFileSync(new URL("../src/app/StorySection.tsx", import.meta.url), "utf8");
 const englishMessages = readFileSync(new URL("../src/messages/en.ts", import.meta.url), "utf8");
 const bengaliMessages = readFileSync(new URL("../src/messages/bn.ts", import.meta.url), "utf8");
 const rootLayout = readFileSync(new URL("../src/app/layout.tsx", import.meta.url), "utf8");
@@ -48,6 +49,12 @@ test("Bengali events invite guests to celebrate with করুন", () => {
 
 test("Bengali Haldi event uses the full traditional name", () => {
   assert.match(bengaliMessages, /name: "গায়ে হলুদ"/);
+});
+
+test("siblings photo is the final carousel slide in both locales", () => {
+  assert.match(storySection, /copyIndex: 12,[\s\S]*?src: "\/photos\/siblings\.jpg"/);
+  assert.match(englishMessages, /alt: "Rajshree and Deepesh with their siblings", caption: "With our siblings"/);
+  assert.match(bengaliMessages, /alt: "ভাইবোনদের সঙ্গে রাজশ্রী ও দীপেশ", caption: "ভাইবোনদের সঙ্গে"/);
 });
 
 test("the RSVP banner leads with a direct bilingual RSVP action", () => {
