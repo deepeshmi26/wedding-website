@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 
 const saveTheDate = readFileSync(new URL("../src/app/SaveTheDateSection.tsx", import.meta.url), "utf8");
@@ -22,28 +22,16 @@ const backgroundMusic = readFileSync(new URL("../src/app/BackgroundMusic.tsx", i
 const heroSection = readFileSync(new URL("../src/app/HeroSection.tsx", import.meta.url), "utf8");
 const languageSwitcher = readFileSync(new URL("../src/app/LanguageSwitcher.tsx", import.meta.url), "utf8");
 const countdownSection = readFileSync(new URL("../src/app/CountdownSection.tsx", import.meta.url), "utf8");
-const weddingCalendarFeedUrl = new URL("../src/app/[locale]/wedding.ics/route.ts", import.meta.url);
-const weddingCalendarFeed = existsSync(weddingCalendarFeedUrl)
-  ? readFileSync(weddingCalendarFeedUrl, "utf8")
-  : "";
 
 test("save-the-date follows the live wedding calendar", () => {
   assert.match(saveTheDate, /calendar\.google\.com\/calendar\/u\/0\?cid=/);
-  assert.match(saveTheDate, /webcal:\/\/www\.rajshreedeepesh\.co\.in\/en\/wedding\.ics/);
+  assert.match(saveTheDate, /webcal:\/\/calendar\.google\.com\/calendar\/ical\/be25df75d3c1cefb6785e1614466516f5fb93a9a435d70093af7ebfc7c69ee04%40group\.calendar\.google\.com\/public\/basic\.ics/);
   assert.match(saveTheDate, /Macintosh\|Mac OS X\|iPhone\|iPad\|iPod/);
   assert.match(saveTheDate, /t\("calendar\.apple"\)/);
   assert.doesNotMatch(saveTheDate, /action: "TEMPLATE"/);
   assert.doesNotMatch(saveTheDate, /target="_blank"/);
   assert.match(englishMessages, /apple: "Add to Apple Calendar"/);
   assert.match(bengaliMessages, /apple: "অ্যাপল ক্যালেন্ডারে যোগ করুন"/);
-});
-
-test("Apple Calendar receives a valid subscription feed from the wedding site", () => {
-  assert.match(weddingCalendarFeed, /text\/calendar/);
-  assert.match(weddingCalendarFeed, /BEGIN:VCALENDAR/);
-  assert.match(weddingCalendarFeed, /VERSION:2\.0/);
-  assert.match(weddingCalendarFeed, /BEGIN:VEVENT/);
-  assert.match(weddingCalendarFeed, /END:VCALENDAR/);
 });
 
 test("first-screen dates use ordinal wording in both locales", () => {
