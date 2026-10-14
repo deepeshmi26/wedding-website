@@ -185,7 +185,7 @@ test("background music keeps its actual state across a locale change", () => {
   assert.match(backgroundMusic, /y: \[0, -1\.5, 0\], rotate: \[0, -4, 3, 0\]/);
   assert.match(backgroundMusic, /repeatDelay: 0\.28/);
   assert.match(heroSection, /import \{ BackgroundMusic \} from "\.\/BackgroundMusic"/);
-  assert.match(heroSection, /<BackgroundMusic className="absolute bottom-5 left-5 z-40 sm:bottom-8 sm:left-8" \/>/);
+  assert.match(heroSection, /<BackgroundMusic className="absolute bottom-16 left-5 z-40 sm:bottom-14 sm:left-8" \/>/);
   assert.doesNotMatch(heroCompositionSwitcher, /pointer-events-none absolute bottom-5 left-5 z-20 flex flex-col/);
   assert.doesNotMatch(countdownSection, /BackgroundMusic/);
   assert.match(backgroundMusic, /export function BackgroundMusicProvider/);
