@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
 
 import type { Locale } from "@/i18n";
+import { BACKGROUND_MUSIC_STATE_KEY } from "./BackgroundMusic";
 
 export function LanguageSwitcher({ className = "" }: { className?: string }) {
   const locale = useLocale() as Locale;
@@ -13,6 +14,12 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
 
   const switchLocale = (nextLocale: Locale) => {
     if (nextLocale === locale) return;
+
+    const audio = document.querySelector<HTMLAudioElement>("[data-background-music]");
+    if (audio) {
+      sessionStorage.setItem(BACKGROUND_MUSIC_STATE_KEY, audio.paused ? "paused" : "playing");
+    }
+
     router.replace(pathname.replace(/^\/(en|bn)(?=\/|$)/, `/${nextLocale}`));
   };
 

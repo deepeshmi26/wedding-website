@@ -76,7 +76,9 @@ export function StaySection() {
           <MapPin aria-hidden="true" className="mt-0.5 shrink-0 text-[#9b5a35]" size={19} strokeWidth={1.6} />
           <div>
             <p className="text-[0.62rem] font-bold uppercase tracking-[0.22em] text-[#a3633d]">{t("stay.arrivalLabel")}</p>
-            <p className="mt-2 text-[0.98rem] leading-7 text-[#5e3324] sm:text-[1.05rem]">{t("stay.arrival")}</p>
+            <div className="mt-2 space-y-1 text-[0.98rem] leading-7 text-[#5e3324] sm:text-[1.05rem]">
+              {(t.raw("stay.arrival") as string[]).map((line) => <p key={line}>{line}</p>)}
+            </div>
           </div>
         </div>
       </div>

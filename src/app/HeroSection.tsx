@@ -68,7 +68,7 @@ export function HeroSection({
         />
       </a>
 
-      <BackgroundMusic className="absolute right-16 top-3 z-40 lg:bottom-8 lg:right-8 lg:top-auto" />
+      <BackgroundMusic className="absolute right-4 top-16 z-40 lg:bottom-8 lg:right-8 lg:top-auto" />
 
       <motion.button
         type="button"

@@ -28,7 +28,7 @@ const en = {
   journey: {
     stampLeft: "You & me", stampRight: "Us", titleLead: "Our", title: "journey", intro: "A few turns, a lot of laughter, and one shared way home.",
     moments: [
-      { kicker: "A beginning", copy: "We were both busy building our lives. Then one wedding made us both pause and imagine a shared future." },
+      { kicker: "A beginning", copy: "We were both busy building our lives. Then one simple hello turned into a conversation neither of us wanted to end." },
       { kicker: "The call", copy: "Our first conversation felt unexpectedly easy. We spoke for three or four hours, and neither wanted to hang up." },
       { kicker: "Cubbon Park", copy: "We met at Cubbon Park the next day. Deepesh says the first glimpse of Rajshree made everything around him slow down." },
       { kicker: "Again, the next day", copy: "Our first date went so well that we met again the next day: five hours of cafe-hopping, talking, and eating." },
@@ -47,7 +47,7 @@ const en = {
     ]
   },
   calendar: { eyebrow: "Save the date", title: "Our wedding weekend", weekday: "Friday", dateDay: "04", dateMonth: "Dec", add: "Add our day to calendar", apple: "Add to Apple Calendar", taxiAlt: "Yellow Kolkata taxi illustration", calendarTitle: "Rajshree & Deepesh's Wedding", calendarDetails: "Join us for the wedding ceremony at 5:45 PM.", calendarLocation: "Shrishti Garden, Jessore Rd, Kolkata" },
-  stay: { eyebrow: "Stay", title: "Stay in Kolkata", maps: "Open in Maps", checkIn: "Check-in available from 3 December, 11 AM", checkOut: "Check-out by 5 December, 11 AM", arrivalLabel: "A little arrival note", arrival: "We recommend arriving by 12 noon on 3 December, so you can settle in comfortably and be part of every celebration from the beginning. If you are arriving earlier, please let us know.", hotels: [
+  stay: { eyebrow: "Stay", title: "Stay in Kolkata", maps: "Open in Maps", checkIn: "Check-in available from 3 December, 11 AM", checkOut: "Check-out by 5 December, 11 AM", arrivalLabel: "A little arrival note", arrival: ["Please arrive by 12 noon at the latest on 3 December to settle in, join us for lunch, and enjoy every celebration from the start.", "If you are arriving before 10 AM, please let us know beforehand."], hotels: [
     { label: "Groom's hotel", name: "Stayotel Hotel", side: "groom", characterImage: "/graphics/stay-groom-character.png", address: ["Gate No. 1, 28/2, Italgachha Road, Airport", "Motilal Colony, Rajbari, Dum Dum", "Kolkata, West Bengal 700028"], mapsUrl: "https://www.google.com/maps/search/?api=1&query=Stayotel+Hotel%2C+Gate+No.+1%2C+28%2F2%2C+Italgachha+Road%2C+Kolkata+700028" },
     { label: "Bride's hotel", name: "The Grace", side: "bride", characterImage: "/graphics/stay-bride-character.png", address: ["54, Barrackpore Trunk Road, Sukchar", "Jaiprakash Nagar, Sodepur, Khardaha", "Kolkata, West Bengal 700115"], mapsUrl: "https://www.google.com/maps/search/?api=1&query=The+Grace%2C+54+Barrackpore+Trunk+Road%2C+Sukchar%2C+Kolkata+700115" }
   ] },

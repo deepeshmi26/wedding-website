@@ -20,6 +20,8 @@ const heroCompositionSwitcher = readFileSync(
 );
 const backgroundMusic = readFileSync(new URL("../src/app/BackgroundMusic.tsx", import.meta.url), "utf8");
 const heroSection = readFileSync(new URL("../src/app/HeroSection.tsx", import.meta.url), "utf8");
+const languageSwitcher = readFileSync(new URL("../src/app/LanguageSwitcher.tsx", import.meta.url), "utf8");
+const countdownSection = readFileSync(new URL("../src/app/CountdownSection.tsx", import.meta.url), "utf8");
 
 test("save-the-date follows the live wedding calendar", () => {
   assert.match(saveTheDate, /calendar\.google\.com\/calendar\/u\/0\?cid=/);
@@ -71,8 +73,10 @@ test("the site gives every guest both hotel stays and clear arrival guidance", (
   assert.match(englishMessages, /maps: "Open in Maps"/);
   assert.match(englishMessages, /3 December/);
   assert.match(englishMessages, /Check-in available from 3 December, 11 AM/);
-  assert.match(englishMessages, /If you are arriving earlier, please let us know/);
+  assert.match(englishMessages, /Please arrive by 12 noon at the latest on 3 December to settle in, join us for lunch, and enjoy every celebration from the start\./);
   assert.match(bengaliMessages, /stay: \{ eyebrow: "থাকার ব্যবস্থা", title: "কলকাতায় থাকার ব্যবস্থা"/);
+  assert.match(bengaliMessages, /আরামে গুছিয়ে নিয়ে, দুপুরের খাবারে যোগ দিতে ও শুরু থেকেই সব অনুষ্ঠানে থাকতে ৩ ডিসেম্বর সর্বোচ্চ দুপুর ১২টার মধ্যে পৌঁছনোর অনুরোধ রইল।/);
+  assert.match(bengaliMessages, /সকাল ১০টার আগে পৌঁছলে, দয়া করে আগে থেকে আমাদের জানাবেন।/);
   assert.match(bengaliMessages, /checkIn: "৩ ডিসেম্বর, সকাল ১১টা থেকে চেক-ইন উপলব্ধ"/);
 });
 
@@ -107,22 +111,31 @@ test("Bengali desktop hero reserves a readable text rhythm", () => {
   assert.match(heroCompositionSwitcher, /mb-7 max-w-\[34rem\] leading-relaxed tracking-\[0\.2em\]/);
 });
 
-test("background music attempts to begin on arrival and remains controllable", () => {
+test("background music keeps its actual state across a locale change", () => {
   assert.match(backgroundMusic, /src="\/audio\/pardesiya\.mp3"/);
-  assert.match(backgroundMusic, /autoPlay/);
   assert.match(backgroundMusic, /loop/);
   assert.match(backgroundMusic, /audio\.play\(\)/);
+  assert.match(backgroundMusic, /BACKGROUND_MUSIC_STATE_KEY/);
+  assert.match(backgroundMusic, /sessionStorage\.getItem\(BACKGROUND_MUSIC_STATE_KEY\) === "paused"/);
+  assert.match(languageSwitcher, /document\.querySelector<HTMLAudioElement>\("\[data-background-music\]"\)/);
+  assert.match(languageSwitcher, /sessionStorage\.setItem\(BACKGROUND_MUSIC_STATE_KEY, audio\.paused \? "paused" : "playing"\)/);
+  assert.doesNotMatch(backgroundMusic, /autoPlay/);
   assert.match(backgroundMusic, /aria-label=\{isPlaying \? t\("audio\.pause"\) : t\("audio\.play"\)\}/);
-  assert.match(backgroundMusic, /h-8 w-8/);
-  assert.match(backgroundMusic, /border-\[\#fff8ef\]\/70/);
+  assert.match(backgroundMusic, /h-9 w-9/);
+  assert.match(backgroundMusic, /bg-\[\#6e1836\]\/90/);
   assert.match(backgroundMusic, /active:scale-\[0\.94\]/);
   assert.match(backgroundMusic, /useReducedMotion/);
   assert.match(backgroundMusic, /!isPlaying && !shouldReduceMotion/);
-  assert.match(backgroundMusic, /scale: \[1, 1\.7, 1\.95\]/);
-  assert.match(backgroundMusic, /duration: 1\.45/);
-  assert.match(backgroundMusic, /repeatDelay: 0\.55/);
+  assert.match(backgroundMusic, /scale: \[1, 1\.65, 1\.9\]/);
+  assert.match(backgroundMusic, /duration: 0\.82/);
+  assert.match(backgroundMusic, /repeatDelay: 0\.12/);
+  assert.match(backgroundMusic, /delay: 0\.38/);
+  assert.match(backgroundMusic, /y: \[0, -1\.5, 0\], rotate: \[0, -4, 3, 0\]/);
+  assert.match(backgroundMusic, /repeatDelay: 0\.28/);
   assert.match(heroSection, /import \{ BackgroundMusic \} from "\.\/BackgroundMusic"/);
-  assert.match(heroSection, /<BackgroundMusic className="absolute right-16 top-3 z-40 lg:bottom-8 lg:right-8 lg:top-auto" \/>/);
+  assert.match(heroSection, /<BackgroundMusic className="absolute right-4 top-16 z-40 lg:bottom-8 lg:right-8 lg:top-auto" \/>/);
+  assert.doesNotMatch(countdownSection, /BackgroundMusic/);
+  assert.match(backgroundMusic, /export function BackgroundMusicProvider/);
   assert.match(heroCompositionSwitcher, /import \{ LanguageSwitcher \} from "\.\/LanguageSwitcher"/);
   assert.match(heroCompositionSwitcher, /<LanguageSwitcher className="absolute bottom-5 right-5 z-20 text-\[\#fff8ef\] \[text-shadow:0_2px_8px_rgba\(45,20,13,0\.55\)\] sm:bottom-8 sm:right-8 lg:hidden" \/>/);
 });
