@@ -7,7 +7,7 @@ const en = {
     countdownSection: "Countdown to the wedding", journeyTrail: "Wedding journey trail", journeyList: "Our journey", love: "love"
   },
   common: { names: "Rajshree & Deepesh", rajshree: "Rajshree", deepesh: "Deepesh", date: "3rd & 4th December 2026", datesLong: "3 & 4 December", location: "Kolkata, India", year: "2026", rsvp: "RSVP" },
-  nav: { story: "Photo album", journey: "Our journey", events: "Events", calendar: "Add to calendar", rsvp: "RSVP" },
+  nav: { story: "Photo album", journey: "Our journey", events: "Events", calendar: "Add to calendar", stay: "Stay in Kolkata", rsvp: "RSVP" },
   hero: {
     tagline: "Come for the vows, stay for the dancing",
     music: "music", allNight: "all night", justUs: "just us", withYou: "with you",
@@ -47,6 +47,10 @@ const en = {
     ]
   },
   calendar: { eyebrow: "Save the date", title: "Our wedding weekend", weekday: "Friday", dateDay: "04", dateMonth: "Dec", add: "Add our day to calendar", taxiAlt: "Yellow Kolkata taxi illustration", calendarTitle: "Rajshree & Deepesh's Wedding", calendarDetails: "Join us for the wedding ceremony at 5:45 PM.", calendarLocation: "Shrishti Garden, Jessore Rd, Kolkata" },
+  stay: { eyebrow: "Stay", title: "Stay in Kolkata", maps: "Open in Maps", checkIn: "Check-in available from 3 December, 11 AM", checkOut: "Check-out by 5 December, 11 AM", arrivalLabel: "A little arrival note", arrival: "We recommend arriving by 12 noon on 3 December, so you can settle in comfortably and be part of every celebration from the beginning. If you are arriving earlier, please let us know.", hotels: [
+    { label: "Groom's hotel", name: "Stayotel Hotel", side: "groom", characterImage: "/graphics/stay-groom-character.png", address: ["Gate No. 1, 28/2, Italgachha Road, Airport", "Motilal Colony, Rajbari, Dum Dum", "Kolkata, West Bengal 700028"], mapsUrl: "https://www.google.com/maps/search/?api=1&query=Stayotel+Hotel%2C+Gate+No.+1%2C+28%2F2%2C+Italgachha+Road%2C+Kolkata+700028" },
+    { label: "Bride's hotel", name: "The Grace", side: "bride", characterImage: "/graphics/stay-bride-character.png", address: ["54, Barrackpore Trunk Road, Sukchar", "Jaiprakash Nagar, Sodepur, Khardaha", "Kolkata, West Bengal 700115"], mapsUrl: "https://www.google.com/maps/search/?api=1&query=The+Grace%2C+54+Barrackpore+Trunk+Road%2C+Sukchar%2C+Kolkata+700115" }
+  ] },
   rsvp: { eyebrow: "RSVP", title: "Save us a yes for the wedding weekend.", copy: "Send us your reply when you are ready. We cannot wait to celebrate with you in Kolkata." },
   footer: { madeWith: "Made with", by: "by Deepesh & Rajshree" }
 } as const;

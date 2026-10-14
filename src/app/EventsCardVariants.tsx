@@ -71,9 +71,6 @@ export function EventsCardVariants({
                   ) : null}
                   <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,rgba(28,8,14,0.16),rgba(28,8,14,0.36)),radial-gradient(circle_at_50%_48%,transparent,rgba(31,8,14,0.1))] md:bg-[linear-gradient(180deg,rgba(45,7,18,0.1),rgba(45,7,18,0.58)),linear-gradient(90deg,transparent,rgba(89,12,34,0.18))]" />
                   <div aria-hidden="true" className="pointer-events-none absolute inset-4 border border-[#f4cf8d]/55 md:inset-5 md:border-[#f4cf8d]/45" />
-                  <p className="absolute bottom-8 left-8 right-8 hidden font-serif text-2xl italic leading-tight text-[#fff6e7] [text-shadow:0_2px_18px_rgba(30,7,13,0.75)] md:block md:text-3xl">
-                    Kolkata, held close.
-                  </p>
                 </div>
 
                 <div className="relative flex items-start overflow-hidden bg-transparent px-6 pb-8 pt-16 sm:px-12 md:items-center md:bg-[linear-gradient(145deg,#7d1d3b_0%,#58102a_100%)] md:px-14 md:py-8 lg:px-16">

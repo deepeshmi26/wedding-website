@@ -16,7 +16,7 @@ function CalendarMark() {
 
 export function SaveTheDateSection() {
   const t = useTranslations();
-  const calendarUrl = `https://calendar.google.com/calendar/render?${new URLSearchParams({ action: "TEMPLATE", text: t("calendar.calendarTitle"), dates: "20261204T174500/20261204T234500", ctz: "Asia/Kolkata", details: t("calendar.calendarDetails"), location: t("calendar.calendarLocation") }).toString()}`;
+  const calendarUrl = "https://calendar.google.com/calendar/u/0?cid=YmUyNWRmNzVkM2MxY2VmYjY3ODVlMTYxNDQ2NjUxNmY1ZmI5M2E5YTQzNWQ3MDA5M2FmN2ViZmM3YzY5ZWUwNEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t";
   return (
     <section
       id="save-the-date"

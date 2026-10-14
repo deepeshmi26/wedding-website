@@ -11,6 +11,9 @@ const storyPhotoCarousel = readFileSync(new URL("../src/app/StoryPhotoCarousel.t
 const englishMessages = readFileSync(new URL("../src/messages/en.ts", import.meta.url), "utf8");
 const bengaliMessages = readFileSync(new URL("../src/messages/bn.ts", import.meta.url), "utf8");
 const rootLayout = readFileSync(new URL("../src/app/layout.tsx", import.meta.url), "utf8");
+const weddingSite = readFileSync(new URL("../src/app/WeddingSite.tsx", import.meta.url), "utf8");
+const staySection = readFileSync(new URL("../src/app/StaySection.tsx", import.meta.url), "utf8");
+const eventCardVariants = readFileSync(new URL("../src/app/EventsCardVariants.tsx", import.meta.url), "utf8");
 const heroCompositionSwitcher = readFileSync(
   new URL("../src/app/HeroCompositionSwitcher.tsx", import.meta.url),
   "utf8",
@@ -18,9 +21,9 @@ const heroCompositionSwitcher = readFileSync(
 const backgroundMusic = readFileSync(new URL("../src/app/BackgroundMusic.tsx", import.meta.url), "utf8");
 const heroSection = readFileSync(new URL("../src/app/HeroSection.tsx", import.meta.url), "utf8");
 
-test("save-the-date opens a timed wedding event on 4 December", () => {
-  assert.ok(saveTheDate.includes('dates: "20261204T174500/20261204T234500"'));
-  assert.ok(saveTheDate.includes('ctz: "Asia/Kolkata"'));
+test("save-the-date follows the live wedding calendar", () => {
+  assert.match(saveTheDate, /calendar\.google\.com\/calendar\/u\/0\?cid=/);
+  assert.doesNotMatch(saveTheDate, /action: "TEMPLATE"/);
   assert.doesNotMatch(saveTheDate, /target="_blank"/);
 });
 
@@ -35,6 +38,37 @@ test("Bengali events invite guests to celebrate with করুন", () => {
 
 test("Bengali Haldi event uses the full traditional name", () => {
   assert.match(bengaliMessages, /name: "গায়ে হলুদ"/);
+});
+
+test("event cards do not repeat the Kolkata image caption", () => {
+  assert.doesNotMatch(eventCardVariants, /Kolkata, held close\./);
+});
+
+test("the site gives every guest both hotel stays and clear arrival guidance", () => {
+  assert.match(weddingSite, /import \{ StaySection \} from "\.\/StaySection"/);
+  assert.match(weddingSite, /<SaveTheDateSection \/>\s*<StaySection \/>\s*<RsvpSection \/>/);
+  assert.match(staySection, /id="stay"/);
+  assert.match(staySection, /t\.raw\("stay\.hotels"\)/);
+  assert.match(staySection, /MapPin/);
+  assert.match(staySection, /import Image from "next\/image"/);
+  assert.match(staySection, /hotel\.characterImage/);
+  assert.match(staySection, /h-16 w-auto object-contain sm:h-20/);
+  assert.match(staySection, /p-5 shadow-\[0_14px_32px_rgba\(87,43,50,0\.08\)\] sm:p-6/);
+  assert.match(staySection, /min-h-\[4\.75rem\] pr-20 sm:min-h-\[5\.25rem\] sm:pr-24/);
+  assert.match(englishMessages, /characterImage: "\/graphics\/stay-groom-character\.png"/);
+  assert.match(englishMessages, /characterImage: "\/graphics\/stay-bride-character\.png"/);
+  assert.match(englishMessages, /stay: \{ eyebrow: "Stay", title: "Stay in Kolkata"/);
+  assert.doesNotMatch(englishMessages, /Both hotel stays are here for easy reference/);
+  assert.match(englishMessages, /name: "Stayotel Hotel"/);
+  assert.match(englishMessages, /name: "The Grace"/);
+  assert.match(englishMessages, /side: "groom"/);
+  assert.match(englishMessages, /side: "bride"/);
+  assert.match(englishMessages, /maps: "Open in Maps"/);
+  assert.match(englishMessages, /3 December/);
+  assert.match(englishMessages, /Check-in available from 3 December, 11 AM/);
+  assert.match(englishMessages, /If you are arriving earlier, please let us know/);
+  assert.match(bengaliMessages, /stay: \{ eyebrow: "থাকার ব্যবস্থা", title: "কলকাতায় থাকার ব্যবস্থা"/);
+  assert.match(bengaliMessages, /checkIn: "৩ ডিসেম্বর, সকাল ১১টা থেকে চেক-ইন উপলব্ধ"/);
 });
 
 test("journey keeps the tram out of the opening mobile moment", () => {
