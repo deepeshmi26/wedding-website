@@ -57,6 +57,11 @@ test("siblings photo is the final carousel slide in both locales", () => {
   assert.match(bengaliMessages, /alt: "ভাইবোনদের সঙ্গে রাজশ্রী ও দীপেশ", caption: "ভাইবোনদের সঙ্গে"/);
 });
 
+test("siblings photo uses a square mobile frame and the standard desktop portrait frame", () => {
+  assert.match(storySection, /mobileSquare: true,[\s\S]*?src: "\/photos\/siblings\.jpg"/);
+  assert.match(storyPhotoCarousel, /photo\.mobileSquare \? "aspect-square sm:aspect-\[4\/5\]" : "aspect-\[4\/5\]"/);
+});
+
 test("the RSVP banner leads with a direct bilingual RSVP action", () => {
   assert.match(rsvpBanner, /t\("rsvp\.banner"\)[\s\S]*?<HeroSection/);
   assert.match(rsvpBanner, /href="#rsvp"/);
@@ -180,7 +185,8 @@ test("background music keeps its actual state across a locale change", () => {
   assert.match(backgroundMusic, /y: \[0, -1\.5, 0\], rotate: \[0, -4, 3, 0\]/);
   assert.match(backgroundMusic, /repeatDelay: 0\.28/);
   assert.match(heroSection, /import \{ BackgroundMusic \} from "\.\/BackgroundMusic"/);
-  assert.match(heroSection, /<BackgroundMusic className="absolute right-4 top-16 z-40 lg:bottom-8 lg:right-8 lg:top-auto" \/>/);
+  assert.match(heroSection, /<BackgroundMusic className="absolute bottom-5 left-5 z-40 sm:bottom-8 sm:left-8" \/>/);
+  assert.doesNotMatch(heroCompositionSwitcher, /pointer-events-none absolute bottom-5 left-5 z-20 flex flex-col/);
   assert.doesNotMatch(countdownSection, /BackgroundMusic/);
   assert.match(backgroundMusic, /export function BackgroundMusicProvider/);
   assert.match(heroCompositionSwitcher, /import \{ LanguageSwitcher \} from "\.\/LanguageSwitcher"/);

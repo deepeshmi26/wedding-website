@@ -8,6 +8,7 @@ import { useReducedMotion } from "motion/react";
 
 export type CarouselPhoto = {
   height: number;
+  mobileSquare?: boolean;
   objectPosition?: string;
   src: string;
   width: number;
@@ -72,7 +73,9 @@ export function StoryPhotoCarousel({ photos }: StoryPhotoCarouselProps) {
                     isSelected ? "scale-100 opacity-100" : "scale-[0.96] opacity-55"
                   }`}
                 >
-                  <div className="relative aspect-[4/5] overflow-hidden bg-[#e7ded4]">
+                  <div
+                    className={`relative ${photo.mobileSquare ? "aspect-square sm:aspect-[4/5]" : "aspect-[4/5]"} overflow-hidden bg-[#e7ded4]`}
+                  >
                     <Image
                       alt={photo.alt}
                       className="object-cover"

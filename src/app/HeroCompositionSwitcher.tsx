@@ -564,23 +564,6 @@ function OverlapComposition() {
           </div>
         </div>
 
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute bottom-5 left-5 z-20 flex flex-col items-center gap-2 text-[#fff8ef] sm:bottom-8 sm:left-8"
-        >
-          <span className="flex h-8 w-5 justify-center rounded-full border border-[#fff8ef]/75 pt-1.5">
-            <motion.span
-              className="h-1.5 w-1.5 rounded-full bg-[#ffd27d]"
-              animate={shouldReduceMotion ? undefined : { y: [0, 7, 0], opacity: [1, 0.35, 1] }}
-              transition={shouldReduceMotion ? undefined : { duration: 1.65, ease: "easeInOut", repeat: Infinity }}
-            />
-          </span>
-          <motion.span
-            className="h-2 w-2 rotate-45 border-b border-r border-[#fff8ef]/85"
-            animate={shouldReduceMotion ? undefined : { y: [0, 4, 0], opacity: [0.65, 1, 0.65] }}
-            transition={shouldReduceMotion ? undefined : { duration: 1.65, ease: "easeInOut", repeat: Infinity }}
-          />
-        </div>
         <LanguageSwitcher className="absolute bottom-5 right-5 z-20 text-[#fff8ef] [text-shadow:0_2px_8px_rgba(45,20,13,0.55)] sm:bottom-8 sm:right-8 lg:hidden" />
       </div>
     </div>

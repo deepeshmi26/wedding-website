@@ -84,6 +84,7 @@ const storyPhotosGrid: StoryPhoto[] = [
   {
     copyIndex: 12,
     height: 2000,
+    mobileSquare: true,
     src: "/photos/siblings.jpg",
     width: 2000,
   },
