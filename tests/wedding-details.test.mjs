@@ -12,6 +12,8 @@ const englishMessages = readFileSync(new URL("../src/messages/en.ts", import.met
 const bengaliMessages = readFileSync(new URL("../src/messages/bn.ts", import.meta.url), "utf8");
 const rootLayout = readFileSync(new URL("../src/app/layout.tsx", import.meta.url), "utf8");
 const weddingSite = readFileSync(new URL("../src/app/WeddingSite.tsx", import.meta.url), "utf8");
+const rsvpBanner = weddingSite;
+const rsvpSection = readFileSync(new URL("../src/app/RsvpSection.tsx", import.meta.url), "utf8");
 const staySection = readFileSync(new URL("../src/app/StaySection.tsx", import.meta.url), "utf8");
 const eventCardVariants = readFileSync(new URL("../src/app/EventsCardVariants.tsx", import.meta.url), "utf8");
 const heroCompositionSwitcher = readFileSync(
@@ -22,6 +24,7 @@ const backgroundMusic = readFileSync(new URL("../src/app/BackgroundMusic.tsx", i
 const heroSection = readFileSync(new URL("../src/app/HeroSection.tsx", import.meta.url), "utf8");
 const languageSwitcher = readFileSync(new URL("../src/app/LanguageSwitcher.tsx", import.meta.url), "utf8");
 const countdownSection = readFileSync(new URL("../src/app/CountdownSection.tsx", import.meta.url), "utf8");
+const globalStyles = readFileSync(new URL("../src/app/globals.css", import.meta.url), "utf8");
 
 test("save-the-date follows the live wedding calendar", () => {
   assert.match(saveTheDate, /calendar\.google\.com\/calendar\/u\/0\?cid=/);
@@ -45,6 +48,42 @@ test("Bengali events invite guests to celebrate with করুন", () => {
 
 test("Bengali Haldi event uses the full traditional name", () => {
   assert.match(bengaliMessages, /name: "গায়ে হলুদ"/);
+});
+
+test("the RSVP banner leads with a direct bilingual RSVP action", () => {
+  assert.match(rsvpBanner, /t\("rsvp\.banner"\)[\s\S]*?<HeroSection/);
+  assert.match(rsvpBanner, /href="#rsvp"/);
+  assert.match(rsvpSection, /export const RSVP_FORM_URL = "https:\/\/docs\.google\.com\/forms\/d\/e\/1FAIpQLSfuAZgHWb6qDUd7oW3KMIs4TIUGytB9n14BpKvc2v9lbUGbdQ\/viewform"/);
+  assert.match(rsvpSection, /href=\{RSVP_FORM_URL\}/);
+  assert.doesNotMatch(rsvpBanner, /sticky|fixed/);
+  assert.match(englishMessages, /banner: "RSVP by 20th Oct for hotel bookings"/);
+  assert.match(bengaliMessages, /banner: "হোটেল বুকিংয়ের জন্য ২০ অক্টোবরের মধ্যে RSVP করুন"/);
+});
+
+test("the slim RSVP banner states the hotel deadline and can be dismissed", () => {
+  assert.match(englishMessages, /banner: "RSVP by 20th Oct for hotel bookings"/);
+  assert.match(bengaliMessages, /banner: "হোটেল বুকিংয়ের জন্য ২০ অক্টোবরের মধ্যে RSVP করুন"/);
+  assert.match(rsvpBanner, /useState/);
+  assert.match(rsvpBanner, /aria-label=\{t\("rsvp\.dismiss"\)\}/);
+  assert.match(rsvpBanner, /onClick=\{\(\) => setIsRsvpBannerVisible\(false\)\}/);
+  assert.match(rsvpBanner, /py-1(?:\s|"|`)/);
+  assert.match(englishMessages, /dismiss: "Dismiss RSVP reminder"/);
+  assert.match(bengaliMessages, /dismiss: "RSVP বার্তাটি বন্ধ করুন"/);
+});
+
+test("the banner RSVP action smoothly reveals the on-page RSVP section", () => {
+  assert.match(rsvpBanner, /href="#rsvp"/);
+  assert.doesNotMatch(rsvpBanner, /href=\{RSVP_FORM_URL\}/);
+  assert.match(rsvpSection, /<section id="rsvp"/);
+  assert.match(rsvpSection, /href=\{RSVP_FORM_URL\}/);
+  assert.match(globalStyles, /html\s*\{\s*scroll-behavior:\s*smooth;/);
+  assert.match(globalStyles, /prefers-reduced-motion:\s*reduce[\s\S]*?scroll-behavior:\s*auto/);
+});
+
+test("the RSVP strip centers its grouped content on larger screens", () => {
+  assert.match(rsvpBanner, /sm:justify-center/);
+  assert.match(rsvpBanner, /sm:flex-none/);
+  assert.match(rsvpBanner, /sm:text-center/);
 });
 
 test("event cards do not repeat the Kolkata image caption", () => {
