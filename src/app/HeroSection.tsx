@@ -32,6 +32,7 @@ export function HeroSection({
   const shouldReduceMotion = useReducedMotion();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMusicVisible, setIsMusicVisible] = useState(true);
+  const [isMusicFixed, setIsMusicFixed] = useState(false);
 
   useEffect(() => {
     if (!isMenuOpen) return;
@@ -51,10 +52,12 @@ export function HeroSection({
   }, [isMenuOpen]);
 
   useEffect(() => {
+    const heroSection = document.getElementById("hero-section");
     const storySection = document.getElementById("story");
-    if (!storySection) return;
+    if (!heroSection || !storySection) return;
 
     const updateMusicVisibility = () => {
+      setIsMusicFixed(heroSection.getBoundingClientRect().bottom <= 0);
       setIsMusicVisible(storySection.getBoundingClientRect().top > window.innerHeight);
     };
 
@@ -69,7 +72,7 @@ export function HeroSection({
   }, []);
 
   return (
-    <section className="relative min-h-[100svh] overflow-x-hidden bg-[#f8f3ea]">
+    <section id="hero-section" className="relative min-h-[100svh] overflow-x-hidden bg-[#f8f3ea]">
       <div aria-hidden="true" className="paper-grain pointer-events-none absolute inset-0 opacity-35" />
 
       <a
@@ -87,7 +90,7 @@ export function HeroSection({
         />
       </a>
 
-      <BackgroundMusic className={`fixed left-3 top-20 z-40 sm:absolute sm:bottom-14 sm:left-8 sm:top-auto ${isMusicVisible ? "" : "invisible pointer-events-none sm:visible sm:pointer-events-auto"}`} />
+      <BackgroundMusic className={`${isMusicFixed ? "fixed left-3 top-20" : "absolute bottom-16 left-5"} z-40 transition-[top,left,bottom] duration-300 sm:absolute sm:bottom-14 sm:left-8 sm:top-auto ${isMusicVisible ? "" : "invisible pointer-events-none sm:visible sm:pointer-events-auto"}`} />
 
       <motion.button
         type="button"
