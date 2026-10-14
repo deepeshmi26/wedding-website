@@ -27,7 +27,7 @@ function CalendarMark() {
 export function SaveTheDateSection() {
   const t = useTranslations();
   const calendarUrl = "https://calendar.google.com/calendar/u/0?cid=YmUyNWRmNzVkM2MxY2VmYjY3ODVlMTYxNDQ2NjUxNmY1ZmI5M2E5YTQzNWQ3MDA5M2FmN2ViZmM3YzY5ZWUwNEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t";
-  const appleCalendarUrl = "webcal://calendar.google.com/calendar/ical/be25df75d3c1cefb6785e1614466516f5fb93a9a435d70093af7ebfc7c69ee04%40group.calendar.google.com/public/basic.ics";
+  const appleCalendarUrl = "webcal://www.rajshreedeepesh.co.in/en/wedding.ics";
   const isAppleDevice = useSyncExternalStore(subscribeToNothing, getAppleDeviceSnapshot, () => false);
 
   return (
