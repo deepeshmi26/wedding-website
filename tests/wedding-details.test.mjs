@@ -185,7 +185,11 @@ test("background music keeps its actual state across a locale change", () => {
   assert.match(backgroundMusic, /y: \[0, -1\.5, 0\], rotate: \[0, -4, 3, 0\]/);
   assert.match(backgroundMusic, /repeatDelay: 0\.28/);
   assert.match(heroSection, /import \{ BackgroundMusic \} from "\.\/BackgroundMusic"/);
-  assert.match(heroSection, /<BackgroundMusic className="absolute bottom-16 left-5 z-40 sm:bottom-14 sm:left-8" \/>/);
+  assert.match(heroSection, /<BackgroundMusic className=\{`fixed left-3 top-20 z-40 sm:absolute sm:bottom-14 sm:left-8 sm:top-auto \$\{isMusicVisible \? "" : "invisible pointer-events-none sm:visible sm:pointer-events-auto"\}`\} \/>/);
+  assert.match(heroSection, /const \[isMusicVisible, setIsMusicVisible\] = useState\(true\)/);
+  assert.match(heroSection, /getElementById\("story"\)/);
+  assert.match(heroSection, /getBoundingClientRect\(\)\.top > window\.innerHeight/);
+  assert.match(heroSection, /addEventListener\("scroll", updateMusicVisibility, \{ passive: true \}\)/);
   assert.doesNotMatch(heroCompositionSwitcher, /pointer-events-none absolute bottom-5 left-5 z-20 flex flex-col/);
   assert.doesNotMatch(countdownSection, /BackgroundMusic/);
   assert.match(backgroundMusic, /export function BackgroundMusicProvider/);

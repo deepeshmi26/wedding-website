@@ -31,6 +31,7 @@ export function HeroSection({
   ];
   const shouldReduceMotion = useReducedMotion();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMusicVisible, setIsMusicVisible] = useState(true);
 
   useEffect(() => {
     if (!isMenuOpen) return;
@@ -48,6 +49,24 @@ export function HeroSection({
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isMenuOpen]);
+
+  useEffect(() => {
+    const storySection = document.getElementById("story");
+    if (!storySection) return;
+
+    const updateMusicVisibility = () => {
+      setIsMusicVisible(storySection.getBoundingClientRect().top > window.innerHeight);
+    };
+
+    updateMusicVisibility();
+    window.addEventListener("scroll", updateMusicVisibility, { passive: true });
+    window.addEventListener("resize", updateMusicVisibility);
+
+    return () => {
+      window.removeEventListener("scroll", updateMusicVisibility);
+      window.removeEventListener("resize", updateMusicVisibility);
+    };
+  }, []);
 
   return (
     <section className="relative min-h-[100svh] overflow-x-hidden bg-[#f8f3ea]">
@@ -68,7 +87,7 @@ export function HeroSection({
         />
       </a>
 
-      <BackgroundMusic className="absolute bottom-16 left-5 z-40 sm:bottom-14 sm:left-8" />
+      <BackgroundMusic className={`fixed left-3 top-20 z-40 sm:absolute sm:bottom-14 sm:left-8 sm:top-auto ${isMusicVisible ? "" : "invisible pointer-events-none sm:visible sm:pointer-events-auto"}`} />
 
       <motion.button
         type="button"
