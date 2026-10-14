@@ -53,7 +53,8 @@ test("event cards do not repeat the Kolkata image caption", () => {
 
 test("the site gives every guest both hotel stays and clear arrival guidance", () => {
   assert.match(weddingSite, /import \{ StaySection \} from "\.\/StaySection"/);
-  assert.match(weddingSite, /<SaveTheDateSection \/>\s*<StaySection \/>\s*<RsvpSection \/>/);
+  assert.match(weddingSite, /<RsvpSection \/>\s*<StaySection \/>\s*<SaveTheDateSection \/>/);
+  assert.match(heroSection, /nav\.rsvp[\s\S]*nav\.stay[\s\S]*nav\.calendar/);
   assert.match(staySection, /id="stay"/);
   assert.match(staySection, /t\.raw\("stay\.hotels"\)/);
   assert.match(staySection, /MapPin/);

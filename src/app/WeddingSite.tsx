@@ -30,9 +30,9 @@ export default function WeddingSite() {
         <StorySection />
         <OurJourneySection />
         <EventsSection version={eventsVersion} />
-        <SaveTheDateSection />
-        <StaySection />
         <RsvpSection />
+        <StaySection />
+        <SaveTheDateSection />
         <footer className="bg-[#f1e7da] px-5 pb-10 pt-1 text-center sm:px-8 sm:pb-12">
           <p className="font-serif text-base italic text-[#7a4b42] sm:text-lg">
             <span className="block">{t("footer.madeWith")} <span aria-label={t("accessibility.love")}>❤️</span></span>

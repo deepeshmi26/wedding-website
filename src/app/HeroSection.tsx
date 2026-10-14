@@ -27,7 +27,7 @@ export function HeroSection({
 }: HeroSectionProps) {
   const t = useTranslations();
   const navItems = [
-    { label: t("nav.story"), href: "#story" }, { label: t("nav.journey"), href: "#about" }, { label: t("nav.events"), href: "#events" }, { label: t("nav.calendar"), href: "#save-the-date" }, { label: t("nav.stay"), href: "#stay" }, { label: t("nav.rsvp"), href: "#rsvp" }
+    { label: t("nav.story"), href: "#story" }, { label: t("nav.journey"), href: "#about" }, { label: t("nav.events"), href: "#events" }, { label: t("nav.rsvp"), href: "#rsvp" }, { label: t("nav.stay"), href: "#stay" }, { label: t("nav.calendar"), href: "#save-the-date" }
   ];
   const shouldReduceMotion = useReducedMotion();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
