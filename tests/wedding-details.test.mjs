@@ -23,8 +23,13 @@ const heroSection = readFileSync(new URL("../src/app/HeroSection.tsx", import.me
 
 test("save-the-date follows the live wedding calendar", () => {
   assert.match(saveTheDate, /calendar\.google\.com\/calendar\/u\/0\?cid=/);
+  assert.match(saveTheDate, /webcal:\/\/calendar\.google\.com\/calendar\/ical\//);
+  assert.match(saveTheDate, /Macintosh\|Mac OS X\|iPhone\|iPad\|iPod/);
+  assert.match(saveTheDate, /t\("calendar\.apple"\)/);
   assert.doesNotMatch(saveTheDate, /action: "TEMPLATE"/);
   assert.doesNotMatch(saveTheDate, /target="_blank"/);
+  assert.match(englishMessages, /apple: "Add to Apple Calendar"/);
+  assert.match(bengaliMessages, /apple: "অ্যাপল ক্যালেন্ডারে যোগ করুন"/);
 });
 
 test("first-screen dates use ordinal wording in both locales", () => {

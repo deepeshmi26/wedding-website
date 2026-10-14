@@ -1,5 +1,15 @@
+"use client";
+
 import Image from "next/image";
+import { useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
+
+const appleDevicePattern = /Macintosh|Mac OS X|iPhone|iPad|iPod/;
+const subscribeToNothing = () => () => {};
+
+function getAppleDeviceSnapshot() {
+  return typeof navigator !== "undefined" && appleDevicePattern.test(navigator.userAgent);
+}
 
 function CalendarMark() {
   return (
@@ -17,6 +27,9 @@ function CalendarMark() {
 export function SaveTheDateSection() {
   const t = useTranslations();
   const calendarUrl = "https://calendar.google.com/calendar/u/0?cid=YmUyNWRmNzVkM2MxY2VmYjY3ODVlMTYxNDQ2NjUxNmY1ZmI5M2E5YTQzNWQ3MDA5M2FmN2ViZmM3YzY5ZWUwNEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t";
+  const appleCalendarUrl = "webcal://calendar.google.com/calendar/ical/be25df75d3c1cefb6785e1614466516f5fb93a9a435d70093af7ebfc7c69ee04%40group.calendar.google.com/public/basic.ics";
+  const isAppleDevice = useSyncExternalStore(subscribeToNothing, getAppleDeviceSnapshot, () => false);
+
   return (
     <section
       id="save-the-date"
@@ -81,18 +94,30 @@ export function SaveTheDateSection() {
               </div>
             </div>
 
-            <a
-              href={calendarUrl}
-              className="mt-5 inline-flex w-full items-center justify-center gap-3 rounded-full bg-[#b9143c] px-5 py-3.5 text-[0.62rem] font-bold uppercase tracking-[0.15em] text-[#fff9f1] shadow-[0_9px_18px_rgba(134,14,43,0.25)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#94102f] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#b9143c] sm:mt-6 sm:text-[0.68rem]"
-            >
-              <span aria-hidden="true" className="text-base leading-none text-[#ffd58f]">
-                ♥
-              </span>
-              {t("calendar.add")}
-              <span className="text-[#ffd58f]">
-                <CalendarMark />
-              </span>
-            </a>
+            <div className="mt-5 sm:mt-6">
+              <a
+                href={calendarUrl}
+                className="inline-flex min-h-[3.25rem] w-full items-center justify-center gap-3 rounded-full bg-[#b9143c] px-5 py-3.5 text-center text-[0.62rem] font-bold uppercase tracking-[0.15em] text-[#fff9f1] shadow-[0_9px_18px_rgba(134,14,43,0.25)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#94102f] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#b9143c] sm:text-[0.68rem]"
+              >
+                <span aria-hidden="true" className="text-base leading-none text-[#ffd58f]">
+                  ♥
+                </span>
+                {t("calendar.add")}
+                <span className="text-[#ffd58f]">
+                  <CalendarMark />
+                </span>
+              </a>
+
+              {isAppleDevice ? (
+                <a
+                  href={appleCalendarUrl}
+                  className="mt-3 inline-flex items-center gap-1.5 border-b border-[#8c1e3d]/45 pb-1 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-[#8c1e3d] transition-colors hover:border-[#8c1e3d] hover:text-[#64152d] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#b9143c] sm:text-[0.64rem]"
+                >
+                  {t("calendar.apple")}
+                  <span aria-hidden="true">→</span>
+                </a>
+              ) : null}
+            </div>
           </div>
         </div>
       </div>
