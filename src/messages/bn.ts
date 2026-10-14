@@ -27,7 +27,7 @@ const bn = {
     { label: "বরপক্ষের হোটেল", name: "Stayotel Hotel", side: "groom", characterImage: "/graphics/stay-groom-character.png", address: ["গেট নং ১, ২৮/২, ইতালগাছা রোড, এয়ারপোর্ট", "মতিলাল কলোনি, রাজবাড়ি, দমদম", "কলকাতা, পশ্চিমবঙ্গ ৭০০০২৮"], mapsUrl: "https://www.google.com/maps/search/?api=1&query=Stayotel+Hotel%2C+Gate+No.+1%2C+28%2F2%2C+Italgachha+Road%2C+Kolkata+700028" },
     { label: "কনেপক্ষের হোটেল", name: "The Grace", side: "bride", characterImage: "/graphics/stay-bride-character.png", address: ["৫৪, ব্যারাকপুর ট্রাঙ্ক রোড, সুখচর", "জয়প্রকাশ নগর, সোদপুর, খড়দহ", "কলকাতা, পশ্চিমবঙ্গ ৭০০১১৫"], mapsUrl: "https://www.google.com/maps/search/?api=1&query=The+Grace%2C+54+Barrackpore+Trunk+Road%2C+Sukchar%2C+Kolkata+700115" }
   ] },
-  rsvp: { eyebrow: "উপস্থিতি জানান", banner: "হোটেল বুকিংয়ের জন্য ২০ অক্টোবরের মধ্যে RSVP করুন", dismiss: "RSVP বার্তাটি বন্ধ করুন", title: "বিয়ের সপ্তাহান্তে আপনাদের হ্যাঁ চাই।", copy: "সময় হলে আমাদের জানাবেন। কলকাতায় আপনাদের সঙ্গে উদযাপন করার জন্য আমরা অধীর আগ্রহে অপেক্ষা করছি।" }, footer: { madeWith: "ভালোবাসায় তৈরি", by: "দীপেশ ও রাজশ্রীর হাতে" }
+  rsvp: { eyebrow: "উপস্থিতি জানান", banner: "হোটেল বুকিংয়ের জন্য ২২ অক্টোবরের মধ্যে RSVP করুন", dismiss: "RSVP বার্তাটি বন্ধ করুন", title: "বিয়ের সপ্তাহান্তে আপনাদের হ্যাঁ চাই।", copy: "সময় হলে আমাদের জানাবেন। কলকাতায় আপনাদের সঙ্গে উদযাপন করার জন্য আমরা অধীর আগ্রহে অপেক্ষা করছি।" }, footer: { madeWith: "ভালোবাসায় তৈরি", by: "দীপেশ ও রাজশ্রীর হাতে" }
 } as const;
 
 export default bn;

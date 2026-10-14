@@ -56,13 +56,13 @@ test("the RSVP banner leads with a direct bilingual RSVP action", () => {
   assert.match(rsvpSection, /export const RSVP_FORM_URL = "https:\/\/docs\.google\.com\/forms\/d\/e\/1FAIpQLSfuAZgHWb6qDUd7oW3KMIs4TIUGytB9n14BpKvc2v9lbUGbdQ\/viewform"/);
   assert.match(rsvpSection, /href=\{RSVP_FORM_URL\}/);
   assert.doesNotMatch(rsvpBanner, /sticky|fixed/);
-  assert.match(englishMessages, /banner: "RSVP by 20th Oct for hotel bookings"/);
-  assert.match(bengaliMessages, /banner: "হোটেল বুকিংয়ের জন্য ২০ অক্টোবরের মধ্যে RSVP করুন"/);
+  assert.match(englishMessages, /banner: "RSVP by 22nd Oct for hotel bookings"/);
+  assert.match(bengaliMessages, /banner: "হোটেল বুকিংয়ের জন্য ২২ অক্টোবরের মধ্যে RSVP করুন"/);
 });
 
 test("the slim RSVP banner states the hotel deadline and can be dismissed", () => {
-  assert.match(englishMessages, /banner: "RSVP by 20th Oct for hotel bookings"/);
-  assert.match(bengaliMessages, /banner: "হোটেল বুকিংয়ের জন্য ২০ অক্টোবরের মধ্যে RSVP করুন"/);
+  assert.match(englishMessages, /banner: "RSVP by 22nd Oct for hotel bookings"/);
+  assert.match(bengaliMessages, /banner: "হোটেল বুকিংয়ের জন্য ২২ অক্টোবরের মধ্যে RSVP করুন"/);
   assert.match(rsvpBanner, /useState/);
   assert.match(rsvpBanner, /aria-label=\{t\("rsvp\.dismiss"\)\}/);
   assert.match(rsvpBanner, /onClick=\{\(\) => setIsRsvpBannerVisible\(false\)\}/);

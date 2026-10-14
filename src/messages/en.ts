@@ -51,7 +51,7 @@ const en = {
     { label: "Groom's hotel", name: "Stayotel Hotel", side: "groom", characterImage: "/graphics/stay-groom-character.png", address: ["Gate No. 1, 28/2, Italgachha Road, Airport", "Motilal Colony, Rajbari, Dum Dum", "Kolkata, West Bengal 700028"], mapsUrl: "https://www.google.com/maps/search/?api=1&query=Stayotel+Hotel%2C+Gate+No.+1%2C+28%2F2%2C+Italgachha+Road%2C+Kolkata+700028" },
     { label: "Bride's hotel", name: "The Grace", side: "bride", characterImage: "/graphics/stay-bride-character.png", address: ["54, Barrackpore Trunk Road, Sukchar", "Jaiprakash Nagar, Sodepur, Khardaha", "Kolkata, West Bengal 700115"], mapsUrl: "https://www.google.com/maps/search/?api=1&query=The+Grace%2C+54+Barrackpore+Trunk+Road%2C+Sukchar%2C+Kolkata+700115" }
   ] },
-  rsvp: { eyebrow: "RSVP", banner: "RSVP by 20th Oct for hotel bookings", dismiss: "Dismiss RSVP reminder", title: "Save us a yes for the wedding weekend.", copy: "Send us your reply when you are ready. We cannot wait to celebrate with you in Kolkata." },
+  rsvp: { eyebrow: "RSVP", banner: "RSVP by 22nd Oct for hotel bookings", dismiss: "Dismiss RSVP reminder", title: "Save us a yes for the wedding weekend.", copy: "Send us your reply when you are ready. We cannot wait to celebrate with you in Kolkata." },
   footer: { madeWith: "Made with", by: "by Deepesh & Rajshree" }
 } as const;
 
