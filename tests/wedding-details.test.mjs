@@ -51,13 +51,16 @@ test("Bengali Haldi event uses the full traditional name", () => {
   assert.match(bengaliMessages, /name: "গায়ে হলুদ"/);
 });
 
-test("family photos end the carousel in both locales", () => {
+test("parents photo is the final carousel slide in both locales", () => {
   assert.match(storySection, /copyIndex: 12,[\s\S]*?src: "\/photos\/siblings\.jpg"/);
   assert.match(englishMessages, /alt: "Rajshree and Deepesh with their siblings", caption: "With our siblings"/);
   assert.match(bengaliMessages, /alt: "ভাইবোনদের সঙ্গে রাজশ্রী ও দীপেশ", caption: "ভাইবোনদের সঙ্গে"/);
   assert.match(storySection, /copyIndex: 13,[\s\S]*?landscape: true,[\s\S]*?src: "\/photos\/family-gathering-restored\.png"/);
   assert.match(englishMessages, /alt: "Rajshree and Deepesh with family", caption: "With our family"/);
   assert.match(bengaliMessages, /alt: "পরিবারের সঙ্গে রাজশ্রী ও দীপেশ", caption: "আমাদের পরিবারের সঙ্গে"/);
+  assert.match(storySection, /copyIndex: 14,[\s\S]*?portrait: true,[\s\S]*?src: "\/photos\/parents\.jpg"/);
+  assert.match(englishMessages, /alt: "Rajshree and Deepesh with their parents", caption: "With our parents"/);
+  assert.match(bengaliMessages, /alt: "রাজশ্রী ও দীপেশ তাঁদের বাবা-মায়ের সঙ্গে", caption: "আমাদের বাবা-মায়ের সঙ্গে"/);
 });
 
 test("siblings photo uses a square mobile frame and the standard desktop portrait frame", () => {
@@ -68,7 +71,13 @@ test("siblings photo uses a square mobile frame and the standard desktop portrai
 test("wide family photo stays uncropped in a landscape carousel frame", () => {
   assert.match(storySection, /landscape: true,[\s\S]*?src: "\/photos\/family-gathering-restored\.png"/);
   assert.match(storyPhotoCarousel, /photo\.landscape \? "aspect-\[4\/3\]"/);
-  assert.match(storyPhotoCarousel, /objectFit: photo\.landscape \? "contain" : "cover"/);
+  assert.match(storyPhotoCarousel, /photo\.landscape \|\| photo\.portrait \? "object-contain" : "object-cover"/);
+});
+
+test("parents photo stays uncropped in a portrait carousel frame", () => {
+  assert.match(storySection, /portrait: true,[\s\S]*?src: "\/photos\/parents\.jpg"/);
+  assert.match(storyPhotoCarousel, /photo\.portrait \? "aspect-\[3\/4\]"/);
+  assert.match(storyPhotoCarousel, /photo\.landscape \|\| photo\.portrait \? "object-contain" : "object-cover"/);
 });
 
 test("the RSVP banner leads with a direct bilingual RSVP action", () => {

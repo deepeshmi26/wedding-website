@@ -11,6 +11,7 @@ export type CarouselPhoto = {
   landscape?: boolean;
   mobileSquare?: boolean;
   objectPosition?: string;
+  portrait?: boolean;
   src: string;
   width: number;
 };
@@ -75,16 +76,16 @@ export function StoryPhotoCarousel({ photos }: StoryPhotoCarouselProps) {
                   }`}
                 >
                   <div
-                    className={`relative ${photo.landscape ? "aspect-[4/3]" : photo.mobileSquare ? "aspect-square sm:aspect-[4/5]" : "aspect-[4/5]"} overflow-hidden bg-[#e7ded4]`}
+                    className={`relative ${photo.landscape ? "aspect-[4/3]" : photo.portrait ? "aspect-[3/4]" : photo.mobileSquare ? "aspect-square sm:aspect-[4/5]" : "aspect-[4/5]"} overflow-hidden bg-[#e7ded4]`}
                   >
                     <Image
                       alt={photo.alt}
-                      className="object-cover"
+                      className={photo.landscape || photo.portrait ? "object-contain" : "object-cover"}
                       fill
                       quality={88}
                       sizes="(max-width: 639px) 82vw, (max-width: 1023px) 64vw, 42vw"
                       src={photo.src}
-                      style={{ objectFit: photo.landscape ? "contain" : "cover", objectPosition: photo.objectPosition }}
+                      style={{ objectPosition: photo.objectPosition }}
                     />
                   </div>
                   <figcaption className="px-1 pt-3 font-serif text-[1.25rem] italic leading-[1.1] text-[#754b49] sm:pt-4 sm:text-[1.4rem]">
