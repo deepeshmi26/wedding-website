@@ -88,6 +88,13 @@ const storyPhotosGrid: StoryPhoto[] = [
     src: "/photos/siblings.jpg",
     width: 1800,
   },
+  {
+    copyIndex: 13,
+    height: 1086,
+    landscape: true,
+    src: "/photos/family-gathering-restored.png",
+    width: 1448,
+  },
 ];
 
 export function StorySection() {
