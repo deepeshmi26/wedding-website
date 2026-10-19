@@ -115,7 +115,7 @@ test("Raigarh stay is a separate shared hotel group in both locales", () => {
     const stay = locale.stay.raigarh;
     assert.equal(stay.name, "Jindal Regency");
     assert.equal(stay.mapsUrl, "https://share.google/XtQJFxhFVehoQYhnm");
-    assert.match(stay.label, /Joining us at Raigarh\?|রায়গড়ে আমাদের সঙ্গে যোগ দিচ্ছেন\?/);
+    assert.match(stay.label, /Bride & Groom's stay|বর ও কনের থাকার ব্যবস্থা/);
     assert.match(stay.address.join(" "), /Jagatpur|জগতপুর/i);
     assert.match(stay.checkIn, /Flexible|নিজের সুবিধামতো/);
     assert.match(stay.checkOut, /Flexible|নিজের সুবিধামতো/);
@@ -246,7 +246,6 @@ test("the site gives every guest both hotel stays and clear arrival guidance", (
   assert.match(englishMessages, /characterImage: "\/graphics\/stay-groom-character\.png"/);
   assert.match(englishMessages, /characterImage: "\/graphics\/stay-bride-character\.png"/);
   assert.match(englishMessages, /stay: \{ eyebrow: "Stay", title: "Stay in Kolkata"/);
-  assert.match(englishMessages, /label: "Joining us at Raigarh\?"/);
   assert.match(staySection, /relative min-h-\[4\.75rem\] pr-28 sm:min-h-\[5\.25rem\] sm:pr-32[\s\S]*?raigarh\.label[\s\S]*?raigarh\.name[\s\S]*?absolute bottom-0 right-0[\s\S]*?hotels\.slice\(\)\.reverse\(\)\.map\(\(hotel\) =>[\s\S]*?src=\{hotel\.characterImage\}/);
   assert.doesNotMatch(staySection, /🤵‍♂️|👰‍♀️/);
   assert.doesNotMatch(englishMessages, /Both hotel stays are here for easy reference/);
@@ -259,7 +258,8 @@ test("the site gives every guest both hotel stays and clear arrival guidance", (
   assert.match(englishMessages, /Check-in available from 3 December, 11 AM/);
   assert.match(englishMessages, /Please arrive by 12 noon at the latest on 3 December to settle in, join us for lunch, and enjoy every celebration from the start\./);
   assert.match(bengaliMessages, /stay: \{ eyebrow: "থাকার ব্যবস্থা", title: "কলকাতায় থাকার ব্যবস্থা"/);
-  assert.match(bengaliMessages, /label: "রায়গড়ে আমাদের সঙ্গে যোগ দিচ্ছেন\?"/);
+  assert.match(englishMessages, /label: "Bride & Groom's stay"/);
+  assert.match(bengaliMessages, /label: "বর ও কনের থাকার ব্যবস্থা"/);
   assert.match(bengaliMessages, /আরামে গুছিয়ে নিয়ে, দুপুরের খাবারে যোগ দিতে ও শুরু থেকেই সব অনুষ্ঠানে থাকতে ৩ ডিসেম্বর সর্বোচ্চ দুপুর ১২টার মধ্যে পৌঁছনোর অনুরোধ রইল।/);
   assert.match(bengaliMessages, /সকাল ১০টার আগে পৌঁছলে, দয়া করে আগে থেকে আমাদের জানাবেন।/);
   assert.match(bengaliMessages, /checkIn: "৩ ডিসেম্বর, সকাল ১১টা থেকে চেক-ইন উপলব্ধ"/);
