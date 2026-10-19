@@ -17,19 +17,21 @@ Add the Raigarh celebrations as an optional continuation of the wedding for gues
 - Introduce the Raigarh group with: “Joining us in Raigarh? We’d love to celebrate with you there too.”
 - Add two events for 6 December 2026, both at Red Queen, Raigarh:
   - Bou Bhaat, 1:00 PM.
-  - Wedding Reception, 7:00 PM.
+  - Reception Dinner, 7:00 PM.
 - Link both event cards to the Red Queen map link supplied by the user: `https://share.google/YsUFwMhoT02GxT2P5`.
-- Use a Red Queen venue photo sourced online as the Raigarh event visual. Prefer an official or otherwise reusable image, retain source/attribution details as appropriate, and store an optimized local copy rather than relying on a third-party runtime URL.
+- Use distinct local images for Bou Bhaat and the wedding reception; they need not depict Red Queen. Retain source/attribution details as appropriate and store optimized local copies rather than relying on third-party runtime URLs. Do not imply that the images show the venue or actual menu.
+- The Bou Bhaat image should feel like a carefully art-directed Bengali feast, guided by the user's Pinterest board: a brass thali, recognizable Bengali dishes, warm light, restrained maroon/gold styling, and calm text-safe space. The selected image is AI-generated and must be identified as illustrative, not an actual event photograph.
 - Make the location grouping and event details available in both existing event layouts and both site locales (English and Bengali).
 
 ### Stay
 
 - Keep both existing Kolkata hotel cards and their guidance together and unchanged.
-- Add a separate Raigarh lodging group for Jindal Regency, explicitly shared by the bride's and groom's guests.
-- Show check-in on 6 December at 10:00 AM and checkout at a flexible time, using the user's wording/meaning (“at your own time”).
+- Add a separate Raigarh lodging group for Jindal Regency, introduced by “Joining us at Raigarh?” and illustrated with the bride and groom characters at the far end of the card header, bride first.
+- Show flexible check-in and checkout times. This supersedes the initial 6 December, 10:00 AM check-in detail.
 - Link to the Jindal Regency map link supplied by the user: `https://share.google/XtQJFxhFVehoQYhnm`.
 - Include the property address in the localized card, verified against the supplied map or the hotel's official source.
 - Keep the Raigarh hotel visually separate from the Kolkata hotels so guests cannot confuse the cities.
+- Keep the main Stay heading as “Stay in Kolkata” to distinguish the existing Kolkata properties from the Raigarh subsection.
 
 ## Explicitly Out Of Scope
 
@@ -44,7 +46,7 @@ Add the Raigarh celebrations as an optional continuation of the wedding for gues
 - Update `src/app/EventsSection.tsx` and `src/app/EventsCardVariants.tsx` to render the Kolkata and Raigarh groups in order, with the Raigarh invitation heading and its two event cards. Preserve both existing visual variants.
 - Update `src/app/StaySection.tsx` to render location-specific groups, keeping the Kolkata pair together and adding one shared Raigarh hotel card.
 - Add all new visitor-facing strings and event/stay data to `src/messages/en.ts` and `src/messages/bn.ts`.
-- Add the chosen venue image as an optimized local asset under `public/` and provide accurate alternative text in both locales if it conveys information; use empty alternative text if it is purely decorative.
+- Add the two chosen event images as optimized local assets under `public/` and provide accurate alternative text in both locales if they convey information; use empty alternative text if purely decorative.
 
 ## Verification
 

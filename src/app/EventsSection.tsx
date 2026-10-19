@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 
 import { EventsCardVariants } from "./EventsCardVariants";
 import type { EventsVersionId } from "./HeroCompositionSwitcher";
-import { getEvents, type WeddingEvent } from "./weddingData";
+import { getEventGroups, type WeddingEventGroup } from "./weddingData";
 
 function EventsSectionHeader({
   isRoyalClassicEvents = false,
@@ -70,7 +70,7 @@ function EventsSectionDivider({
 
 export function EventsSection({ version }: { version: EventsVersionId }) {
   const t = useTranslations();
-  const events = getEvents(t.raw("events.items") as WeddingEvent[]);
+  const groups = getEventGroups(t.raw("events.groups") as WeddingEventGroup[]);
   const isRoyalClassicEvents = version === "v3";
 
   return (
@@ -95,7 +95,7 @@ export function EventsSection({ version }: { version: EventsVersionId }) {
               <EventsSectionDivider isRoyalClassicEvents />
             </div>
             <div className="relative left-1/2 w-screen -translate-x-1/2 pt-4 md:pt-8 lg:pt-8">
-              <EventsCardVariants events={events} version={version} />
+              <EventsCardVariants groups={groups} version={version} />
             </div>
           </div>
         ) : (
@@ -104,7 +104,7 @@ export function EventsSection({ version }: { version: EventsVersionId }) {
               <EventsSectionHeader />
             </div>
             <div className="mx-auto max-w-6xl md:mt-8 lg:mt-8">
-              <EventsCardVariants events={events} version={version} />
+              <EventsCardVariants groups={groups} version={version} />
             </div>
           </div>
         )}

@@ -6,8 +6,10 @@ import { useTranslations } from "next-intl";
 import type { EventsVersionId } from "./HeroCompositionSwitcher";
 
 type EventCard = {
+  id: string;
   name: string;
   date: string;
+  year: string;
   time: string;
   place: string;
   mapUrl: string;
@@ -16,13 +18,20 @@ type EventCard = {
   dressCodeColors?: string[];
 };
 
-type EventsCardVariantsProps = {
+type EventGroup = {
+  id: string;
+  title?: string;
+  invitation?: string;
   events: EventCard[];
+};
+
+type EventsCardVariantsProps = {
+  groups: EventGroup[];
   version: EventsVersionId;
 };
 
 export function EventsCardVariants({
-  events,
+  groups,
   version,
 }: EventsCardVariantsProps) {
   const t = useTranslations();
@@ -33,20 +42,28 @@ export function EventsCardVariants({
     <div className={`relative ${isRoyalClassic ? "" : "md:mt-14"}`}>
       {isRoyalClassic ? (
         <div className="flex flex-col gap-6 px-4 pb-4 md:gap-0 md:px-0 md:pb-0">
-          {events.map((event, index) => (
-            <motion.div
-              key={event.name}
-              className="relative overflow-hidden rounded-2xl bg-[#64142b] shadow-[0_18px_34px_rgba(48,7,19,0.22)] md:rounded-none md:shadow-none"
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 22 }}
-              transition={{
-                duration: 0.46,
-                delay: index * 0.12,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              viewport={{ once: true, amount: 0.22 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              >
-              <article className={`relative grid min-h-[34rem] md:min-h-[30rem] md:grid-cols-2 ${index % 2 ? "md:[&>*:first-child]:order-2" : ""}`}>
+          {groups.map((group) => (
+            <section aria-label={group.title} className="flex flex-col gap-6 md:gap-0" key={group.id}>
+              {group.title ? (
+                <div className="mx-auto max-w-4xl px-2 pb-7 pt-10 text-center md:pb-10 md:pt-14">
+                  <p className="text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-[#f0c67d]">{group.title}</p>
+                  {group.invitation ? <h3 className="mt-3 font-serif text-3xl leading-tight text-[#fff8ef] sm:text-4xl">{group.invitation}</h3> : null}
+                </div>
+              ) : null}
+              {group.events.map((event, index) => (
+                <motion.div
+                  key={event.id}
+                  className="relative overflow-hidden rounded-2xl bg-[#64142b] shadow-[0_18px_34px_rgba(48,7,19,0.22)] md:rounded-none md:shadow-none"
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 22 }}
+                  transition={{
+                    duration: 0.46,
+                    delay: index * 0.12,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  viewport={{ once: true, amount: 0.22 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                >
+                <article className={`relative grid min-h-[34rem] md:min-h-[30rem] md:grid-cols-2 ${index % 2 ? "md:[&>*:first-child]:order-2" : ""}`}>
                 <div className="absolute inset-0 min-h-full overflow-hidden md:relative md:min-h-full">
                   {event.washImage ? (
                     <motion.div
@@ -69,7 +86,10 @@ export function EventsCardVariants({
                       />
                     </motion.div>
                   ) : null}
-                  <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(180deg,rgba(28,8,14,0.16),rgba(28,8,14,0.36)),radial-gradient(circle_at_50%_48%,transparent,rgba(31,8,14,0.1))] md:bg-[linear-gradient(180deg,rgba(45,7,18,0.1),rgba(45,7,18,0.58)),linear-gradient(90deg,transparent,rgba(89,12,34,0.18))]" />
+                  <div
+                    aria-hidden="true"
+                    className={`absolute inset-0 ${group.id === "raigarh" ? "bg-[linear-gradient(180deg,rgba(28,8,14,0.3),rgba(28,8,14,0.54)),radial-gradient(circle_at_50%_48%,transparent,rgba(31,8,14,0.1))]" : "bg-[linear-gradient(180deg,rgba(28,8,14,0.16),rgba(28,8,14,0.36)),radial-gradient(circle_at_50%_48%,transparent,rgba(31,8,14,0.1))]"} md:bg-[linear-gradient(180deg,rgba(45,7,18,0.1),rgba(45,7,18,0.58)),linear-gradient(90deg,transparent,rgba(89,12,34,0.18))]`}
+                  />
                   <div aria-hidden="true" className="pointer-events-none absolute inset-4 border border-[#f4cf8d]/55 md:inset-5 md:border-[#f4cf8d]/45" />
                 </div>
 
@@ -82,7 +102,7 @@ export function EventsCardVariants({
                     </h3>
                     <div className="mt-8">
                       <p className="text-center font-serif text-[1.35rem] font-medium leading-none tracking-[0.08em] text-[#fff8ef] [font-variant-numeric:lining-nums]">
-                        {event.date.split(" ")[0].padStart(2, "0")} {event.date.split(" ")[1]} 2026
+                        {event.date} {event.year}
                       </p>
                     </div>
                     <div className="mx-auto my-4 flex w-40 items-center gap-3">
@@ -108,7 +128,7 @@ export function EventsCardVariants({
                     <a href={event.mapUrl} target="_blank" rel="noreferrer" className="mx-auto mt-6 flex w-fit border-b border-[#f0c67d]/45 pb-1 text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-[#f0c67d] transition hover:border-[#f0c67d] hover:text-[#f0c67d]">
                       {t("events.directions")}
                     </a>
-                    {index === 1 && event.dressCodeColors?.length ? (
+                    {group.id === "kolkata" && index === 1 && event.dressCodeColors?.length ? (
                       <>
                         <div className="mx-auto my-4 flex w-40 items-center gap-3">
                           <span className="h-px flex-1 bg-gradient-to-r from-transparent to-[#f0c67d]/45" />
@@ -137,13 +157,13 @@ export function EventsCardVariants({
                     <div className="mt-6 h-px w-16 bg-[#f0c67d]/65" />
                     <div className="mt-8 flex items-center gap-5 sm:gap-7">
                       <span aria-hidden="true" className="font-serif text-[5.8rem] leading-[0.9] text-[#f0c67d]/15 [font-variant-numeric:lining-nums] sm:text-[7.4rem]">
-                        {event.date.split(" ")[0].padStart(2, "0")}
+                        {event.date.split(" ")[0]}
                       </span>
                       <div className="text-center">
                         <p className="font-serif text-3xl font-medium tracking-[0.12em] text-[#fff8ef] sm:text-4xl">
-                          December
+                          {event.date.split(" ").slice(1).join(" ")}
                         </p>
-                        <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[#f0c67d]/85">2026</p>
+                        <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[#f0c67d]/85">{event.year}</p>
                       </div>
                     </div>
                     <div className="mt-8 h-px w-full bg-[#f0c67d]/20" />
@@ -164,7 +184,7 @@ export function EventsCardVariants({
                     </div>
                     <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
                       <a href={event.mapUrl} target="_blank" rel="noreferrer" className="border-b border-[#f0c67d]/50 pb-1 text-[0.66rem] font-semibold uppercase tracking-[0.26em] text-[#f0c67d] transition hover:border-[#f0c67d] hover:text-[#fff8ef]">
-                        Open in maps &rarr;
+                        {t("events.directions")}
                       </a>
                       {event.dressCodeColors?.length ? (
                         <div className="flex items-center gap-2.5">
@@ -175,31 +195,42 @@ export function EventsCardVariants({
                       ) : null}
                     </div>
                   </div>
-                </div>
-              </article>
-            </motion.div>
+                  </div>
+                </article>
+              </motion.div>
+              ))}
+            </section>
           ))}
         </div>
       ) : (
-        <div className="flex flex-col gap-5 md:grid md:grid-cols-3 md:items-start md:gap-6">
-          {events.map((event, index) => {
-            const mobileOffset = "mx-auto max-w-[20rem]";
-            const desktopOffset =
-              index === 1 ? "md:mt-10" : index === 2 ? "md:mt-4" : "md:mt-0";
+        <div className="flex flex-col gap-12">
+          {groups.map((group) => (
+            <section aria-label={group.title} className="flex flex-col gap-5" key={group.id}>
+              {group.title ? (
+                <div className="mx-auto max-w-3xl px-4 pt-8 text-center">
+                  <p className="text-[0.68rem] font-bold uppercase tracking-[0.24em] text-[#8f4a2b]">{group.title}</p>
+                  {group.invitation ? <h3 className="mt-3 font-serif text-3xl leading-tight text-[#61253a] sm:text-4xl">{group.invitation}</h3> : null}
+                </div>
+              ) : null}
+              <div className={`flex flex-col gap-5 md:grid md:items-start md:gap-6 ${group.events.length === 3 ? "md:grid-cols-3" : "md:grid-cols-2"}`}>
+                {group.events.map((event, index) => {
+                  const mobileOffset = "mx-auto max-w-[20rem]";
+                  const desktopOffset =
+                    index === 1 ? "md:mt-10" : index === 2 ? "md:mt-4" : "md:mt-0";
 
-            return (
-              <motion.article
-                key={event.name}
-                className={`relative z-10 w-full overflow-hidden rounded-[0.45rem] bg-[linear-gradient(180deg,#fff8ef_0%,#f8ead6_100%)] p-3 text-center shadow-[0_24px_56px_rgba(64,20,26,0.22)] transition hover:-translate-y-1.5 hover:shadow-[0_30px_68px_rgba(64,20,26,0.28)] ${mobileOffset} ${desktopOffset} md:mx-auto md:max-w-[21rem]`}
-                initial={shouldReduceMotion ? false : { opacity: 0, y: 22 }}
-                transition={{
-                  duration: 0.46,
-                  delay: index * 0.12,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                viewport={{ once: true, amount: 0.22 }}
-                whileInView={{ opacity: 1, y: 0 }}
-              >
+                  return (
+                    <motion.article
+                      key={event.id}
+                      className={`relative z-10 w-full overflow-hidden rounded-[0.45rem] bg-[linear-gradient(180deg,#fff8ef_0%,#f8ead6_100%)] p-3 text-center shadow-[0_24px_56px_rgba(64,20,26,0.22)] transition hover:-translate-y-1.5 hover:shadow-[0_30px_68px_rgba(64,20,26,0.28)] ${mobileOffset} ${desktopOffset} md:mx-auto md:max-w-[21rem]`}
+                      initial={shouldReduceMotion ? false : { opacity: 0, y: 22 }}
+                      transition={{
+                        duration: 0.46,
+                        delay: index * 0.12,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      viewport={{ once: true, amount: 0.22 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                    >
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.24),transparent_26%,rgba(176,24,56,0.03)_100%)]" />
                 <div className="relative overflow-hidden px-5 pb-8 pt-10">
                   {event.washImage ? (
@@ -286,9 +317,12 @@ export function EventsCardVariants({
                     </div>
                   ) : null}
                 </div>
-              </motion.article>
-            );
-          })}
+                    </motion.article>
+                  );
+                })}
+              </div>
+            </section>
+          ))}
         </div>
       )}
     </div>

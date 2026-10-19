@@ -1,6 +1,20 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import test from "node:test";
+import { createRequire } from "node:module";
+
+const require = createRequire(import.meta.url);
+const ts = require("typescript");
+
+function loadTypeScriptModule(path) {
+  const source = readFileSync(new URL(path, import.meta.url), "utf8");
+  const { outputText } = ts.transpileModule(source, {
+    compilerOptions: { module: ts.ModuleKind.CommonJS },
+  });
+  const transpiledModule = { exports: {} };
+  new Function("module", "exports", outputText)(transpiledModule, transpiledModule.exports);
+  return transpiledModule.exports;
+}
 
 const saveTheDate = readFileSync(new URL("../src/app/SaveTheDateSection.tsx", import.meta.url), "utf8");
 const gatheringSection = readFileSync(new URL("../src/app/GatheringSection.tsx", import.meta.url), "utf8");
@@ -17,6 +31,7 @@ const rsvpBanner = weddingSite;
 const rsvpSection = readFileSync(new URL("../src/app/RsvpSection.tsx", import.meta.url), "utf8");
 const staySection = readFileSync(new URL("../src/app/StaySection.tsx", import.meta.url), "utf8");
 const eventCardVariants = readFileSync(new URL("../src/app/EventsCardVariants.tsx", import.meta.url), "utf8");
+const eventsSection = readFileSync(new URL("../src/app/EventsSection.tsx", import.meta.url), "utf8");
 const heroCompositionSwitcher = readFileSync(
   new URL("../src/app/HeroCompositionSwitcher.tsx", import.meta.url),
   "utf8",
@@ -26,6 +41,102 @@ const heroSection = readFileSync(new URL("../src/app/HeroSection.tsx", import.me
 const languageSwitcher = readFileSync(new URL("../src/app/LanguageSwitcher.tsx", import.meta.url), "utf8");
 const countdownSection = readFileSync(new URL("../src/app/CountdownSection.tsx", import.meta.url), "utf8");
 const globalStyles = readFileSync(new URL("../src/app/globals.css", import.meta.url), "utf8");
+const english = loadTypeScriptModule("../src/messages/en.ts").default;
+const bengali = loadTypeScriptModule("../src/messages/bn.ts").default;
+const weddingData = loadTypeScriptModule("../src/app/weddingData.ts");
+
+test("Raigarh events follow Kolkata events as a separate bilingual group", () => {
+  const locales = [english, bengali];
+  const expectedNames = [
+    ["Bou Bhaat", "Reception Dinner"],
+    ["বউভাত", "সংবর্ধনা নৈশভোজ"],
+  ];
+  const expectedInvitations = [
+    "Joining us in Raigarh? We’d love to celebrate with you there too.",
+    "রায়গড়ে আমাদের সঙ্গে যোগ দিচ্ছেন? সেখানেও আপনাদের সঙ্গে উদযাপন করতে চাই।",
+  ];
+
+  for (const [index, locale] of locales.entries()) {
+    const groups = weddingData.getEventGroups(locale.events.groups);
+    assert.deepEqual(groups.map(({ id }) => id), ["kolkata", "raigarh"]);
+    assert.equal(groups[0].events.length, 3);
+    assert.equal(groups[0].events[0].name, locale.events.groups[0].events[0].name);
+    assert.deepEqual(
+      groups[0].events.map(({ date }) => date),
+      index === 0 ? ["03 December", "04 December", "04 December"] : ["৩ ডিসেম্বর", "৪ ডিসেম্বর", "৪ ডিসেম্বর"],
+    );
+    assert.equal(groups[1].invitation, expectedInvitations[index]);
+    assert.deepEqual(groups[1].events.map(({ name }) => name), expectedNames[index]);
+    assert.deepEqual(groups[1].events.map(({ date }) => date), [
+      index === 0 ? "06 December" : "০৬ ডিসেম্বর",
+      index === 0 ? "06 December" : "০৬ ডিসেম্বর",
+    ]);
+    assert.deepEqual(groups[1].events.map(({ time }) => time),
+      index === 0 ? ["1:00 PM", "7:00 PM"] : ["দুপুর ১:০০", "সন্ধ্যা ৭:০০"]);
+    assert.deepEqual(
+      groups[1].events.map(({ place }) => place),
+      index === 0 ? ["Red Queen, Raigarh", "Red Queen, Raigarh"] : ["রেড কুইন, রায়গড়", "রেড কুইন, রায়গড়"],
+    );
+    assert.deepEqual(groups[1].events.map(({ mapUrl }) => mapUrl), [
+      "https://share.google/YsUFwMhoT02GxT2P5",
+      "https://share.google/YsUFwMhoT02GxT2P5",
+    ]);
+    assert.equal(groups[1].events[0].washImage, "/photos/raigarh-bou-bhaat-editorial.jpg");
+    assert.equal(groups[1].events[1].washImage, "/photos/raigarh-reception-editorial.jpg");
+    assert.match(groups[1].events[0].washImageAlt, /Bengali|বাঙালি/);
+    assert.match(groups[1].events[1].washImageAlt, /reception|সংবর্ধনা/);
+    assert.match(groups[1].events[1].washImageAlt, /guests|অতিথি/);
+  }
+});
+
+test("both event layouts render grouped events and preserve the Red Queen map link", () => {
+  assert.match(eventCardVariants, /groups\.map\([\s\S]*?group\.events\.map\(/);
+  assert.match(eventCardVariants, /group\.invitation/);
+  assert.equal((eventCardVariants.match(/group\.events\.map\(/g) ?? []).length, 2);
+  assert.match(eventsSection, /getEventGroups\(t\.raw\("events\.groups"\)/);
+  assert.match(eventsSection, /<EventsCardVariants groups=\{groups\} version=\{version\} \/>/);
+  assert.match(english.events.groups[1].events[0].place, /Red Queen/);
+  assert.match(eventCardVariants, /\{t\("events\.directions"\)\}/);
+  for (const image of ["../public/photos/raigarh-bou-bhaat-editorial.jpg", "../public/photos/raigarh-reception-editorial.jpg"]) {
+    assert.equal(existsSync(new URL(image, import.meta.url)), true);
+  }
+  const attributions = readFileSync(new URL("../docs/asset-attributions.md", import.meta.url), "utf8");
+  assert.match(attributions, /raigarh-bou-bhaat-editorial\.jpg.*AI-generated/i);
+  assert.match(attributions, /raigarh-reception-editorial\.jpg.*AI-generated/i);
+  assert.match(attributions, /guests in the distance/i);
+});
+
+test("Raigarh photos get a darker text-safe wash in the royal event layout", () => {
+  assert.match(eventCardVariants, /group\.id === "raigarh"[\s\S]*?rgba\(28,8,14,0\.3\)[\s\S]*?rgba\(28,8,14,0\.54\)/);
+});
+
+test("Raigarh stay is a separate shared hotel group in both locales", () => {
+  for (const locale of [english, bengali]) {
+    const stay = locale.stay.raigarh;
+    assert.equal(stay.name, "Jindal Regency");
+    assert.equal(stay.mapsUrl, "https://share.google/XtQJFxhFVehoQYhnm");
+    assert.match(stay.label, /Joining us at Raigarh\?|রায়গড়ে আমাদের সঙ্গে যোগ দিচ্ছেন\?/);
+    assert.match(stay.address.join(" "), /Jagatpur|জগতপুর/i);
+    assert.match(stay.checkIn, /Flexible|নিজের সুবিধামতো/);
+    assert.match(stay.checkOut, /Flexible|নিজের সুবিধামতো/);
+    assert.equal(stay.address.join(" ").toLowerCase().includes("raigarh") || stay.address.join(" ").includes("রায়গড়"), true);
+  }
+  assert.match(staySection, /stay\.raigarh/);
+  assert.doesNotMatch(staySection, /raigarh\.side/);
+});
+
+test("Kolkata hotel guidance remains unchanged alongside Raigarh lodging", () => {
+  assert.deepEqual(english.stay.hotels.map(({ name, side }) => [name, side]), [
+    ["Stayotel Hotel", "groom"],
+    ["The Grace", "bride"],
+  ]);
+  assert.equal(english.stay.checkIn, "Check-in available from 3 December, 11 AM");
+  assert.equal(english.stay.checkOut, "Check-out by 5 December, 11 AM");
+  assert.deepEqual(english.stay.arrival, [
+    "Please arrive by 12 noon at the latest on 3 December to settle in, join us for lunch, and enjoy every celebration from the start.",
+    "If you are arriving before 10 AM, please let us know beforehand.",
+  ]);
+});
 
 test("save-the-date follows the live wedding calendar", () => {
   assert.match(saveTheDate, /calendar\.google\.com\/calendar\/u\/0\?cid=/);
@@ -135,6 +246,9 @@ test("the site gives every guest both hotel stays and clear arrival guidance", (
   assert.match(englishMessages, /characterImage: "\/graphics\/stay-groom-character\.png"/);
   assert.match(englishMessages, /characterImage: "\/graphics\/stay-bride-character\.png"/);
   assert.match(englishMessages, /stay: \{ eyebrow: "Stay", title: "Stay in Kolkata"/);
+  assert.match(englishMessages, /label: "Joining us at Raigarh\?"/);
+  assert.match(staySection, /relative min-h-\[4\.75rem\] pr-28 sm:min-h-\[5\.25rem\] sm:pr-32[\s\S]*?raigarh\.label[\s\S]*?raigarh\.name[\s\S]*?absolute bottom-0 right-0[\s\S]*?hotels\.slice\(\)\.reverse\(\)\.map\(\(hotel\) =>[\s\S]*?src=\{hotel\.characterImage\}/);
+  assert.doesNotMatch(staySection, /🤵‍♂️|👰‍♀️/);
   assert.doesNotMatch(englishMessages, /Both hotel stays are here for easy reference/);
   assert.match(englishMessages, /name: "Stayotel Hotel"/);
   assert.match(englishMessages, /name: "The Grace"/);
@@ -145,6 +259,7 @@ test("the site gives every guest both hotel stays and clear arrival guidance", (
   assert.match(englishMessages, /Check-in available from 3 December, 11 AM/);
   assert.match(englishMessages, /Please arrive by 12 noon at the latest on 3 December to settle in, join us for lunch, and enjoy every celebration from the start\./);
   assert.match(bengaliMessages, /stay: \{ eyebrow: "থাকার ব্যবস্থা", title: "কলকাতায় থাকার ব্যবস্থা"/);
+  assert.match(bengaliMessages, /label: "রায়গড়ে আমাদের সঙ্গে যোগ দিচ্ছেন\?"/);
   assert.match(bengaliMessages, /আরামে গুছিয়ে নিয়ে, দুপুরের খাবারে যোগ দিতে ও শুরু থেকেই সব অনুষ্ঠানে থাকতে ৩ ডিসেম্বর সর্বোচ্চ দুপুর ১২টার মধ্যে পৌঁছনোর অনুরোধ রইল।/);
   assert.match(bengaliMessages, /সকাল ১০টার আগে পৌঁছলে, দয়া করে আগে থেকে আমাদের জানাবেন।/);
   assert.match(bengaliMessages, /checkIn: "৩ ডিসেম্বর, সকাল ১১টা থেকে চেক-ইন উপলব্ধ"/);

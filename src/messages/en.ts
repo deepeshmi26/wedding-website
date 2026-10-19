@@ -40,14 +40,20 @@ const en = {
   },
   events: {
     eyebrow: "Events", invite: "Come celebrate with us in", cityPrefix: "the", city: "City of Joy", time: "Time", venue: "Venue", directions: "Get directions →", dressCode: "Dress code", suggestedColor: "Suggested color {color}",
-    items: [
-      { name: "Engagement & Sangeet", date: "3 December", time: "7:00 PM", place: "Peerlese Nagar, Sodepur, Kolkata", washImageAlt: "Tabla, flowers, and warm lights prepared for the Sangeet" },
-      { name: "Haldi", date: "4 December", time: "7:00 AM", place: "Shrishti Garden, Jessore Rd, Kolkata", washImageAlt: "Turmeric, marigolds, and fabric prepared for the Haldi" },
-      { name: "Wedding", date: "4 December", time: "5:45 PM", place: "Shrishti Garden, Jessore Rd, Kolkata", washImageAlt: "A candlelit floral mandap prepared for the wedding" }
+    groups: [
+      { id: "kolkata", events: [
+        { id: "kolkataSangeet", name: "Engagement & Sangeet", date: "03 December", year: "2026", time: "7:00 PM", place: "Peerlese Nagar, Sodepur, Kolkata", washImageAlt: "Tabla, flowers, and warm lights prepared for the Sangeet" },
+        { id: "kolkataHaldi", name: "Haldi", date: "04 December", year: "2026", time: "7:00 AM", place: "Shrishti Garden, Jessore Rd, Kolkata", washImageAlt: "Turmeric, marigolds, and fabric prepared for the Haldi" },
+        { id: "kolkataWedding", name: "Wedding", date: "04 December", year: "2026", time: "5:45 PM", place: "Shrishti Garden, Jessore Rd, Kolkata", washImageAlt: "A candlelit floral mandap prepared for the wedding" }
+      ] },
+      { id: "raigarh", title: "Raigarh", invitation: "Joining us in Raigarh? We’d love to celebrate with you there too.", events: [
+        { id: "raigarhBouBhaat", name: "Bou Bhaat", date: "06 December", year: "2026", time: "1:00 PM", place: "Red Queen, Raigarh", washImageAlt: "A Bengali feast arranged on a brass thali with rice, fish curry, dal, vegetables, and chutney" },
+        { id: "raigarhReception", name: "Reception Dinner", date: "06 December", year: "2026", time: "7:00 PM", place: "Red Queen, Raigarh", washImageAlt: "AI-generated Bengali wedding reception with guests dancing in the distance beneath maroon drapery and warm lights" }
+      ] }
     ]
   },
   calendar: { eyebrow: "Save the date", title: "Our wedding weekend", weekday: "Friday", dateDay: "04", dateMonth: "Dec", add: "Add our day to calendar", apple: "Add to Apple Calendar", taxiAlt: "Yellow Kolkata taxi illustration", calendarTitle: "Rajshree & Deepesh's Wedding", calendarDetails: "Join us for the wedding ceremony at 5:45 PM.", calendarLocation: "Shrishti Garden, Jessore Rd, Kolkata" },
-  stay: { eyebrow: "Stay", title: "Stay in Kolkata", maps: "Open in Maps", checkIn: "Check-in available from 3 December, 11 AM", checkOut: "Check-out by 5 December, 11 AM", arrivalLabel: "A little arrival note", arrival: ["Please arrive by 12 noon at the latest on 3 December to settle in, join us for lunch, and enjoy every celebration from the start.", "If you are arriving before 10 AM, please let us know beforehand."], hotels: [
+  stay: { eyebrow: "Stay", title: "Stay in Kolkata", maps: "Open in Maps", checkIn: "Check-in available from 3 December, 11 AM", checkOut: "Check-out by 5 December, 11 AM", arrivalLabel: "A little arrival note", arrival: ["Please arrive by 12 noon at the latest on 3 December to settle in, join us for lunch, and enjoy every celebration from the start.", "If you are arriving before 10 AM, please let us know beforehand."], raigarh: { city: "Raigarh", label: "Joining us at Raigarh?", name: "Jindal Regency", address: ["Jagatpur, Dhimrapur Road", "Raigarh, Chhattisgarh 496001"], mapsUrl: "https://share.google/XtQJFxhFVehoQYhnm", checkIn: "Flexible check-in time", checkOut: "Flexible check-out time" }, hotels: [
     { label: "Groom's hotel", name: "Stayotel Hotel", side: "groom", characterImage: "/graphics/stay-groom-character.png", address: ["Gate No. 1, 28/2, Italgachha Road, Airport", "Motilal Colony, Rajbari, Dum Dum", "Kolkata, West Bengal 700028"], mapsUrl: "https://www.google.com/maps/search/?api=1&query=Stayotel+Hotel%2C+Gate+No.+1%2C+28%2F2%2C+Italgachha+Road%2C+Kolkata+700028" },
     { label: "Bride's hotel", name: "The Grace", side: "bride", characterImage: "/graphics/stay-bride-character.png", address: ["54, Barrackpore Trunk Road, Sukchar", "Jaiprakash Nagar, Sodepur, Khardaha", "Kolkata, West Bengal 700115"], mapsUrl: "https://www.google.com/maps/search/?api=1&query=The+Grace%2C+54+Barrackpore+Trunk+Road%2C+Sukchar%2C+Kolkata+700115" }
   ] },
