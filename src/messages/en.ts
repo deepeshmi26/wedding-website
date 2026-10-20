@@ -42,7 +42,7 @@ const en = {
     eyebrow: "Events", invite: "Come celebrate with us in", cityPrefix: "the", city: "City of Joy", time: "Time", venue: "Venue", directions: "Get directions →", dressCode: "Dress code", suggestedColor: "Suggested color {color}",
     groups: [
       { id: "kolkata", events: [
-        { id: "kolkataSangeet", name: "Engagement & Sangeet", date: "03 December", year: "2026", time: "7:00 PM", place: "Peerlese Nagar, Sodepur, Kolkata", washImageAlt: "Tabla, flowers, and warm lights prepared for the Sangeet" },
+        { id: "kolkataSangeet", name: "Engagement & Sangeet", date: "03 December", year: "2026", time: "7:00 PM", place: "Peerless Nagar, Sodepur, Kolkata", washImageAlt: "Tabla, flowers, and warm lights prepared for the Sangeet" },
         { id: "kolkataHaldi", name: "Haldi", date: "04 December", year: "2026", time: "7:00 AM", place: "Shrishti Garden, Jessore Rd, Kolkata", washImageAlt: "Turmeric, marigolds, and fabric prepared for the Haldi" },
         { id: "kolkataWedding", name: "Wedding", date: "04 December", year: "2026", time: "5:45 PM", place: "Shrishti Garden, Jessore Rd, Kolkata", washImageAlt: "A candlelit floral mandap prepared for the wedding" }
       ] },

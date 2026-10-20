@@ -61,6 +61,9 @@ test("Raigarh events follow Kolkata events as a separate bilingual group", () =>
     assert.deepEqual(groups.map(({ id }) => id), ["kolkata", "raigarh"]);
     assert.equal(groups[0].events.length, 3);
     assert.equal(groups[0].events[0].name, locale.events.groups[0].events[0].name);
+    assert.equal(groups[0].events[0].place, index === 0
+      ? "Peerless Nagar, Sodepur, Kolkata"
+      : "পিয়ারলেস নগর, সোদপুর, কলকাতা");
     assert.deepEqual(
       groups[0].events.map(({ date }) => date),
       index === 0 ? ["03 December", "04 December", "04 December"] : ["৩ ডিসেম্বর", "৪ ডিসেম্বর", "৪ ডিসেম্বর"],
