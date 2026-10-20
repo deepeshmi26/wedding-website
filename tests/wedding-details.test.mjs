@@ -119,6 +119,12 @@ test("royal desktop dress-code colors appear only on the Haldi card", () => {
     eventCardVariants.indexOf("\n      ) : (", eventCardVariants.indexOf('className="relative hidden w-full md:block"')),
   );
   assert.match(desktopRoyalLayout, /event\.id === "kolkataHaldi" && event\.dressCodeColors\?\.length/);
+  assert.match(desktopRoyalLayout, /event\.id === "kolkataHaldi" && event\.dressCodeColors\?\.length \? \([\s\S]*?t\("events\.dressCode"\)[\s\S]*?event\.dressCodeColors\.map/);
+});
+
+test("Haldi dress code keeps only the pink swatch", () => {
+  const groups = weddingData.getEventGroups(english.events.groups);
+  assert.deepEqual(groups[0].events[1].dressCodeColors, ["#df7f96"]);
 });
 
 test("Raigarh stay is a separate shared hotel group in both locales", () => {

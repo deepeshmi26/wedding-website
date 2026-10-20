@@ -188,6 +188,9 @@ export function EventsCardVariants({
                       </a>
                       {event.id === "kolkataHaldi" && event.dressCodeColors?.length ? (
                         <div className="flex items-center gap-2.5">
+                          <span className="text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-[#f0c67d]/80">
+                            {t("events.dressCode")}
+                          </span>
                           {event.dressCodeColors.map((color) => (
                             <span key={color} aria-label={t("events.suggestedColor", { color })} className="h-4 w-4 rounded-full border border-[#fff8ef]/60" style={{ backgroundColor: color }} />
                           ))}

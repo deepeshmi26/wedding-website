@@ -27,7 +27,7 @@ const eventDetails: Record<string, Pick<WeddingEvent, "mapUrl" | "washImage" | "
   kolkataHaldi: {
     mapUrl: "https://maps.app.goo.gl/ur6KqC3tBMqw4i7NA",
     washImage: "/photos/event-haldi-background-v1.png",
-    dressCodeColors: ["#f1be3d", "#df7f96"],
+    dressCodeColors: ["#df7f96"],
   },
   kolkataWedding: {
     mapUrl: "https://maps.app.goo.gl/ur6KqC3tBMqw4i7NA",
