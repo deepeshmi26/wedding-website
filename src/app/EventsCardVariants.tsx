@@ -186,7 +186,7 @@ export function EventsCardVariants({
                       <a href={event.mapUrl} target="_blank" rel="noreferrer" className="border-b border-[#f0c67d]/50 pb-1 text-[0.66rem] font-semibold uppercase tracking-[0.26em] text-[#f0c67d] transition hover:border-[#f0c67d] hover:text-[#fff8ef]">
                         {t("events.directions")}
                       </a>
-                      {event.dressCodeColors?.length ? (
+                      {event.id === "kolkataHaldi" && event.dressCodeColors?.length ? (
                         <div className="flex items-center gap-2.5">
                           {event.dressCodeColors.map((color) => (
                             <span key={color} aria-label={t("events.suggestedColor", { color })} className="h-4 w-4 rounded-full border border-[#fff8ef]/60" style={{ backgroundColor: color }} />

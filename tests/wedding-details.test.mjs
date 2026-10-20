@@ -110,6 +110,14 @@ test("Raigarh photos get a darker text-safe wash in the royal event layout", () 
   assert.match(eventCardVariants, /group\.id === "raigarh"[\s\S]*?rgba\(28,8,14,0\.3\)[\s\S]*?rgba\(28,8,14,0\.54\)/);
 });
 
+test("royal desktop dress-code colors appear only on the Haldi card", () => {
+  const desktopRoyalLayout = eventCardVariants.slice(
+    eventCardVariants.indexOf('className="relative hidden w-full md:block"'),
+    eventCardVariants.indexOf("\n      ) : (", eventCardVariants.indexOf('className="relative hidden w-full md:block"')),
+  );
+  assert.match(desktopRoyalLayout, /event\.id === "kolkataHaldi" && event\.dressCodeColors\?\.length/);
+});
+
 test("Raigarh stay is a separate shared hotel group in both locales", () => {
   for (const locale of [english, bengali]) {
     const stay = locale.stay.raigarh;
